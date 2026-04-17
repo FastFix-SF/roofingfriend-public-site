@@ -24,7 +24,14 @@ const secondarySlides = [
 ];
 
 const heroSlides = [
-  { image: heroFsd, video: "/videos/hero-bg.mp4", title: "Trenchless Plumbing (Uninterrupted)", subtitle: "", primaryCta: "Book Service", secondaryCta: "Learn More", textColor: "light" as const, captions: [{ text: "Plumbing Problems Cost You", startTime: 0, endTime: 4 }, { text: "Trenchless", startTime: 5.15, endTime: 7.28 }, { text: "Fixes Pipes Without Breaking", startTime: 6.27, endTime: 9.25 }, { text: "Keep Operations Running", startTime: 10.15, endTime: 13.31 }] },
+  { image: heroFsd, video: "/videos/hero-roof.mp4", audio: true, title: "From Shingles to Standing Seam", subtitle: "", primaryCta: "Book Service", secondaryCta: "Learn More", textColor: "light" as const, captions: [
+    { text: "Wife: I don't like our shingle roof anymore…", startTime: 0, endTime: 2.5 },
+    { text: "Wife: It feels so generic.", startTime: 2.6, endTime: 4.8 },
+    { text: "Wife: I want a metal roof — like the ones on Instagram.", startTime: 4.9, endTime: 8.2 },
+    { text: "Husband: Yes — let's do it.", startTime: 8.3, endTime: 10.2 },
+    { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
+    { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
+  ] },
   { image: heroCommercial, title: "Trenchless for Commercial Properties", subtitle: "", primaryCta: "Book Online", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/trenchless/commercial", textColor: "light" as const },
   { image: heroIndustrial, title: "Trenchless for Industrial Facilities", subtitle: "", primaryCta: "Get an Industrial Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/trenchless/industrial", textColor: "light" as const },
 ];
