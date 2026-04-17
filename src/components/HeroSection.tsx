@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
 
 interface HeroCaption {
   text: string;
@@ -11,6 +11,7 @@ interface HeroCaption {
 interface HeroSlide {
   image: string;
   video?: string;
+  audio?: boolean;
   title: string;
   subtitle?: string;
   primaryCta: string;
@@ -31,12 +32,30 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
   const [videoReady, setVideoReady] = useState<Record<number, boolean>>({});
   const videoRefs = useState<Record<number, HTMLVideoElement | null>>(() => ({}))[0];
   const [elapsed, setElapsed] = useState(0);
+  const [muted, setMuted] = useState(true);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const idx = emblaApi.selectedScrollSnap();
+    setSelectedIndex(idx);
     setElapsed(0);
-  }, [emblaApi]);
+    // Auto-mute when leaving any video slide
+    setMuted(true);
+    Object.entries(videoRefs).forEach(([i, v]) => {
+      if (v) v.muted = true;
+    });
+  }, [emblaApi, videoRefs]);
+
+  const toggleMute = () => {
+    const v = videoRefs[selectedIndex];
+    if (!v) return;
+    const next = !muted;
+    v.muted = next;
+    if (!next) {
+      v.play().catch(() => {});
+    }
+    setMuted(next);
+  };
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -166,6 +185,17 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
       >
         <ChevronRight className="w-5 h-5 text-foreground" />
       </button>
+
+      {/* Mute/unmute toggle (only for slides with audio) */}
+      {slides[selectedIndex]?.audio && slides[selectedIndex]?.video && (
+        <button
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+          className="absolute right-4 md:right-8 bottom-20 md:bottom-24 z-20 w-11 h-11 rounded-lg bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+        >
+          {muted ? <VolumeX className="w-5 h-5 text-foreground" /> : <Volume2 className="w-5 h-5 text-foreground" />}
+        </button>
+      )}
 
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
