@@ -1,0 +1,42 @@
+import { Link } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+
+interface ServiceHeroProps {
+  title: string;
+  tagline: string;
+  backLink?: { label: string; to: string };
+  backgroundImage?: string;
+}
+
+const ServiceHero = ({ title, tagline, backLink, backgroundImage }: ServiceHeroProps) => (
+  <section className="relative text-white pt-24 pb-16 md:pt-32 md:pb-20 px-6 lg:px-12 overflow-hidden">
+    {backgroundImage ? (
+      <>
+        <img
+          src={backgroundImage}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </>
+    ) : (
+      <div className="absolute inset-0 bg-foreground" />
+    )}
+    <div className="relative z-10 max-w-4xl mx-auto">
+      {backLink && (
+        <Link to={backLink.to} className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white mb-6 transition-colors">
+          <ChevronLeft size={16} />
+          {backLink.label}
+        </Link>
+      )}
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">{title}</h1>
+      <p className="text-lg md:text-xl text-white/80 mt-4 max-w-2xl">{tagline}</p>
+    </div>
+  </section>
+);
+
+export default ServiceHero;

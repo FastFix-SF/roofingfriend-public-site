@@ -1,0 +1,412 @@
+import { Wrench, AlertTriangle, Loader2 } from "lucide-react";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import React, { useMemo, useState, useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
+
+const stateDensity: Record<string, number> = {
+  "California": 0.9, "Texas": 0.85, "New York": 0.95, "Florida": 0.8,
+  "Illinois": 0.75, "Pennsylvania": 0.88, "Ohio": 0.82, "Michigan": 0.78,
+  "New Jersey": 0.92, "Massachusetts": 0.87, "Georgia": 0.6, "Virginia": 0.65,
+  "North Carolina": 0.55, "Washington": 0.5, "Arizona": 0.45, "Indiana": 0.7,
+  "Tennessee": 0.6, "Missouri": 0.65, "Maryland": 0.72, "Wisconsin": 0.68,
+  "Minnesota": 0.58, "Colorado": 0.4, "Alabama": 0.55, "Louisiana": 0.7,
+  "Kentucky": 0.62, "Oregon": 0.48, "Oklahoma": 0.52, "Connecticut": 0.85,
+  "Iowa": 0.5, "Mississippi": 0.58, "Arkansas": 0.5, "Kansas": 0.45,
+  "Utah": 0.35, "Nevada": 0.38, "New Mexico": 0.42, "West Virginia": 0.75,
+  "Nebraska": 0.4, "Idaho": 0.3, "Hawaii": 0.25, "Maine": 0.65,
+  "New Hampshire": 0.6, "Rhode Island": 0.88, "Montana": 0.28,
+  "Delaware": 0.8, "South Dakota": 0.3, "North Dakota": 0.25,
+  "Alaska": 0.2, "Vermont": 0.62, "Wyoming": 0.22, "District of Columbia": 0.9,
+  "South Carolina": 0.5,
+};
+
+const statePipeCount: Record<string, number> = {
+  "California": 18200, "Texas": 15400, "New York": 12800, "Florida": 11500,
+  "Illinois": 8200, "Pennsylvania": 9100, "Ohio": 7800, "Michigan": 6500,
+  "New Jersey": 5800, "Massachusetts": 4900, "Georgia": 5200, "Virginia": 4800,
+  "North Carolina": 5100, "Washington": 4200, "Arizona": 3600, "Indiana": 3900,
+  "Tennessee": 3800, "Missouri": 3500, "Maryland": 3200, "Wisconsin": 3400,
+  "Minnesota": 3300, "Colorado": 3100, "Alabama": 2800, "Louisiana": 2700,
+  "Kentucky": 2600, "Oregon": 2400, "Oklahoma": 2200, "Connecticut": 2300,
+  "Iowa": 1900, "Mississippi": 1700, "Arkansas": 1600, "Kansas": 1700,
+  "Utah": 1500, "Nevada": 1400, "New Mexico": 1100, "West Virginia": 1200,
+  "Nebraska": 1100, "Idaho": 900, "Hawaii": 700, "Maine": 900,
+  "New Hampshire": 800, "Rhode Island": 700, "Montana": 600,
+  "Delaware": 600, "South Dakota": 500, "North Dakota": 450,
+  "Alaska": 400, "Vermont": 450, "Wyoming": 350, "District of Columbia": 500,
+  "South Carolina": 2800,
+};
+
+const getDensityColor = (density: number) => {
+  if (density > 0.8) return "hsl(0, 70%, 45%)";
+  if (density > 0.6) return "hsl(20, 80%, 50%)";
+  if (density > 0.4) return "hsl(40, 90%, 55%)";
+  if (density > 0.2) return "hsl(50, 85%, 60%)";
+  return "hsl(60, 70%, 70%)";
+};
+
+// Approximate bounding boxes for major metro areas [lng, lat, radius_lng, radius_lat, state_density]
+// Each dot = ~10 aging pipes. We generate dots proportional to aging pipe count.
+const metroRegions: { lng: number; lat: number; rLng: number; rLat: number; density: number; count: number }[] = [
+  // California
+  { lng: -118.3, lat: 34.0, rLng: 1.5, rLat: 0.8, density: 0.9, count: 45 },
+  { lng: -122.4, lat: 37.7, rLng: 1.0, rLat: 0.6, density: 0.9, count: 35 },
+  { lng: -121.5, lat: 38.6, rLng: 0.8, rLat: 0.5, density: 0.85, count: 15 },
+  { lng: -117.2, lat: 32.7, rLng: 0.6, rLat: 0.4, density: 0.88, count: 12 },
+  // Texas
+  { lng: -95.4, lat: 29.8, rLng: 1.2, rLat: 0.8, density: 0.85, count: 35 },
+  { lng: -96.8, lat: 32.8, rLng: 1.0, rLat: 0.6, density: 0.85, count: 30 },
+  { lng: -98.5, lat: 29.4, rLng: 0.7, rLat: 0.5, density: 0.82, count: 18 },
+  { lng: -97.7, lat: 30.3, rLng: 0.6, rLat: 0.4, density: 0.8, count: 12 },
+  // New York
+  { lng: -74.0, lat: 40.7, rLng: 0.8, rLat: 0.5, density: 0.95, count: 50 },
+  { lng: -73.8, lat: 42.7, rLng: 0.6, rLat: 0.4, density: 0.9, count: 12 },
+  { lng: -75.2, lat: 43.0, rLng: 0.5, rLat: 0.3, density: 0.88, count: 8 },
+  // Florida
+  { lng: -80.2, lat: 25.8, rLng: 0.8, rLat: 0.5, density: 0.8, count: 25 },
+  { lng: -81.4, lat: 28.5, rLng: 0.8, rLat: 0.6, density: 0.78, count: 20 },
+  { lng: -82.5, lat: 28.0, rLng: 0.6, rLat: 0.5, density: 0.75, count: 15 },
+  { lng: -82.0, lat: 30.3, rLng: 0.5, rLat: 0.4, density: 0.7, count: 10 },
+  // Illinois
+  { lng: -87.7, lat: 41.9, rLng: 0.8, rLat: 0.5, density: 0.75, count: 30 },
+  { lng: -89.6, lat: 39.8, rLng: 0.6, rLat: 0.5, density: 0.7, count: 10 },
+  // Pennsylvania
+  { lng: -75.2, lat: 40.0, rLng: 0.7, rLat: 0.4, density: 0.88, count: 25 },
+  { lng: -80.0, lat: 40.4, rLng: 0.6, rLat: 0.4, density: 0.88, count: 20 },
+  // Ohio
+  { lng: -81.7, lat: 41.5, rLng: 0.7, rLat: 0.5, density: 0.82, count: 20 },
+  { lng: -84.5, lat: 39.1, rLng: 0.6, rLat: 0.4, density: 0.82, count: 15 },
+  { lng: -83.0, lat: 40.0, rLng: 0.5, rLat: 0.4, density: 0.78, count: 10 },
+  // Michigan
+  { lng: -83.0, lat: 42.3, rLng: 0.8, rLat: 0.5, density: 0.78, count: 20 },
+  { lng: -85.7, lat: 43.0, rLng: 0.6, rLat: 0.4, density: 0.72, count: 10 },
+  // NJ / CT / MA
+  { lng: -74.2, lat: 40.7, rLng: 0.5, rLat: 0.3, density: 0.92, count: 20 },
+  { lng: -72.7, lat: 41.8, rLng: 0.5, rLat: 0.3, density: 0.85, count: 12 },
+  { lng: -71.1, lat: 42.4, rLng: 0.6, rLat: 0.4, density: 0.87, count: 18 },
+  // Georgia
+  { lng: -84.4, lat: 33.7, rLng: 0.8, rLat: 0.5, density: 0.6, count: 15 },
+  // Virginia / DC / Maryland
+  { lng: -77.0, lat: 38.9, rLng: 0.7, rLat: 0.4, density: 0.72, count: 18 },
+  { lng: -76.6, lat: 39.3, rLng: 0.5, rLat: 0.3, density: 0.72, count: 12 },
+  // North Carolina
+  { lng: -80.8, lat: 35.2, rLng: 0.7, rLat: 0.4, density: 0.55, count: 12 },
+  { lng: -78.6, lat: 35.8, rLng: 0.6, rLat: 0.4, density: 0.55, count: 10 },
+  // Washington
+  { lng: -122.3, lat: 47.6, rLng: 0.7, rLat: 0.4, density: 0.5, count: 12 },
+  // Arizona
+  { lng: -112.1, lat: 33.4, rLng: 0.8, rLat: 0.5, density: 0.45, count: 10 },
+  // Indiana
+  { lng: -86.2, lat: 39.8, rLng: 0.6, rLat: 0.4, density: 0.7, count: 12 },
+  // Tennessee
+  { lng: -87.0, lat: 36.2, rLng: 0.7, rLat: 0.3, density: 0.6, count: 10 },
+  { lng: -83.9, lat: 35.1, rLng: 0.5, rLat: 0.3, density: 0.58, count: 8 },
+  // Missouri
+  { lng: -90.2, lat: 38.6, rLng: 0.6, rLat: 0.4, density: 0.65, count: 12 },
+  { lng: -94.6, lat: 39.1, rLng: 0.5, rLat: 0.3, density: 0.65, count: 8 },
+  // Wisconsin / Minnesota
+  { lng: -88.0, lat: 43.0, rLng: 0.6, rLat: 0.5, density: 0.68, count: 10 },
+  { lng: -93.3, lat: 45.0, rLng: 0.7, rLat: 0.5, density: 0.58, count: 10 },
+  // Colorado
+  { lng: -105.0, lat: 39.7, rLng: 0.7, rLat: 0.5, density: 0.4, count: 8 },
+  // Louisiana
+  { lng: -90.1, lat: 30.0, rLng: 0.6, rLat: 0.4, density: 0.7, count: 10 },
+  // Alabama / Mississippi
+  { lng: -86.8, lat: 33.5, rLng: 0.6, rLat: 0.4, density: 0.55, count: 8 },
+  { lng: -89.6, lat: 32.3, rLng: 0.5, rLat: 0.4, density: 0.58, count: 6 },
+  // Kentucky
+  { lng: -85.8, lat: 38.3, rLng: 0.6, rLat: 0.3, density: 0.62, count: 8 },
+  // Oregon
+  { lng: -122.7, lat: 45.5, rLng: 0.6, rLat: 0.4, density: 0.48, count: 8 },
+  // Oklahoma / Kansas / Iowa / Arkansas / Nebraska
+  { lng: -97.5, lat: 35.5, rLng: 0.7, rLat: 0.4, density: 0.52, count: 8 },
+  { lng: -97.3, lat: 37.7, rLng: 0.6, rLat: 0.4, density: 0.45, count: 6 },
+  { lng: -93.6, lat: 41.6, rLng: 0.6, rLat: 0.4, density: 0.5, count: 6 },
+  { lng: -92.3, lat: 34.7, rLng: 0.5, rLat: 0.3, density: 0.5, count: 5 },
+  { lng: -96.7, lat: 40.8, rLng: 0.5, rLat: 0.3, density: 0.4, count: 4 },
+  // Utah / Nevada / New Mexico
+  { lng: -111.9, lat: 40.8, rLng: 0.5, rLat: 0.4, density: 0.35, count: 4 },
+  { lng: -115.1, lat: 36.2, rLng: 0.5, rLat: 0.3, density: 0.38, count: 4 },
+  { lng: -106.7, lat: 35.1, rLng: 0.5, rLat: 0.3, density: 0.42, count: 4 },
+  // West Virginia / Maine / Vermont / New Hampshire
+  { lng: -80.6, lat: 38.3, rLng: 0.5, rLat: 0.3, density: 0.75, count: 6 },
+  { lng: -69.8, lat: 44.3, rLng: 0.5, rLat: 0.4, density: 0.65, count: 4 },
+  { lng: -72.6, lat: 44.0, rLng: 0.3, rLat: 0.3, density: 0.62, count: 3 },
+  { lng: -71.5, lat: 43.2, rLng: 0.3, rLat: 0.3, density: 0.6, count: 3 },
+  // South Carolina / Delaware / Rhode Island
+  { lng: -81.0, lat: 34.0, rLng: 0.6, rLat: 0.4, density: 0.5, count: 6 },
+  { lng: -75.5, lat: 39.0, rLng: 0.2, rLat: 0.2, density: 0.8, count: 4 },
+  { lng: -71.4, lat: 41.8, rLng: 0.2, rLat: 0.2, density: 0.88, count: 4 },
+  // Idaho / Montana / Wyoming / Dakotas
+  { lng: -116.2, lat: 43.6, rLng: 0.6, rLat: 0.5, density: 0.3, count: 3 },
+  { lng: -109.5, lat: 46.9, rLng: 0.8, rLat: 0.5, density: 0.28, count: 2 },
+  { lng: -107.6, lat: 43.0, rLng: 0.6, rLat: 0.4, density: 0.22, count: 2 },
+  { lng: -100.3, lat: 44.4, rLng: 0.5, rLat: 0.3, density: 0.3, count: 2 },
+  { lng: -100.8, lat: 46.8, rLng: 0.5, rLat: 0.3, density: 0.25, count: 2 },
+];
+
+// Seeded pseudo-random number generator for deterministic dot placement
+function seededRandom(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 16807 + 0) % 2147483647;
+    return s / 2147483647;
+  };
+}
+
+function generateDots() {
+  const dots: { lng: number; lat: number; density: number }[] = [];
+  const rand = seededRandom(42);
+  for (const region of metroRegions) {
+    for (let i = 0; i < region.count; i++) {
+      dots.push({
+        lng: region.lng + (rand() - 0.5) * 2 * region.rLng,
+        lat: region.lat + (rand() - 0.5) * 2 * region.rLat,
+        density: region.density * (0.7 + rand() * 0.3), // slight variation
+      });
+    }
+  }
+  return dots;
+}
+
+const legendItems = [
+  { color: "hsl(0, 70%, 45%)", label: "80–100%" },
+  { color: "hsl(20, 80%, 50%)", label: "60–80%" },
+  { color: "hsl(40, 90%, 55%)", label: "40–60%" },
+  { color: "hsl(50, 85%, 60%)", label: "20–40%" },
+  { color: "hsl(60, 70%, 70%)", label: "0–20%" },
+];
+
+const ChargingSection = () => {
+  const isMobile = useIsMobile();
+  const dots = useMemo(() => generateDots(), []);
+  const [tooltip, setTooltip] = useState<{ name: string; density: number; pipes: number; x: number; y: number } | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [locationResult, setLocationResult] = useState<{ age: number; risk: string; region: string } | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  const handleFindMe = useCallback(() => {
+    setLocating(true);
+    setLocationResult(null);
+    setLocationError(null);
+
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
+      setLocating(false);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        // Find nearest metro region to estimate pipe age
+        let minDist = Infinity;
+        let nearestRegion = metroRegions[0];
+        for (const region of metroRegions) {
+          const dist = Math.sqrt((region.lat - latitude) ** 2 + (region.lng - longitude) ** 2);
+          if (dist < minDist) {
+            minDist = dist;
+            nearestRegion = region;
+          }
+        }
+        const basePipeAge = Math.round(15 + nearestRegion.density * 45);
+        const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
+        const estimatedAge = Math.max(5, basePipeAge + variance);
+        const risk = estimatedAge > 40 ? "High" : estimatedAge > 25 ? "Moderate" : "Low";
+
+        // Reverse-lookup closest state name
+        let region = "your area";
+        let closestStateDist = Infinity;
+        for (const [state, density] of Object.entries(stateDensity)) {
+          // rough proximity via density match
+          const diff = Math.abs(density - nearestRegion.density);
+          if (diff < closestStateDist) {
+            closestStateDist = diff;
+            region = state;
+          }
+        }
+
+        setLocationResult({ age: estimatedAge, risk, region });
+        setLocating(false);
+      },
+      (error) => {
+        setLocationError(
+          error.code === 1
+            ? "Location access was denied. Please allow location access and try again."
+            : "Unable to determine your location. Please try again."
+        );
+        setLocating(false);
+      },
+      { enableHighAccuracy: false, timeout: 10000 }
+    );
+  }, []);
+
+  return (
+    <section className="bg-background flex flex-col overflow-hidden" style={{ minHeight: "80vh" }}>
+      {/* Map */}
+      <div
+        className="relative flex-1 min-h-[250px] md:min-h-[400px] bg-[hsl(210,20%,95%)] overflow-hidden"
+        onMouseLeave={() => setTooltip(null)}
+      >
+        <ComposableMap
+          projection="geoAlbersUsa"
+          projectionConfig={{ scale: isMobile ? 500 : 1000 }}
+          className="w-full h-full"
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Geographies geography={GEO_URL}>
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const name = geo.properties.name;
+                const density = stateDensity[name] ?? 0.3;
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={getDensityColor(density)}
+                    stroke="hsl(0,0%,100%)"
+                    strokeWidth={0.5}
+                    onMouseEnter={(e) => {
+                      const rect = (e.target as SVGElement).closest("svg")?.getBoundingClientRect();
+                      if (rect) {
+                        setTooltip({
+                          name,
+                          density,
+                          pipes: statePipeCount[name] ?? 0,
+                          x: e.clientX - rect.left,
+                          y: e.clientY - rect.top,
+                        });
+                      }
+                    }}
+                    onMouseLeave={() => setTooltip(null)}
+                    style={{
+                      default: { outline: "none", cursor: "pointer" },
+                      hover: { outline: "none", opacity: 0.85 },
+                      pressed: { outline: "none" },
+                    }}
+                  />
+                );
+              })
+            }
+          </Geographies>
+          {dots.map((dot, i) => (
+            <Marker key={i} coordinates={[dot.lng, dot.lat]}>
+              <circle r={1.8} fill={getDensityColor(dot.density)} opacity={0.75} stroke="hsl(0,0%,100%)" strokeWidth={0.3} />
+            </Marker>
+          ))}
+        </ComposableMap>
+
+        {/* Tooltip */}
+        {tooltip && (
+          <div
+            className="absolute pointer-events-none z-20 bg-background border border-border rounded-lg shadow-lg px-3 py-2 text-xs"
+            style={{ left: tooltip.x + 12, top: tooltip.y - 10 }}
+          >
+            <p className="font-semibold text-foreground">{tooltip.name}</p>
+            <p className="text-muted-foreground">
+              {Math.round(tooltip.density * 100)}% of pipes over 15 years
+            </p>
+            <p className="text-muted-foreground">
+              ~{Math.round(tooltip.pipes * tooltip.density).toLocaleString()} pipes need inspection
+            </p>
+          </div>
+        )}
+
+        {/* Legend */}
+        <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10">
+          <p className="text-[10px] font-semibold text-foreground mb-1.5">% of pipes over 15 years</p>
+          <p className="text-[9px] text-muted-foreground mb-1">Each dot = ~10 pipes</p>
+          <div className="flex flex-col gap-1">
+            {legendItems.map((item) => (
+              <div key={item.label} className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: item.color }} />
+                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={handleFindMe}
+          disabled={locating}
+          className="absolute bottom-4 left-4 flex items-center gap-2 px-4 py-2 bg-background rounded-full border border-border text-sm font-medium text-foreground shadow-sm hover:bg-accent transition-colors disabled:opacity-60"
+        >
+          {locating ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m10-10h-4M6 12H2"/></svg>
+          )}
+          {locating ? "Locating…" : "Find Me"}
+        </button>
+
+        {/* Location Result Popup */}
+        {(locationResult || locationError) && (
+          <div className="absolute bottom-16 left-4 z-20 bg-background/95 backdrop-blur-sm border border-border rounded-lg shadow-lg p-4 max-w-[280px] animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <button
+              onClick={() => { setLocationResult(null); setLocationError(null); }}
+              className="absolute top-2 right-2 text-muted-foreground hover:text-foreground text-xs"
+            >
+              ✕
+            </button>
+            {locationError ? (
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-foreground">{locationError}</p>
+              </div>
+            ) : locationResult && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Estimated for {locationResult.region}</p>
+                <p className="text-2xl font-semibold text-foreground">{locationResult.age} years</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Average piping structure age</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className={`inline-block w-2 h-2 rounded-full ${
+                    locationResult.risk === "High" ? "bg-destructive" : locationResult.risk === "Moderate" ? "bg-[hsl(40,90%,55%)]" : "bg-[hsl(120,50%,45%)]"
+                  }`} />
+                  <span className="text-xs font-medium text-foreground">{locationResult.risk} risk — inspection {locationResult.risk === "Low" ? "optional" : "recommended"}</span>
+                </div>
+                <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
+                  Schedule Inspection
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Info bar */}
+      <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">Find how nasty is your plumbing</h2>
+          <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-lg">
+            View plumbing infrastructure across America with pipes older than 15 years that may need inspection or replacement.
+          </p>
+          <div className="flex gap-3 mt-4">
+            <a href="#" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">View Map</a>
+            <a href="/pipes" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">Learn More</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 md:flex md:gap-8">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1.5">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">142,500</span>
+              <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-destructive" />
+            </div>
+            <span className="text-xs md:text-sm text-muted-foreground">Pipes Over 15 Years</span>
+          </div>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1.5">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">28,340</span>
+              <Wrench className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
+            </div>
+            <span className="text-xs md:text-sm text-muted-foreground">Critical — Need Replacement</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default React.memo(ChargingSection);
