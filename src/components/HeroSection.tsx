@@ -186,6 +186,17 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
         <ChevronRight className="w-5 h-5 text-foreground" />
       </button>
 
+      {/* Mute/unmute toggle (only for slides with audio) */}
+      {slides[selectedIndex]?.audio && slides[selectedIndex]?.video && (
+        <button
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+          className="absolute right-4 md:right-8 bottom-20 md:bottom-24 z-20 w-11 h-11 rounded-lg bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+        >
+          {muted ? <VolumeX className="w-5 h-5 text-foreground" /> : <Volume2 className="w-5 h-5 text-foreground" />}
+        </button>
+      )}
+
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
         {slides.map((_, i) => (
