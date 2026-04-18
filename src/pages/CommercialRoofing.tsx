@@ -176,6 +176,36 @@ const CommercialRoofing = () => {
         </div>
       </section>
 
+      {/* Promo Grid */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
+          <div className="rounded-lg bg-foreground text-background p-8 md:p-10 flex flex-col justify-between min-h-[260px]">
+            <div>
+              <Award size={32} className="text-cta-gold mb-4" strokeWidth={1.5} />
+              <h3 className="text-2xl md:text-3xl font-semibold mb-3">Veteran-Owned, Government-Trusted</h3>
+              <p className="text-sm md:text-base text-background/80 leading-relaxed">
+                Cleared for federal, GSA, and municipal roofing contracts. From base housing to public works, our veteran-led crews deliver milspec quality on every commercial project.
+              </p>
+            </div>
+            <a href="tel:+16503798166" className="mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
+              Talk to a Veteran Estimator →
+            </a>
+          </div>
+          <div className="rounded-lg bg-cta-blue/10 p-8 md:p-10 flex flex-col justify-between min-h-[260px] border border-cta-blue/20">
+            <div>
+              <DollarSign size={32} className="text-cta-blue mb-4" strokeWidth={1.5} />
+              <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">PG&amp;E Energy Rebates Available</h3>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                Cool-roof rated standing seam panels qualify for PG&amp;E commercial rebates and Title 24 energy compliance credits — typically offsetting 5–15% of total install cost.
+              </p>
+            </div>
+            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm font-medium text-cta-blue hover:underline">
+              Check Your Rebate Eligibility →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* AEO Block */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-secondary">
         <div className="max-w-4xl mx-auto">
