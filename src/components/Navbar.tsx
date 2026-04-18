@@ -4,6 +4,7 @@ import logo from "@/assets/west-peak-logo.png";
 
 const navLinks = [
   { label: "Services", href: "/trenchless" },
+  { label: "Roofing", href: "/commercial-roofing" },
   { label: "About", href: "/about" },
   { label: "Reviews", href: "/reviews" },
   { label: "Contact", href: "/contact" },
