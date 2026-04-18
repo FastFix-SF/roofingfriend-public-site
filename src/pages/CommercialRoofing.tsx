@@ -2,8 +2,24 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
-import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench } from "lucide-react";
+import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench, Check, Award, DollarSign, Store, UtensilsCrossed, Warehouse, Briefcase, ShoppingBag, Car } from "lucide-react";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
+
+const sectorCards = [
+  { name: "Retail Centers", desc: "Strip malls, plazas, and shopping centers — phased installs that keep every storefront open.", icon: Store },
+  { name: "Restaurants & QSR", desc: "Fire-rated, grease-vent compatible roofs installed overnight so your dining room never closes.", icon: UtensilsCrossed },
+  { name: "Warehouses & Distribution", desc: "Long-span panels covering hundreds of feet seamlessly — fewer leak points, faster install.", icon: Warehouse },
+  { name: "Office Parks", desc: "Clean architectural lines and 30-year warranties that protect tenant lease value.", icon: Briefcase },
+  { name: "Big-Box Retail", desc: "High-uplift mechanical seam systems engineered for 100,000+ sq ft footprints.", icon: ShoppingBag },
+  { name: "Auto Dealerships", desc: "Showroom-grade architectural finishes that match brand standards from GM to Toyota.", icon: Car },
+];
+
+const includedItems = [
+  { title: "Drone Roof Survey", desc: "High-res aerial imaging and measurements before a single panel is ordered." },
+  { title: "Engineered Uplift Calcs", desc: "Wind, seismic, and snow-load engineering stamped for your Bay Area zone." },
+  { title: "Phased Tenant-Friendly Install", desc: "Zone-by-zone scheduling so storefronts stay open and operations never stop." },
+  { title: "30/40-Year Warranty", desc: "30-year PVDF paint and 40-year weathertightness coverage, fully registered." },
+];
 
 const roofingFaqs = [
   { question: "How much does a commercial standing seam metal roof cost?", answer: "Commercial standing seam metal roofing typically runs $9–$18 per square foot installed, depending on panel gauge, profile, finish (PVDF vs SMP), and roof complexity. For a 20,000 sq ft retail center, expect $180,000–$360,000. While the upfront cost is 2–3x higher than TPO or built-up roofing, metal roofs last 3–4x longer and cut energy costs by 25–40%, delivering a far lower lifetime cost per year." },
@@ -104,6 +120,33 @@ const CommercialRoofing = () => {
         </div>
       </section>
 
+      {/* Sector Service Cards */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-secondary">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
+            Commercial Sectors We Serve
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl">
+            From single-tenant restaurants to multi-acre distribution centers, we engineer standing seam systems for every commercial property type across the Bay Area.
+          </p>
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible">
+            {sectorCards.map((s) => {
+              const Icon = s.icon;
+              return (
+                <div key={s.name} className="flex-shrink-0 w-72 lg:w-auto snap-start rounded-lg bg-background p-6 border border-border hover:border-cta-blue/40 hover:shadow-lg transition-all">
+                  <Icon size={28} className="text-cta-blue mb-4" strokeWidth={1.5} />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{s.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
+                  <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-cta-blue hover:underline">
+                    Get a Quote →
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Why Commercial Metal Roofing */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-4xl mx-auto">
@@ -129,6 +172,36 @@ const CommercialRoofing = () => {
               <h3 className="text-lg font-semibold text-foreground">Storm &amp; Fire Resistant</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">Class A fire rating, UL 2218 Class 4 hail, and UL 580 Class 90 wind uplift — the highest commercial ratings.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Promo Grid */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
+          <div className="rounded-lg bg-foreground text-background p-8 md:p-10 flex flex-col justify-between min-h-[260px]">
+            <div>
+              <Award size={32} className="text-cta-gold mb-4" strokeWidth={1.5} />
+              <h3 className="text-2xl md:text-3xl font-semibold mb-3">Veteran-Owned, Government-Trusted</h3>
+              <p className="text-sm md:text-base text-background/80 leading-relaxed">
+                Cleared for federal, GSA, and municipal roofing contracts. From base housing to public works, our veteran-led crews deliver milspec quality on every commercial project.
+              </p>
+            </div>
+            <a href="tel:+16503798166" className="mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
+              Talk to a Veteran Estimator →
+            </a>
+          </div>
+          <div className="rounded-lg bg-cta-blue/10 p-8 md:p-10 flex flex-col justify-between min-h-[260px] border border-cta-blue/20">
+            <div>
+              <DollarSign size={32} className="text-cta-blue mb-4" strokeWidth={1.5} />
+              <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">PG&amp;E Energy Rebates Available</h3>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                Cool-roof rated standing seam panels qualify for PG&amp;E commercial rebates and Title 24 energy compliance credits — typically offsetting 5–15% of total install cost.
+              </p>
+            </div>
+            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm font-medium text-cta-blue hover:underline">
+              Check Your Rebate Eligibility →
+            </a>
           </div>
         </div>
       </section>
@@ -176,6 +249,29 @@ const CommercialRoofing = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* What's Included */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-secondary">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
+            What's Included with Every Commercial Roof
+          </h2>
+          <p className="text-muted-foreground mb-10 max-w-2xl">
+            Every standing seam install ships with the same engineering rigor and warranty package — no upsells, no surprises.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {includedItems.map((item) => (
+              <div key={item.title} className="rounded-lg bg-background p-6 border border-border">
+                <div className="w-9 h-9 rounded-full bg-cta-blue/10 flex items-center justify-center mb-4">
+                  <Check size={18} className="text-cta-blue" strokeWidth={2.5} />
+                </div>
+                <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
