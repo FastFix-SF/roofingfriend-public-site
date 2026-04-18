@@ -2,8 +2,24 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
-import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench } from "lucide-react";
+import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench, Check, Award, DollarSign, Store, UtensilsCrossed, Warehouse, Briefcase, ShoppingBag, Car } from "lucide-react";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
+
+const sectorCards = [
+  { name: "Retail Centers", desc: "Strip malls, plazas, and shopping centers — phased installs that keep every storefront open.", icon: Store },
+  { name: "Restaurants & QSR", desc: "Fire-rated, grease-vent compatible roofs installed overnight so your dining room never closes.", icon: UtensilsCrossed },
+  { name: "Warehouses & Distribution", desc: "Long-span panels covering hundreds of feet seamlessly — fewer leak points, faster install.", icon: Warehouse },
+  { name: "Office Parks", desc: "Clean architectural lines and 30-year warranties that protect tenant lease value.", icon: Briefcase },
+  { name: "Big-Box Retail", desc: "High-uplift mechanical seam systems engineered for 100,000+ sq ft footprints.", icon: ShoppingBag },
+  { name: "Auto Dealerships", desc: "Showroom-grade architectural finishes that match brand standards from GM to Toyota.", icon: Car },
+];
+
+const includedItems = [
+  { title: "Drone Roof Survey", desc: "High-res aerial imaging and measurements before a single panel is ordered." },
+  { title: "Engineered Uplift Calcs", desc: "Wind, seismic, and snow-load engineering stamped for your Bay Area zone." },
+  { title: "Phased Tenant-Friendly Install", desc: "Zone-by-zone scheduling so storefronts stay open and operations never stop." },
+  { title: "30/40-Year Warranty", desc: "30-year PVDF paint and 40-year weathertightness coverage, fully registered." },
+];
 
 const roofingFaqs = [
   { question: "How much does a commercial standing seam metal roof cost?", answer: "Commercial standing seam metal roofing typically runs $9–$18 per square foot installed, depending on panel gauge, profile, finish (PVDF vs SMP), and roof complexity. For a 20,000 sq ft retail center, expect $180,000–$360,000. While the upfront cost is 2–3x higher than TPO or built-up roofing, metal roofs last 3–4x longer and cut energy costs by 25–40%, delivering a far lower lifetime cost per year." },
