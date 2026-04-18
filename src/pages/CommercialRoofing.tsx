@@ -120,6 +120,33 @@ const CommercialRoofing = () => {
         </div>
       </section>
 
+      {/* Sector Service Cards */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-secondary">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
+            Commercial Sectors We Serve
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl">
+            From single-tenant restaurants to multi-acre distribution centers, we engineer standing seam systems for every commercial property type across the Bay Area.
+          </p>
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible">
+            {sectorCards.map((s) => {
+              const Icon = s.icon;
+              return (
+                <div key={s.name} className="flex-shrink-0 w-72 lg:w-auto snap-start rounded-lg bg-background p-6 border border-border hover:border-cta-blue/40 hover:shadow-lg transition-all">
+                  <Icon size={28} className="text-cta-blue mb-4" strokeWidth={1.5} />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{s.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
+                  <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-cta-blue hover:underline">
+                    Get a Quote →
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Why Commercial Metal Roofing */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-4xl mx-auto">
