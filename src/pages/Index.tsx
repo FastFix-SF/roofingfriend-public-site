@@ -10,6 +10,7 @@ import BottomBar from "@/components/BottomBar";
 import heroFsd from "@/assets/hero-fsd.jpg";
 import heroCommercial from "@/assets/hero-commercial-trenchless.jpg";
 import heroIndustrial from "@/assets/hero-industrial-trenchless.jpg";
+import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
