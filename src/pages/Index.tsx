@@ -11,6 +11,7 @@ import heroFsd from "@/assets/hero-fsd.jpg";
 import heroCommercial from "@/assets/hero-commercial-trenchless.jpg";
 import heroIndustrial from "@/assets/hero-industrial-trenchless.jpg";
 import heroVeteranGovernment from "@/assets/hero-veteran-government-roofing.jpg";
+import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
@@ -33,7 +34,8 @@ const heroSlides = [
     { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
     { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
   ] },
-  { image: heroVeteranGovernment, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/trenchless/commercial", textColor: "light" as const },
+  { image: heroCommercialRoofing, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
+  { image: heroVeteranGovernment, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
   { image: heroIndustrial, title: "Trenchless for Industrial Facilities", subtitle: "", primaryCta: "Get an Industrial Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/trenchless/industrial", textColor: "light" as const },
 ];
 
