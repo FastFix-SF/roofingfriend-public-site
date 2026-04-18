@@ -15,6 +15,7 @@ const WaterHeater = React.lazy(() => import("./pages/WaterHeater"));
 const AgingPipes = React.lazy(() => import("./pages/AgingPipes"));
 const HydroJetting = React.lazy(() => import("./pages/HydroJetting"));
 const Plumbing = React.lazy(() => import("./pages/Plumbing"));
+const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
 const Reviews = React.lazy(() => import("./pages/Reviews"));
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/pipes" element={<AgingPipes />} />
               <Route path="/hydro-jetting" element={<HydroJetting />} />
               <Route path="/plumbing" element={<Plumbing />} />
+              <Route path="/commercial-roofing" element={<CommercialRoofing />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/reviews" element={<Reviews />} />
