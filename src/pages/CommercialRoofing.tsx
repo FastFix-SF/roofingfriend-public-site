@@ -253,6 +253,29 @@ const CommercialRoofing = () => {
         </div>
       </section>
 
+      {/* What's Included */}
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-secondary">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
+            What's Included with Every Commercial Roof
+          </h2>
+          <p className="text-muted-foreground mb-10 max-w-2xl">
+            Every standing seam install ships with the same engineering rigor and warranty package — no upsells, no surprises.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {includedItems.map((item) => (
+              <div key={item.title} className="rounded-lg bg-background p-6 border border-border">
+                <div className="w-9 h-9 rounded-full bg-cta-blue/10 flex items-center justify-center mb-4">
+                  <Check size={18} className="text-cta-blue" strokeWidth={2.5} />
+                </div>
+                <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
         <img src={heroCommercialRoofing} alt="Commercial standing seam metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
