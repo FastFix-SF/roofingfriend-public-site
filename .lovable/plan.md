@@ -1,29 +1,33 @@
 
 
 ## Goal
-Replace the commercial roofing hero slide image and reposition that slide around veteran-owned / government roofing work.
+Create a `/commercial-roofing` page modeled after `/trenchless/commercial`, and connect the homepage commercial roofing slide + sitemap to it. Use the uploaded image (image-4) as the hero.
 
-## Changes
+## Structure (mirrors TrenchlessCommercial)
 
-**1. Asset**
-- Copy `user-uploads://image-3.png` → `src/assets/hero-veteran-government-roofing.jpg`
-- Leave the existing `hero-commercial-roofing.jpg` in place (unused, harmless)
+**New page**: `src/pages/CommercialRoofing.tsx`
+- Hero (70vh) with uploaded image, title "Commercial Metal Roofing", subtitle "Standing Seam Roofs for Retail · Restaurants · Big-Box · Warehouses"
+- "Why Commercial Properties Choose Metal Roofing" — 3 benefit cards (Longevity 40–70 yrs, Energy Savings 25–40%, Storm/Fire Resistant)
+- "Solutions for Every Commercial Property" — 3 panels (Retail Centers & Shopping Plazas, Restaurants & QSR, Warehouses & Distribution)
+- "Standing Seam Systems We Install" — 6 cards (Snap-Lock, Mechanical Seam, Tapered, Curved/Radius, Insulated Metal Panels, Retrofit Over-Existing) — each a styled tile (no sub-routes)
+- CTA banner with overlay image
+- FAQ accordion (6 Qs about cost per sq ft, lifespan, install over existing roof, warranty, energy savings, downtime)
+- Full SEO: Helmet + JSON-LD (FAQPage, Service, HowTo)
 
-**2. `src/pages/Index.tsx` — second hero slide**
-Update the import + the slide object that currently uses `heroCommercialRoofing`:
-- **Image**: new veteran/government roofing photo
-- **Title**: "Veteran-Owned. Government-Trusted."
-- **Subtitle**: "Standing seam metal roofs for military bases, federal facilities & public sector projects"
-- **Primary CTA**: "Request a Government Quote" (keep existing ServiceTitan booking link)
-- **Secondary CTA**: keep "Learn More" → `/trenchless/commercial` for now (no dedicated government page exists yet)
-- Keep `textColor: "light"` — the photo is bright, so the existing `hero-overlay` darkening will still give white text enough contrast
+## Wiring
 
-**3. Files touched**
-- `src/assets/hero-veteran-government-roofing.jpg` (new)
-- `src/pages/Index.tsx` (import swap + slide copy)
+1. **Asset**: copy `user-uploads://image-4.png` → `src/assets/hero-commercial-roofing.jpg` (overwrites existing unused file)
+2. **Route**: add `/commercial-roofing` to `src/App.tsx` (lazy import)
+3. **Homepage hero** (`src/pages/Index.tsx`): add a new commercial roofing slide (image-4) between the existing roof video slide and the veteran/government slide, with primary CTA "Get a Commercial Quote" (booking link) and secondary CTA "Learn More" → `/commercial-roofing`. Also point the existing veteran slide's "Learn More" to `/commercial-roofing` (instead of `/trenchless/commercial`).
+4. **Sitemap**: add `/commercial-roofing` entry to `public/sitemap.xml`
 
-No changes to `HeroSection.tsx` — the component already supports everything needed.
+## Files touched
+- `src/assets/hero-commercial-roofing.jpg` (overwrite)
+- `src/pages/CommercialRoofing.tsx` (new)
+- `src/App.tsx` (route)
+- `src/pages/Index.tsx` (new slide + fix veteran slide link)
+- `public/sitemap.xml` (entry)
 
 ## Note
-The "Learn More" button still points at `/trenchless/commercial` (a plumbing page) because no government-roofing page exists. After this change, a logical follow-up would be a dedicated `/government-roofing` page and pointing the secondary CTA there.
+Navbar still says "West Peak Trenchless & Plumbing" — not changing it in this pass since the user hasn't approved a full rebrand. Page will live alongside existing plumbing pages.
 
