@@ -233,14 +233,7 @@ const ChargingSection = () => {
             nearestRegion = region;
           }
         }
-        const basePct = Math.round(20 + nearestRegion.density * 65);
         const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
-        const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
-        const momentum = adoptionPct > 50
-          ? "Hot market — lock in your quote before prices rise"
-          : adoptionPct > 25
-          ? "Smart timing — early adopters get the best installer slots"
-          : "First-mover advantage — stand out and add resale value";
 
         // Resolve actual US state from user's lat/lng using nearest state centroid.
         let region = "your area";
@@ -253,12 +246,20 @@ const ChargingSection = () => {
           }
         }
 
-        // Drive adoption % from the resolved state's own density (not the nearest metro's).
+        // Drive adoption % from the resolved state's own density.
         const stateDens = stateDensity[region] ?? 0.3;
-        const basePctState = Math.round(20 + stateDens * 65);
-        const adoptionPctState = Math.max(5, Math.min(95, basePctState + variance));
+        const basePct = Math.round(20 + stateDens * 65);
+        const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
+        const momentum = adoptionPct > 50
+          ? "Hot market — lock in your quote before prices rise"
+          : adoptionPct > 25
+          ? "Smart timing — early adopters get the best installer slots"
+          : "First-mover advantage — stand out and add resale value";
 
-        setLocationResult({ adoptionPct: adoptionPctState, momentum, region });
+        // nearestRegion retained for future use (variance seeding context).
+        void nearestRegion;
+
+        setLocationResult({ adoptionPct, momentum, region });
         setLocating(false);
       },
       (error) => {
