@@ -2,82 +2,64 @@
 
 ## Goal
 
-Mirror West Peak's AI Assistant pattern here: a **floating chatbot button** that opens a chat panel, can answer anything about The Roofing Friend (services, warranty, rebates, cities, reviews, contact), and can navigate the user to relevant pages. Same UX language as West Peak — bottom-right floating bubble, slide-up panel, voice input, conversation memory.
+Make every image on every page load **fast**, on first visit and subsequent navigations.
 
-## What we're (and aren't) copying from West Peak
+## Why images are still slow
 
-**Copy**: floating draggable button, slide-up chat panel, voice input (Web Speech API), conversation memory, page navigation from chat, AI gateway integration, consent dialog on first use, "thinking" indicator.
+1. **`src/assets/` is 18 MB.** Vite bundles everything that's `import`-ed; multi-MB PNGs of unused plumbing/water-heater assets (and the 1.1 MB old `west-peak-logo.png`) inflate the build and compete for bandwidth.
+2. **The logo is 560 KB PNG** but renders at ~40px tall — used in Navbar + Footer on every page.
+3. **Only 2 hero images have `.webp` siblings.** Every other JPG/PNG ships uncompressed-by-modern-standards (~200–400 KB each, when WebP would be 30–80 KB).
+4. **No build-time image processing.** Each new asset added stays at original size forever unless we manually compress.
 
-**Skip (overkill for a static marketing site)**: the full tool-calling registry, write-tools (booking/contact submission via AI), confirmation cards, visual response cards, activity tracker. The Roofing Friend doesn't have a booking pipeline yet — for now the AI just answers questions and navigates. CTAs (Schedule Inspection, Call) stay where they are.
+## Fix — five layers, each cumulative
 
-## Architecture
+### 1. Delete unused legacy assets (instant ~6 MB cut)
 
-```text
-User opens site
-   │
-   ▼
-FloatingAssistant button (bottom-right, draggable)
-   │ click ──► first time? show ConsentDialog
-   │          ConsentDialog accept ──► open ChatPanel
-   ▼
-ChatPanel (chat UI: messages, mic, send)
-   │ user types / speaks
-   ▼
-useAssistant.sendMessage()
-   │ POST { messages, context, knowledge } via supabase.functions.invoke('roofing-assistant')
-   ▼
-Edge function `roofing-assistant`
-   │ system prompt (Roofing Friend brand, services, hours, contact, areas)
-   │ + full site knowledge passed inline (cities, services, warranty tiers, rebates, reviews)
-   │ + tool: navigate_to_page (only write-ish action)
-   │ ──► Lovable AI Gateway (google/gemini-3-flash-preview, streaming)
-   ▼
-Streaming tokens back ──► token-by-token render in ChatPanel
-   │ if model called navigate_to_page ──► useNavigate() to that path
-```
+Many imports point only to *roofing* assets now. Plumbing/water-heater/trench files (`slide-water-heater.png`, `slide-hydro-jetter.png`, `west-peak-logo.png`, `wh-*.jpg`, `hj-*.jpg`, `plumb-*.jpg`, `trench-*.jpg`, `pipe-*.jpg`, `nasty-pipe-hero.jpg`, `cta-trenchless-*.jpg`, `hero-*-trenchless.jpg`, `hero-charging.jpg`, `hero-energy.jpg`, `hero-sedan.jpg`, `hero-suv.jpg`, `hero-truck.jpg`, `slide-sedan.jpg`, `slide-sports.jpg`, `slide-suv.jpg`, `slide-truck.jpg`) — grep each, delete any with **zero references**. Estimated savings: 5–7 MB removed from the bundle.
 
-## Files to create
+### 2. Compress + convert remaining images to WebP
 
-### Frontend
+For every `.jpg`/`.png` actually referenced (~25 files): generate a `.webp` sibling at quality 78 (typical 60–85% size cut vs JPEG). Re-encode the original JPG with mozjpeg q80 as fallback for non-WebP browsers. Special case the PNG logo:
+- `roofing-friend-logo.png` (560 KB) → 600 px wide WebP + lightweight PNG fallback (~15 KB).
 
-1. **`src/components/assistant/FloatingAssistant.tsx`** — wraps button + panel + consent. Mounted once in `App.tsx` inside `<BrowserRouter>` (so navigation works).
-2. **`src/components/assistant/AssistantButton.tsx`** — fixed-position button (bottom-right, above the existing BottomBar — `bottom: 96px right: 16px`). Gold gradient matching brand (`bg-cta-gold`), `MessageCircle` icon, unread badge, voice ring when listening.
-3. **`src/components/assistant/ChatPanel.tsx`** — 380px-wide panel above the button. Header ("Roofing Friend Assistant" + Sparkles icon + close button), scrollable messages area, mic + text input + send. Renders markdown via `react-markdown` (will install).
-4. **`src/components/assistant/MessageBubble.tsx`** — user (right, dark) vs assistant (left, light w/ gold accent). Markdown rendered.
-5. **`src/components/assistant/ConsentDialog.tsx`** — first-open modal: "Chat with our AI assistant. Your messages may be processed by our AI provider to give you helpful answers about roofing services. No personal data is stored." Accept / Decline.
-6. **`src/hooks/useAssistant.ts`** — state (messages, isLoading, isOpen, unreadCount), `sendMessage()` that calls the edge function with **streaming** (token-by-token render), handles `navigate_to` action, persists conversation to `sessionStorage` so it survives route changes.
-7. **`src/hooks/useAssistantSettings.ts`** — `localStorage`-backed consent flag + enabled flag.
-8. **`src/hooks/useAssistantVoice.ts`** — Web Speech API (`SpeechRecognition` + `speechSynthesis`). Push-to-talk mic button.
-9. **`src/lib/assistant-knowledge.ts`** — single export that bundles `cities`, `warrantyData`, `rebatesData`, `reviewsData`, plus a static `BUSINESS_INFO` object (name, phone `(510) 999-7663`, email `info@theroof.info`, hours, areas served, license CA #1067709) and a `SITE_PAGES` map (route → description). This is what the edge function injects into the system prompt.
+### 3. Smart `<img>` wrapper component
 
-### Backend (Lovable Cloud edge function)
+Create `src/components/ui/SmartImage.tsx` — a thin wrapper that:
+- Renders `<picture>` with WebP `<source>` + JPG fallback automatically (looks up the `.webp` sibling at module level).
+- Defaults to `loading="lazy"` + `decoding="async"`.
+- Accepts `priority` prop → swaps to `loading="eager"` + `fetchpriority="high"`.
+- Forwards width/height to prevent CLS.
 
-10. **`supabase/functions/roofing-assistant/index.ts`** — CORS-enabled streaming endpoint. Builds system prompt with full knowledge from `assistant-knowledge` (passed by client to keep the function small + always in sync with site content), calls Lovable AI Gateway with `google/gemini-3-flash-preview`, streams SSE back. Handles 429 / 402 with friendly errors.
-11. **`supabase/config.toml`** — register the function with `verify_jwt = false` (public chat).
+Replace `<img src={...} />` calls across `PromoGrid`, `VehicleSlider`, `SecondarySlider`, all `pages/*.tsx` CTAs, `Navbar`, `Footer`. Single-line drop-in.
 
-### Wiring
+### 4. Preload the LCP image on every page
 
-12. **`src/App.tsx`** — add `<FloatingAssistant />` inside `<BrowserRouter>`, after `<Suspense>` (so it appears on every page).
-13. **`src/components/BottomBar.tsx`** — keep "Find Something" search dialog as-is; the AI bubble is a **separate** floating element offset above it. The "Ask AI" link in the search dialog footer (currently a placeholder) gets wired to **open the chat panel** via a small event bus (`window.dispatchEvent('open-roofing-assistant')`).
+Each page already knows its hero image. Add a `<link rel="preload" as="image" imageSrcSet="…webp" type="image/webp" fetchpriority="high">` inside each page's `<Helmet>`. Pages to update: `Index`, `CommercialRoofing` (already done), `CityPage` (already done), `WarrantyOverview`, `WarrantyDetail`, `Rebates`, `Referral`, `About`, `Contact`, `Reviews`.
 
-## What the assistant can do
+### 5. Long-cache headers for static assets
 
-- **Answer**: services (Standing Seam, R-Panel, Multi-V, TPO), warranty tiers (residential 50yr / commercial 25yr / industrial), CA rebates (Title 24, FAIR Plan, §179D), referral program details, reviews highlights, hours, contact info, license #.
-- **Locate**: "do you serve Oakland?" → answers yes + offers to navigate to `/locations/oakland`.
-- **Navigate**: model emits `navigate_to: "/contact"` → SPA-routes there.
-- **Recommend**: "I have a flat warehouse roof" → suggests TPO + links to `/commercial-roofing`.
-- **Defer**: pricing/quotes → "I can't quote on the spot — would you like me to take you to our contact form, or call (510) 999-7663?"
+Update `vercel.json` to send `Cache-Control: public, max-age=31536000, immutable` for `/assets/*` (Vite hashes filenames, so this is safe). Repeat-visit images become free.
 
-## Lovable Cloud requirement
+## Expected result
 
-The edge function needs **Lovable Cloud enabled** (provides `LOVABLE_API_KEY` for the AI gateway and the Supabase project for `functions.invoke`). I'll enable it during implementation.
+| Metric | Before | After |
+|---|---|---|
+| `src/assets/` total | 18 MB | ~3 MB |
+| Hero LCP image | 200–400 KB JPG | 40–90 KB WebP (preloaded) |
+| Logo on every page | 560 KB PNG | ~10 KB WebP |
+| Repeat-visit image cost | refetch | 0 (immutable cache) |
+
+## Files
+
+- **Delete**: every `src/assets/*` with zero `import` references (verified per-file via grep).
+- **Re-encode + add `.webp`**: every remaining `src/assets/*.jpg` / `*.png` still in use.
+- **New**: `src/components/ui/SmartImage.tsx`.
+- **Edit**: `Navbar.tsx`, `Footer.tsx`, `PromoGrid.tsx`, `VehicleSlider.tsx`, `SecondarySlider.tsx`, `ServiceHero.tsx`, and all `src/pages/*.tsx` (swap `<img>` → `<SmartImage>` + add hero preload `<link>`).
+- **Edit**: `vercel.json` (cache headers for `/assets/*`).
 
 ## Out of scope
 
-- **Tool-calling for booking / contact submission** — no DB tables exist yet to store leads. Future: when a `contacts` table is added, wire `submit_contact` as a write-tool with confirmation card (port from West Peak).
-- **Rate-limit / abuse protection** beyond what Lovable AI already enforces (429 surfaced as toast).
-- **Persisting chat across browser sessions** — uses `sessionStorage` only; cleared on close. Avoids privacy/consent complications.
-- **Visual response cards** (service grids, area cards in chat) — text + markdown answers only for v1. Easy to add later if you want richer chat UI.
-- **Multilingual** — English only.
-- **Replacing the "Find Something" search** — kept as a fast keyword finder; AI is the conversational layer.
+- Build-time image plugin (`vite-imagetools`) — does the same work but adds a dep + config; manual sharp pass achieves identical output for current asset count.
+- AVIF — marginal additional 10–15% savings vs WebP, more encode time, weaker browser support a year ago (now fine but diminishing returns).
+- Per-breakpoint `srcset` (320/640/1280 widths) — worthwhile only for the heroes; flagged as a follow-up if mobile LCP still lags after this round.
 
