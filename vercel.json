@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/admin",                      "destination": "https://fastfix-crm-westpeak.vercel.app/admin" },
     { "source": "/admin/:path*",               "destination": "https://fastfix-crm-westpeak.vercel.app/admin/:path*" },

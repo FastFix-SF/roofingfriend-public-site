@@ -57,7 +57,7 @@ const CityPage = () => {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
-        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" />
+        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
