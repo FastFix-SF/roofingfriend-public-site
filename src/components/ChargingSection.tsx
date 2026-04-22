@@ -382,12 +382,12 @@ const ChargingSection = () => {
       {/* Info bar */}
       <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">See how many homes near you already made the switch</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">8.4 million Americans already ditched shingles. Your turn.</h2>
           <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-lg">
-            Live map of metal-roof adoption across America. Florida leads at 85%. California is catching up fast. Where does your state rank?
+            Metal roofs last 3x longer, cut cooling bills up to 25%, and survive hurricanes shingles can't. See how many of your neighbors already made the switch — then join them.
           </p>
           <div className="flex gap-3 mt-4">
-            <a href="#" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">View Map</a>
+            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Get My Free Quote</a>
             <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">Learn More</a>
           </div>
         </div>
@@ -395,17 +395,17 @@ const ChargingSection = () => {
         <div className="grid grid-cols-2 gap-3 md:flex md:gap-8">
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">8.4M</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">50+ yrs</span>
               <Home className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Homes with metal roofs in America</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Lifespan vs. 15–20 for asphalt shingles</span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">32%</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">25%</span>
               <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-cta-gold" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Year-over-year adoption growth</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Lower cooling bills with reflective metal</span>
           </div>
         </div>
       </div>
