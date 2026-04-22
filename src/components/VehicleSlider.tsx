@@ -2,16 +2,21 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import SmartImage from "@/components/ui/SmartImage";
 import slideStandingSeam from "@/assets/slide-standing-seam.jpg";
+import slideStandingSeamWebp from "@/assets/slide-standing-seam.webp";
 import slideRPanel from "@/assets/slide-r-panel.jpg";
+import slideRPanelWebp from "@/assets/slide-r-panel.webp";
 import slideMultiV from "@/assets/slide-multi-v.jpg";
+import slideMultiVWebp from "@/assets/slide-multi-v.webp";
 import slideTpo from "@/assets/slide-tpo.jpg";
+import slideTpoWebp from "@/assets/slide-tpo.webp";
 
 const vehicles = [
-  { image: slideStandingSeam, category: "", title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
-  { image: slideRPanel, category: "", title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
-  { image: slideMultiV, category: "", title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
-  { image: slideTpo, category: "", title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideStandingSeam, webp: slideStandingSeamWebp, category: "", title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideRPanel, webp: slideRPanelWebp, category: "", title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideMultiV, webp: slideMultiVWebp, category: "", title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideTpo, webp: slideTpoWebp, category: "", title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
 ];
 
 const VehicleSlider = () => {
@@ -40,10 +45,10 @@ const VehicleSlider = () => {
       <div className="relative w-full px-4 md:px-10 lg:px-12">
         <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
           <div className="flex">
-            {vehicles.map((v) => (
+            {vehicles.map((v, idx) => (
               <div key={v.title} className="min-w-0 shrink-0 grow-0 basis-[98%] sm:basis-[70%] lg:basis-[65%] pl-4">
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] lg:aspect-[16/9]">
-                  <img src={v.image} alt={v.title} loading="eager" decoding="async" fetchPriority="high" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+                  <SmartImage src={v.image} webpSrc={v.webp} alt={v.title} priority={idx === 0} width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   
                   <div className="absolute bottom-6 left-6 right-6">

@@ -6,6 +6,7 @@ import { rebatePrograms, rebateFaqs } from "@/lib/rebates-data";
 import { CheckCircle2, DollarSign, Leaf, Home, Building2, Zap, MapPin } from "lucide-react";
 
 import heroImg from "@/assets/slide-standing-seam.jpg";
+import heroImgWebp from "@/assets/slide-standing-seam.webp";
 import ctaRebates from "@/assets/hero-veteran-government-roofing.jpg";
 
 const sectionIcons = [Leaf, DollarSign, Home, Building2, Zap, MapPin];
@@ -29,6 +30,7 @@ const Rebates = () => (
         content="Verified 2025–2026 California roofing incentives: SMUD & LADWP cool-roof rebates, FAIR Plan wildfire discounts (up to 13.8%), federal §179D deduction (up to $5.94/sq ft), and GoGreen state-backed financing — all stackable on your new metal roof."
       />
       <link rel="canonical" href="https://roofingfriend.com/rebates" />
+      <link rel="preload" as="image" href={heroImgWebp} type="image/webp" fetchPriority="high" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
 
@@ -36,15 +38,19 @@ const Rebates = () => (
 
     {/* Hero */}
     <section className="snap-section relative overflow-hidden">
-      <img
-        src={heroImg}
-        alt="Charcoal standing seam metal roof installed by Roofing Friend"
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-        fetchPriority="high"
-        width={640}
-        height={960}
-      />
+      <picture>
+        <source srcSet={heroImgWebp} type="image/webp" />
+        <img
+          src={heroImg}
+          alt="Charcoal standing seam metal roof installed by Roofing Friend"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          width={640}
+          height={960}
+        />
+      </picture>
       <div className="absolute inset-0 hero-overlay" />
       <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">

@@ -6,6 +6,7 @@ import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
 import { reviewsData, aggregateStats } from "@/lib/reviews-data";
 import heroReviews from "@/assets/hero-reviews.jpg";
+import heroReviewsWebp from "@/assets/hero-reviews.webp";
 
 const StarRating = ({ rating }: { rating: number }) => (
   <div className="flex gap-0.5">
@@ -31,6 +32,7 @@ const Reviews = () => (
       <title>Reviews | The Roofing Friend — 5.0 Stars</title>
       <meta name="description" content="See why The Roofing Friend has a 5.0 star rating from 181+ Google reviews. Read real customer testimonials about our metal roofing across the SF Bay Area." />
       <link rel="canonical" href="https://theroof.info/reviews" />
+      <link rel="preload" as="image" href={heroReviewsWebp} type="image/webp" fetchPriority="high" />
       <meta property="og:title" content="Reviews | The Roofing Friend — 5.0 Stars" />
       <meta property="og:description" content="181+ Google reviews with a 5.0 star rating. Read real customer testimonials about our premium metal roofing." />
       <meta property="og:url" content="https://theroof.info/reviews" />
@@ -57,7 +59,7 @@ const Reviews = () => (
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="Customer Reviews" tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} />
+    <ServiceHero title="Customer Reviews" tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} backgroundImageWebp={heroReviewsWebp} />
 
     {/* Aggregate Stats */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">

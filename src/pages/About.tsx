@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { cities } from "@/lib/cities-data";
 import ctaAbout from "@/assets/cta-about.jpg";
 import heroAbout from "@/assets/hero-about.jpg";
+import heroAboutWebp from "@/assets/hero-about.webp";
 
 const stats = [
   { value: "500+", label: "Bay Area Roofs", sub: "Residential, commercial & government", icon: Briefcase },
@@ -31,6 +32,7 @@ const About = () => (
       <title>About | The Roofing Friend</title>
       <meta name="description" content="The Roofing Friend — veteran-owned California metal roofing contractor serving the San Francisco Bay Area with standing seam, R-Panel, Multi-V & TPO systems." />
       <link rel="canonical" href="https://theroof.info/about" />
+      <link rel="preload" as="image" href={heroAboutWebp} type="image/webp" fetchPriority="high" />
       <meta property="og:title" content="About | The Roofing Friend" />
       <meta property="og:description" content="Veteran-owned California metal roofing contractor serving the San Francisco Bay Area." />
       <meta property="og:url" content="https://theroof.info/about" />
@@ -50,7 +52,7 @@ const About = () => (
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="About The Roofing Friend" tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed." backgroundImage={heroAbout} />
+    <ServiceHero title="About The Roofing Friend" tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed." backgroundImage={heroAbout} backgroundImageWebp={heroAboutWebp} />
 
     {/* Mission */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">

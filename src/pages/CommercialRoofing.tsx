@@ -87,7 +87,7 @@ const CommercialRoofing = () => {
         <title>Commercial Metal Roofing | Standing Seam Roofs Bay Area</title>
         <meta name="description" content="Standing seam metal roofing for commercial properties in the Bay Area — retail centers, restaurants, warehouses, and big-box. 40-year warranty, 25–40% energy savings, zero tenant disruption." />
         <link rel="canonical" href={canonicalUrl} />
-        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" />
+        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Commercial Metal Roofing | Standing Seam Roofs Bay Area" />
         <meta property="og:description" content="Standing seam metal roofing for commercial properties — retail, restaurants, warehouses, big-box. 40-year warranty." />
         <meta property="og:url" content={canonicalUrl} />

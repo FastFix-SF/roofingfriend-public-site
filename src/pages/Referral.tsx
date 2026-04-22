@@ -6,6 +6,7 @@ import FaqAccordion from "@/components/FaqAccordion";
 import { commissionTiers, howItWorks, whyRefer, referralFaqs } from "@/lib/referral-data";
 import ctaReferral from "@/assets/cta-referral.jpg";
 import heroReferral from "@/assets/hero-referral.jpg";
+import heroReferralWebp from "@/assets/hero-referral.webp";
 import { DollarSign, Users, CheckCircle, ArrowRight } from "lucide-react";
 
 const stepIcons = [Users, CheckCircle, DollarSign];
@@ -30,6 +31,7 @@ const Referral = () => {
           content="Earn money by referring friends and neighbors to The Roofing Friend. Commission-based referral program — the bigger the roof job, the bigger your payout."
         />
         <link rel="canonical" href="https://theroof.info/referral" />
+        <link rel="preload" as="image" href={heroReferralWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Referral Program — Earn Commission | The Roofing Friend" />
         <meta property="og:description" content="Earn money by referring friends and neighbors to The Roofing Friend. Commission-based referral program." />
         <meta property="og:url" content="https://theroof.info/referral" />
@@ -41,7 +43,10 @@ const Referral = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20 md:py-28 px-6 lg:px-12">
-        <img src={heroReferral} alt="Neighbors referring metal roofing services" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
+        <picture>
+          <source srcSet={heroReferralWebp} type="image/webp" />
+          <img src={heroReferral} alt="Neighbors referring metal roofing services" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" fetchPriority="high" width={1920} height={1080} />
+        </picture>
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-cta-gold mb-4">Referral Program</p>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/roofing-friend-logo.png";
+import logoWebp from "@/assets/roofing-friend-logo.webp";
 
 const navLinks = [
   { label: "Roofing", href: "/commercial-roofing" },
@@ -18,11 +19,18 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-6 lg:px-12 h-16 bg-nav-bg/80 backdrop-blur-md">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2 sm:gap-3">
-          <img 
-            src={logo} 
-            alt="The Roofing Friend" 
-            className="h-9 sm:h-14 w-auto"
-          />
+          <picture>
+            <source srcSet={logoWebp} type="image/webp" />
+            <img 
+              src={logo} 
+              alt="The Roofing Friend" 
+              width={120}
+              height={120}
+              fetchPriority="high"
+              decoding="async"
+              className="h-9 sm:h-14 w-auto"
+            />
+          </picture>
           <div className="flex flex-col items-start justify-center">
             <span className="text-nav-text font-bold text-sm sm:text-lg tracking-[0.18em] uppercase leading-none" style={{ fontVariantCaps: 'small-caps' }}>
               Roofing Friend

@@ -8,25 +8,29 @@ import SecondarySlider from "@/components/SecondarySlider";
 import Footer from "@/components/Footer";
 import BottomBar from "@/components/BottomBar";
 import heroFsd from "@/assets/hero-fsd.jpg";
-import heroCommercial from "@/assets/hero-commercial-trenchless.jpg";
-import heroIndustrial from "@/assets/hero-industrial-trenchless.jpg";
+import heroFsdWebp from "@/assets/hero-fsd.webp";
 import heroVeteranGovernment from "@/assets/hero-veteran-government-roofing.jpg";
+import heroVeteranGovernmentWebp from "@/assets/hero-veteran-government-roofing.webp";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
+import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
+import warrantyCommercialWebp from "@/assets/warranty-commercial.webp";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
+import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
 import warrantyResidential from "@/assets/warranty-residential.jpg";
+import warrantyResidentialWebp from "@/assets/warranty-residential.webp";
 
 const LazyChargingSection = React.lazy(() => import("@/components/ChargingSection"));
 
 const secondarySlides = [
-  { image: warrantyResidential, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "Learn More", link: "/warranty/residential" },
-  { image: warrantyCommercial, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "Learn More", link: "/warranty/commercial" },
-  { image: warrantyIndustrial, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "Learn More", link: "/warranty/industrial" },
+  { image: warrantyResidential, imageWebp: warrantyResidentialWebp, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "Learn More", link: "/warranty/residential" },
+  { image: warrantyCommercial, imageWebp: warrantyCommercialWebp, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "Learn More", link: "/warranty/commercial" },
+  { image: warrantyIndustrial, imageWebp: warrantyIndustrialWebp, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "Learn More", link: "/warranty/industrial" },
 ];
 
 const heroSlides = [
-  { image: heroFsd, video: "/videos/hero-roof.mp4", audio: true, title: "From Shingles to Standing Seam", subtitle: "", primaryCta: "Book Service", secondaryCta: "Learn More", textColor: "light" as const, captions: [
+  { image: heroFsd, imageWebp: heroFsdWebp, video: "/videos/hero-roof.mp4", audio: true, title: "From Shingles to Standing Seam", subtitle: "", primaryCta: "Book Service", secondaryCta: "Learn More", textColor: "light" as const, captions: [
     { text: "Wife: I don't like our shingle roof anymore…", startTime: 0, endTime: 2.5 },
     { text: "Wife: It feels so generic.", startTime: 2.6, endTime: 4.8 },
     { text: "Wife: I want a metal roof — like the ones on Instagram.", startTime: 4.9, endTime: 8.2 },
@@ -34,8 +38,8 @@ const heroSlides = [
     { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
     { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
   ] },
-  { image: heroCommercialRoofing, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
-    { image: heroVeteranGovernment, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
+  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
+    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
 ];
 
 const ChargingSectionWrapper = () => {
@@ -71,6 +75,7 @@ const Index = () => {
         <title>The Roofing Friend | Premium Metal Roofing in the SF Bay Area</title>
         <meta name="description" content="The Roofing Friend — standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned, California-licensed, 24/7 storm response." />
         <link rel="canonical" href="https://theroof.info/" />
+        <link rel="preload" as="image" href={heroFsdWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="The Roofing Friend | Premium Metal Roofing in the SF Bay Area" />
         <meta property="og:description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned and California-licensed." />
         <meta property="og:url" content="https://theroof.info/" />

@@ -10,6 +10,7 @@ interface HeroCaption {
 
 interface HeroSlide {
   image: string;
+  imageWebp?: string;
   video?: string;
   audio?: boolean;
   title: string;
@@ -98,16 +99,19 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
             return (
               <div key={i} className="relative min-w-0 shrink-0 grow-0 basis-full h-full">
                 {!slide.video && (
-                  <img
-                    src={slide.image}
-                    alt={slide.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    width={1920}
-                    height={1080}
-                  />
+                  <picture>
+                    {slide.imageWebp && <source srcSet={slide.imageWebp} type="image/webp" />}
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchPriority={i === 0 ? "high" : "auto"}
+                      width={1920}
+                      height={1080}
+                    />
+                  </picture>
                 )}
                 {slide.video && (
                   <video

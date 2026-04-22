@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Clock, Zap } from "lucide-react";
 import logo from "@/assets/roofing-friend-logo.png";
+import logoWebp from "@/assets/roofing-friend-logo.webp";
 import { cities } from "@/lib/cities-data";
 
 const Footer = () => {
@@ -10,11 +11,18 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand / Contact */}
           <div className="flex flex-col gap-5">
-            <img
-              src={logo}
-              alt="The Roofing Friend"
-              className="h-14 w-auto self-start"
-            />
+            <picture className="self-start">
+              <source srcSet={logoWebp} type="image/webp" />
+              <img
+                src={logo}
+                alt="The Roofing Friend"
+                width={120}
+                height={120}
+                loading="lazy"
+                decoding="async"
+                className="h-14 w-auto"
+              />
+            </picture>
             <div>
               <p className="text-foreground font-semibold text-base">The Roofing Friend</p>
               <p className="text-cta-gold text-sm font-medium tracking-wide uppercase mt-0.5">We Can, We Will</p>

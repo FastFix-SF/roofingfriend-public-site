@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import heroContact from "@/assets/hero-contact.jpg";
+import heroContactWebp from "@/assets/hero-contact.webp";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -31,6 +32,7 @@ const Contact = () => {
         <title>Contact | The Roofing Friend</title>
         <meta name="description" content="Contact The Roofing Friend for a free metal roof assessment. Call (510) 999-7663 for premium standing seam, R-Panel, Multi-V & TPO roofing across the SF Bay Area." />
         <link rel="canonical" href="https://theroof.info/contact" />
+        <link rel="preload" as="image" href={heroContactWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Contact | The Roofing Friend" />
         <meta property="og:description" content="Get a free roof assessment. Call (510) 999-7663 for premium metal roofing across the San Francisco Bay Area." />
         <meta property="og:url" content="https://theroof.info/contact" />
@@ -48,7 +50,7 @@ const Contact = () => {
       </Helmet>
 
       <Navbar />
-      <ServiceHero title="Contact Us" tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} />
+      <ServiceHero title="Contact Us" tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} backgroundImageWebp={heroContactWebp} />
 
       {/* Contact Cards */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
