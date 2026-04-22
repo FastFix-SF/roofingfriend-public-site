@@ -310,10 +310,10 @@ const ChargingSection = () => {
           >
             <p className="font-semibold text-foreground">{tooltip.name}</p>
             <p className="text-muted-foreground">
-              {Math.round(tooltip.density * 100)}% of homes have metal roofs
+              {Math.round(tooltip.density * 100)}% of homes already upgraded to metal
             </p>
             <p className="text-muted-foreground">
-              ~{tooltip.pipes.toLocaleString()} homes already switched
+              ~{tooltip.pipes.toLocaleString()} neighbors made the switch
             </p>
           </div>
         )}
