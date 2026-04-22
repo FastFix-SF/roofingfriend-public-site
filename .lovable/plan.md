@@ -2,29 +2,34 @@
 
 ## Goal
 
-Replace every instance of `info@theroof.info` with `roofingfriend@gmail.com` across the entire site so the email matches what the Contact page already uses.
+Replace the **Referral Program** card image so it visually reflects the actual message: **referring a friend and earning a commission on a completed metal roof install** — instead of the current generic inspection photo.
 
-## Where the old email still lives
+## What changes
 
-Based on the selected element (`Footer.tsx` line 72) and a site-wide audit, `info@theroof.info` still appears in at least:
+### 1. Generate a new on-brand image
+Create `src/assets/promo-referral-share.jpg` + `.webp` (Nano Banana Pro) showing a concept that reads instantly as "refer a friend / earn cash":
 
-1. **`src/components/Footer.tsx`** — Contact Info column: `mailto:` link + display text.
-2. Any other page that hardcodes it (About, City, Neighborhood, Commercial, Warranty, Reviews, Index, BookingDialog, llms.txt, index.html JSON-LD, etc.) — a global search will catch them all.
+- **Concept**: A homeowner standing in front of their freshly installed standing-seam metal roof (Bay Area home, golden hour), showing his phone to a neighbor over the fence — phone screen subtly suggests sharing/text. Warm, trustworthy, daylight tone.
+- **Aspect**: ~3:2 (matches the current 768×512 slot).
+- **Style**: photorealistic, consistent with the other promo cards already on the page.
 
-Contact page is already on `roofingfriend@gmail.com` and stays as-is.
+### 2. Wire it into the card
+Update `src/components/PromoGrid.tsx`:
+- Swap imports `promoHeroes` / `promoHeroesWebp` → `promoReferralShare` / `promoReferralShareWebp`.
+- Update the `<SmartImage>` `src`, `webpSrc`, and `alt` to "Refer a friend, earn a commission on every completed metal roof install".
 
-## Approach
+### 3. Leave everything else alone
+- Card layout, copy ("Referral Program" / "Refer a friend… earn a commission…"), CTA button, link to `/referral` — all unchanged.
+- The other three promo cards (Current Offers, Built to Outlast Your Mortgage, Veteran-Owned) — unchanged.
+- The old `promo-inspection.jpg/.webp` files stay in `src/assets/` (no deletion) in case they're reused elsewhere.
 
-1. Project-wide search for `info@theroof.info`.
-2. Replace every occurrence with `roofingfriend@gmail.com`, including:
-   - Visible display text
-   - `mailto:` href values
-   - JSON-LD `email` fields in structured data
-   - `public/llms.txt` and any SEO/meta references in `index.html`
-3. Leave all surrounding labels, icons, and layout untouched.
+## Files touched
+
+- `src/assets/promo-referral-share.jpg` + `.webp` — newly generated
+- `src/components/PromoGrid.tsx` — swap the 2 imports + 1 `<SmartImage>` props
 
 ## Out of scope
 
-- Phone numbers, addresses, hours — unchanged.
-- No layout, styling, or copy changes beyond the email string itself.
+- No copy, layout, button, or routing changes.
+- Other promo cards untouched.
 
