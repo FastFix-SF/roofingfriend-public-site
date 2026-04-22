@@ -214,6 +214,7 @@ const CityPage = () => {
       <FaqAccordion
         faqs={city.faqs.map((f) => ({ question: f.q, answer: f.a }))}
         title={`${city.name} metal roofing FAQ`}
+        emitSchema={false}
       />
 
       {/* CTA band */}

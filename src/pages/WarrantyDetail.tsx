@@ -213,7 +213,7 @@ const WarrantyDetail = () => {
         </div>
       </section>
 
-      <FaqAccordion faqs={data.faqs} title={`${data.name} Warranty FAQ`} />
+      <FaqAccordion faqs={data.faqs} title={`${data.name} Warranty FAQ`} emitSchema={false} />
 
       {/* Other Categories */}
       <section className="bg-background py-8 md:py-12">

@@ -220,6 +220,7 @@ const NeighborhoodPage = () => {
       <FaqAccordion
         faqs={neighborhood.faqs.map((f) => ({ question: f.q, answer: f.a }))}
         title={`${neighborhood.name} metal roofing FAQ`}
+        emitSchema={false}
       />
 
       {/* CTA */}

@@ -322,7 +322,7 @@ const CommercialRoofing = () => {
         </div>
       </section>
 
-      <FaqAccordion faqs={roofingFaqs} title="Commercial Metal Roofing FAQ" />
+      <FaqAccordion faqs={roofingFaqs} title="Commercial Metal Roofing FAQ" emitSchema={false} />
 
       <BottomBar />
     </>
