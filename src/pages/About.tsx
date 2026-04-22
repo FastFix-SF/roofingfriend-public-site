@@ -5,73 +5,71 @@ import Navbar from "@/components/Navbar";
 import ServiceHero from "@/components/ServiceHero";
 import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
+import { cities } from "@/lib/cities-data";
 import ctaAbout from "@/assets/cta-about.jpg";
 import heroAbout from "@/assets/hero-about.jpg";
 
 const stats = [
-  { value: "5,000+", label: "Projects Completed", sub: "Commercial & residential", icon: Briefcase },
-  { value: "15+", label: "Years Experience", sub: "Serving the Bay Area", icon: Award },
-  { value: "24/7", label: "Emergency Service", sub: "Available around the clock", icon: Clock },
-  { value: "98%", label: "Satisfaction Rate", sub: "Customer satisfaction", icon: Users },
+  { value: "500+", label: "Bay Area Roofs", sub: "Residential, commercial & government", icon: Briefcase },
+  { value: "15+", label: "Years Experience", sub: "Premium metal roofing expertise", icon: Award },
+  { value: "24/7", label: "Emergency Service", sub: "Storm & leak response", icon: Clock },
+  { value: "100%", label: "Veteran-Owned", sub: "Discipline & integrity on every job", icon: Users },
 ];
 
 const services = [
-  { title: "Trenchless Services", desc: "Minimally invasive pipe repair using CIPP, SIPP, and pipe bursting", to: "/trenchless" },
-  { title: "Sewer Services", desc: "24/7 emergency sewer response with video inspection and modern repair techniques", to: "/pipes" },
-  { title: "Hydro Jetting", desc: "High-pressure water cleaning (1,500–4,000 PSI) for complete clog removal", to: "/hydro-jetting" },
-  { title: "Commercial Drain Cleaning", desc: "Professional drain diagnosis with video inspection and preventative maintenance", to: "/plumbing" },
-  { title: "Plumbing Services", desc: "Complete plumbing solutions including emergency service and leak detection", to: "/plumbing" },
-  { title: "Commercial Water Heater", desc: "Commercial water heater service, repair, and replacement", to: "/water-heater" },
+  { title: "Standing Seam Metal", desc: "Premium architectural standing seam — 50+ year lifespan, Class A fire rating", to: "/commercial-roofing" },
+  { title: "R-Panel Roofing", desc: "Affordable, durable metal panels for residential, agricultural and barn roofs", to: "/commercial-roofing" },
+  { title: "Multi-V Panel", desc: "Architectural style metal roofing for high-end residential homes", to: "/commercial-roofing" },
+  { title: "TPO Commercial", desc: "Energy-efficient single-ply membrane for flat commercial roofs", to: "/commercial-roofing" },
+  { title: "Roof Repair & Restoration", desc: "Storm damage, leak repair, and re-coats for existing metal and TPO roofs", to: "/commercial-roofing" },
+  { title: "Veteran & Government Projects", desc: "Spec-grade metal roofing for federal, military and municipal facilities", to: "/commercial-roofing" },
 ];
-
-const cities = ["Berkeley", "Hayward", "Oakland", "San Francisco", "San Jose", "San Mateo", "Santa Clara", "Palo Alto", "Fremont", "Sunnyvale", "Mountain View", "Redwood City"];
 
 const About = () => (
   <>
     <Helmet>
-      <title>About Us | West Peak Trenchless & Plumbing</title>
-      <meta name="description" content="Learn about West Peak Trenchless & Plumbing — 15+ years serving the Bay Area with innovative trenchless pipe repair, commercial plumbing, and 24/7 emergency service." />
-      <link rel="canonical" href="https://westpeakplumbing.com/about" />
-      <meta property="og:title" content="About Us | West Peak Trenchless & Plumbing" />
-      <meta property="og:description" content="15+ years serving the Bay Area with innovative trenchless pipe repair, commercial plumbing, and 24/7 emergency service." />
-      <meta property="og:url" content="https://westpeakplumbing.com/about" />
+      <title>About | The Roofing Friend</title>
+      <meta name="description" content="The Roofing Friend — veteran-owned California metal roofing contractor serving the San Francisco Bay Area with standing seam, R-Panel, Multi-V & TPO systems." />
+      <link rel="canonical" href="https://theroof.info/about" />
+      <meta property="og:title" content="About | The Roofing Friend" />
+      <meta property="og:description" content="Veteran-owned California metal roofing contractor serving the San Francisco Bay Area." />
+      <meta property="og:url" content="https://theroof.info/about" />
       <meta property="og:type" content="website" />
       <script type="application/ld+json">{JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: "West Peak Trenchless & Plumbing",
-        description: "Premier provider of trenchless pipe repair and comprehensive plumbing services in the San Francisco Bay Area.",
-        telephone: "(650) 379-8166",
-        email: "servicerequests@westpeak.biz",
-        address: { "@type": "PostalAddress", streetAddress: "1030 Duane Ave", addressLocality: "Santa Clara", addressRegion: "CA", postalCode: "95054" },
-        founder: { "@type": "Person", name: "Juan Mejia" },
-        foundingDate: "2010",
-        areaServed: cities.map(c => ({ "@type": "City", name: c })),
+        "@type": "RoofingContractor",
+        name: "The Roofing Friend",
+        description: "Veteran-owned California metal roofing contractor — standing seam, R-Panel, Multi-V and TPO systems across the San Francisco Bay Area.",
+        telephone: "(510) 999-7663",
+        email: "info@theroof.info",
+        url: "https://theroof.info",
+        address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
+        areaServed: cities.map(c => ({ "@type": "City", name: c.name })),
         openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" },
       })}</script>
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="About West Peak Trenchless & Plumbing" tagline="Innovative Solutions. Lasting Results. No Digging." backgroundImage={heroAbout} />
+    <ServiceHero title="About The Roofing Friend" tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed." backgroundImage={heroAbout} />
 
     {/* Mission */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
       <div className="max-w-4xl mx-auto">
-        <p className="text-sm font-medium text-cta-gold uppercase tracking-widest mb-2">Founded by Juan Mejia</p>
+        <p className="text-sm font-medium text-cta-gold uppercase tracking-widest mb-2">Veteran-Built · California-Licensed #1067709</p>
         <div className="flex gap-8 flex-wrap mb-6">
-          <div><span className="text-3xl font-bold text-foreground">10+</span><p className="text-sm text-muted-foreground">Years in Business</p></div>
-          <div><span className="text-3xl font-bold text-foreground">11-25</span><p className="text-sm text-muted-foreground">Team Members</p></div>
+          <div><span className="text-3xl font-bold text-foreground">15+</span><p className="text-sm text-muted-foreground">Years in Business</p></div>
+          <div><span className="text-3xl font-bold text-foreground">13+</span><p className="text-sm text-muted-foreground">Bay Area Locations</p></div>
         </div>
         <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
-          West Peak Trenchless & Plumbing stands as a premier provider of advanced trenchless pipe repair and comprehensive plumbing services throughout the Greater San Francisco Bay Area. With over 15 years of dedicated experience, we are committed to delivering swift, precise, and reliable solutions for both commercial and residential clients.
+          The Roofing Friend is a veteran-owned California roofing contractor specializing in premium metal roof systems across the San Francisco Bay Area. From standing seam on luxury Marin estates to TPO on retail centers and spec-grade installs for government facilities, we deliver Awwwards-level craftsmanship on every roof — backed by industry-leading warranties up to 50 years.
         </p>
         <ul className="space-y-3">
           {[
-            "Trenchless options that reduce digging and disruption",
-            "24/7 emergency sewer and plumbing response",
-            "Video camera inspection for accurate diagnosis",
-            "Hydro jetting with 1,500–4,000 PSI capability",
-            "15+ years experience with commercial and residential systems",
+            "Standing seam, R-Panel, Multi-V and TPO metal roof systems",
+            "Up to 50-year manufacturer warranties on residential",
+            "Class A fire rating — non-combustible WUI-zone protection",
+            "Title 24 cool-roof certified panels for PG&E rebates",
+            "Veteran-owned · California-licensed · GSA-friendly",
           ].map((item) => (
             <li key={item} className="flex items-start gap-3 text-foreground">
               <CheckCircle2 size={18} className="text-cta-gold mt-0.5 shrink-0" />
@@ -102,8 +100,8 @@ const About = () => (
     {/* Services */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 text-center">Our Services</h2>
-        <p className="text-muted-foreground text-center mb-10">Comprehensive solutions tailored to your needs</p>
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 text-center">Our Roofing Services</h2>
+        <p className="text-muted-foreground text-center mb-10">Premium metal roofing systems for every Bay Area property</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s) => (
             <Link key={s.title} to={s.to} className="group block bg-secondary rounded-lg p-6 hover:shadow-md transition-shadow">
@@ -120,10 +118,16 @@ const About = () => (
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-sm font-medium text-cta-gold uppercase tracking-widest mb-2">Coverage Area</p>
         <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">Where We Serve</h2>
-        <p className="text-muted-foreground mb-8">Proudly serving communities across the Greater Bay Area</p>
+        <p className="text-muted-foreground mb-8">Proudly roofing communities across the Greater Bay Area</p>
         <div className="flex flex-wrap justify-center gap-3">
           {cities.map((city) => (
-            <span key={city} className="px-4 py-2 bg-background rounded-full text-sm font-medium text-foreground shadow-sm">{city}</span>
+            <Link
+              key={city.slug}
+              to={`/locations/${city.slug}`}
+              className="px-4 py-2 bg-background rounded-full text-sm font-medium text-foreground shadow-sm hover:text-cta-gold transition-colors"
+            >
+              {city.name}
+            </Link>
           ))}
         </div>
       </div>
@@ -131,14 +135,14 @@ const About = () => (
 
     {/* CTA */}
     <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
-      <img src={ctaAbout} alt="Plumbing service van at California home" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+      <img src={ctaAbout} alt="The Roofing Friend crew installing a standing seam metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">Ready to Get Started?</h2>
-        <p className="text-white/70 mb-8">Contact us today for a free estimate on any plumbing or trenchless service.</p>
+        <p className="text-white/70 mb-8">Contact us today for a free roof assessment on any metal roofing project.</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="tel:6503798166" className="inline-flex items-center gap-2 px-8 py-3 rounded bg-cta-gold text-btn-primary-fg font-medium hover:opacity-90 transition-all">
-            Call (650) 379-8166
+          <a href="tel:5109997663" className="inline-flex items-center gap-2 px-8 py-3 rounded bg-cta-gold text-btn-primary-fg font-medium hover:opacity-90 transition-all">
+            Call (510) 999-7663
           </a>
           <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3 rounded border border-white/30 text-white font-medium hover:bg-white/10 transition-colors">
             Contact Us

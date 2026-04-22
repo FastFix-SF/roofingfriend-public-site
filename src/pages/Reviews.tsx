@@ -28,17 +28,17 @@ const RatingBar = ({ label, percent }: { label: string; percent: number }) => (
 const Reviews = () => (
   <>
     <Helmet>
-      <title>Reviews | West Peak Trenchless & Plumbing — 5.0 Stars</title>
-      <meta name="description" content="See why West Peak Trenchless & Plumbing has a 5.0 star rating from 181+ Google reviews. Read real customer testimonials about our trenchless and plumbing services in the Bay Area." />
-      <link rel="canonical" href="https://westpeakplumbing.com/reviews" />
-      <meta property="og:title" content="Reviews | West Peak Trenchless & Plumbing — 5.0 Stars" />
-      <meta property="og:description" content="181+ Google reviews with a 5.0 star rating. Read real customer testimonials about our trenchless and plumbing services." />
-      <meta property="og:url" content="https://westpeakplumbing.com/reviews" />
+      <title>Reviews | The Roofing Friend — 5.0 Stars</title>
+      <meta name="description" content="See why The Roofing Friend has a 5.0 star rating from 181+ Google reviews. Read real customer testimonials about our metal roofing across the SF Bay Area." />
+      <link rel="canonical" href="https://theroof.info/reviews" />
+      <meta property="og:title" content="Reviews | The Roofing Friend — 5.0 Stars" />
+      <meta property="og:description" content="181+ Google reviews with a 5.0 star rating. Read real customer testimonials about our premium metal roofing." />
+      <meta property="og:url" content="https://theroof.info/reviews" />
       <meta property="og:type" content="website" />
       <script type="application/ld+json">{JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: "West Peak Trenchless & Plumbing",
+        "@type": "RoofingContractor",
+        name: "The Roofing Friend",
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: aggregateStats.averageRating,
@@ -102,7 +102,7 @@ const Reviews = () => (
               <p className="text-sm text-foreground leading-relaxed mt-3">{review.text}</p>
               {review.response && (
                 <div className="mt-4 pl-4 border-l-2 border-cta-gold">
-                  <p className="text-xs font-semibold text-foreground mb-1">Response from West Peak</p>
+                  <p className="text-xs font-semibold text-foreground mb-1">Response from The Roofing Friend</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">{review.response}</p>
                 </div>
               )}
@@ -113,7 +113,7 @@ const Reviews = () => (
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="https://www.google.com/search?q=West+Peak+Trenchless+%26+Plumbing+Reviews&zx=1776105093375#lrd=0x808f7938ddee3581:0xca3bd749d3188263,1,,,,"
+            href="https://www.google.com/search?q=The+Roofing+Friend+Reviews"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 rounded bg-cta-gold text-btn-primary-fg font-medium hover:opacity-90 transition-all"
