@@ -7,14 +7,23 @@ import { warrantyCategories } from "@/lib/warranty-data";
 import { CheckCircle2, XCircle, Building, Landmark, Home } from "lucide-react";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
+import warrantyCommercialWebp from "@/assets/warranty-commercial.webp";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
+import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
 import warrantyResidential from "@/assets/warranty-residential.jpg";
+import warrantyResidentialWebp from "@/assets/warranty-residential.webp";
 import ctaWarrantyDetail from "@/assets/cta-warranty-detail.jpg";
 
 const categoryImages: Record<string, string> = {
   commercial: warrantyCommercial,
   industrial: warrantyIndustrial,
   residential: warrantyResidential,
+};
+
+const categoryImagesWebp: Record<string, string> = {
+  commercial: warrantyCommercialWebp,
+  industrial: warrantyIndustrialWebp,
+  residential: warrantyResidentialWebp,
 };
 
 const categoryIcons: Record<string, typeof Building> = {
@@ -64,6 +73,7 @@ const WarrantyDetail = () => {
         <title>{data.metaTitle}</title>
         <meta name="description" content={data.metaDescription} />
         <link rel="canonical" href={`https://roofingfriend.com/warranty/${data.slug}`} />
+        <link rel="preload" as="image" href={categoryImagesWebp[data.slug]} type="image/webp" fetchPriority="high" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(warrantySchema)}</script>
       </Helmet>
@@ -72,15 +82,19 @@ const WarrantyDetail = () => {
 
       {/* Hero */}
       <section className="snap-section relative overflow-hidden">
-        <img
-          src={categoryImages[data.slug]}
-          alt={`${data.name} metal roof warranty`}
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-          width={1920}
-          height={1080}
-        />
+        <picture>
+          <source srcSet={categoryImagesWebp[data.slug]} type="image/webp" />
+          <img
+            src={categoryImages[data.slug]}
+            alt={`${data.name} metal roof warranty`}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            width={1920}
+            height={1080}
+          />
+        </picture>
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
           <div className="flex items-center gap-3 mb-2">

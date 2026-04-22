@@ -80,6 +80,7 @@ const WarrantyOverview = () => (
         width={1920}
         height={1080}
       />
+      </picture>
       <div className="absolute inset-0 hero-overlay" />
       <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">
