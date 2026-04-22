@@ -2,17 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import slideSedan from "@/assets/slide-sedan.jpg";
-import slideSuv from "@/assets/slide-suv.jpg";
-import slideHydroJetter from "@/assets/slide-hydro-jetter.png";
-import slideSports from "@/assets/slide-sports.jpg";
-import slideWaterHeater from "@/assets/slide-water-heater.png";
+import slideStandingSeam from "@/assets/slide-standing-seam.jpg";
+import slideRPanel from "@/assets/slide-r-panel.jpg";
+import slideMultiV from "@/assets/slide-multi-v.jpg";
+import slideTpo from "@/assets/slide-tpo.jpg";
 
 const vehicles = [
-  { image: slideSedan, category: "", title: "Trenchless", subtitle: "Fix your Plumbing without Demolition", primaryCta: "Book Now", secondaryCta: "Learn More", learnMoreLink: "/trenchless" },
-  { image: slideWaterHeater, category: "", title: "Water Heater", subtitle: "Repair · Replace · Upgrade · Rebates", primaryCta: "Book Now", secondaryCta: "Learn More", learnMoreLink: "/water-heater" },
-  { image: slideHydroJetter, category: "", title: "Hydro Jetting", subtitle: "Remove Tree Roots in seconds", primaryCta: "Book Now", secondaryCta: "Learn More", learnMoreLink: "/hydro-jetting" },
-  { image: slideSports, category: "", title: "Plumbing", subtitle: "Better for New Constructions", primaryCta: "Book Now", secondaryCta: "Learn More", learnMoreLink: "/plumbing" },
+  { image: slideStandingSeam, category: "", title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/standing-seam" },
+  { image: slideRPanel, category: "", title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/r-panel" },
+  { image: slideMultiV, category: "", title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/multi-v" },
+  { image: slideTpo, category: "", title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/tpo-commercial" },
 ];
 
 const VehicleSlider = () => {
