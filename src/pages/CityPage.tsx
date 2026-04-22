@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomBar from "@/components/BottomBar";
 import ServiceHero from "@/components/ServiceHero";
-import { getCityBySlug, getCityBySlug as _, cities } from "@/lib/cities-data";
+import { getCityBySlug, cities } from "@/lib/cities-data";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 
 const services = [
