@@ -242,18 +242,23 @@ const ChargingSection = () => {
           ? "Smart timing — early adopters get the best installer slots"
           : "First-mover advantage — stand out and add resale value";
 
-        // Reverse-lookup closest state name
+        // Resolve actual US state from user's lat/lng using nearest state centroid.
         let region = "your area";
-        let closestStateDist = Infinity;
-        for (const [state, density] of Object.entries(stateDensity)) {
-          const diff = Math.abs(density - nearestRegion.density);
-          if (diff < closestStateDist) {
-            closestStateDist = diff;
+        let minStateDist = Infinity;
+        for (const [state, [lng, lat]] of Object.entries(stateCentroids)) {
+          const d = Math.sqrt((lat - latitude) ** 2 + (lng - longitude) ** 2);
+          if (d < minStateDist) {
+            minStateDist = d;
             region = state;
           }
         }
 
-        setLocationResult({ adoptionPct, momentum, region });
+        // Drive adoption % from the resolved state's own density (not the nearest metro's).
+        const stateDens = stateDensity[region] ?? 0.3;
+        const basePctState = Math.round(20 + stateDens * 65);
+        const adoptionPctState = Math.max(5, Math.min(95, basePctState + variance));
+
+        setLocationResult({ adoptionPct: adoptionPctState, momentum, region });
         setLocating(false);
       },
       (error) => {
