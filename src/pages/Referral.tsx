@@ -8,6 +8,7 @@ import ctaReferral from "@/assets/cta-referral.jpg";
 import heroReferral from "@/assets/hero-referral.jpg";
 import heroReferralWebp from "@/assets/hero-referral.webp";
 import { DollarSign, Users, CheckCircle, ArrowRight } from "lucide-react";
+import { openBookingDialog } from "@/lib/booking";
 
 const stepIcons = [Users, CheckCircle, DollarSign];
 
@@ -57,12 +58,12 @@ const Referral = () => {
             It works like a sales job — just refer someone to The Roofing Friend, and when we complete the install, you earn a commission based on the job size.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
-            <a
-              href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
+            <button
+              onClick={openBookingDialog}
               className="px-8 py-3 rounded font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity"
             >
               Start Referring Today
-            </a>
+            </button>
             <a
               href="#how-it-works"
               className="px-8 py-3 rounded font-medium border border-white/30 text-white hover:bg-white/10 transition-colors"
@@ -177,12 +178,12 @@ const Referral = () => {
           <p className="mt-3 text-white/70">
             There's no sign-up fee, no contract, and no cap on earnings. Just refer someone to The Roofing Friend and get paid when the install is done.
           </p>
-          <a
-            href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
+          <button
+            onClick={openBookingDialog}
             className="mt-6 inline-block px-8 py-3 rounded font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity"
           >
             Contact Us to Get Started
-          </a>
+          </button>
         </div>
       </section>
 

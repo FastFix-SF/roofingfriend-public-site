@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import React, { Suspense } from "react";
+import BookingDialog from "@/components/BookingDialog";
 
 const Index = React.lazy(() => import("./pages/Index"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
@@ -26,6 +27,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <BookingDialog />
         <BrowserRouter>
           <Suspense fallback={<div className="h-screen bg-background" />}>
             <Routes>

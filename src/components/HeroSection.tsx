@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
+import { useBooking } from "@/hooks/useBooking";
+import { BOOKING_URL } from "@/lib/booking";
 
 interface HeroCaption {
   text: string;
@@ -29,6 +31,7 @@ interface HeroSectionProps {
 
 const HeroSection = ({ slides }: HeroSectionProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const { openBooking } = useBooking();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [videoReady, setVideoReady] = useState<Record<number, boolean>>({});
   const videoRefs = useState<Record<number, HTMLVideoElement | null>>(() => ({}))[0];
@@ -140,13 +143,27 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                     </p>
                   )}
                   <div className="flex flex-row items-center gap-2 md:gap-3 mt-4 w-full max-w-lg text-xs md:text-sm">
-                    <a
-                      href={slide.primaryLink || "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D"}
-                      {...((slide.primaryLink || "").startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-[11px] md:text-sm whitespace-nowrap"
-                    >
-                      {slide.primaryCta}
-                    </a>
+                    {(() => {
+                      const link = slide.primaryLink || "#book";
+                      const isBooking = !slide.primaryLink || link === "#book" || link.includes("book.servicetitan.com") || link === BOOKING_URL;
+                      const cls = "w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-[11px] md:text-sm whitespace-nowrap";
+                      if (isBooking) {
+                        return (
+                          <button onClick={openBooking} className={cls}>
+                            {slide.primaryCta}
+                          </button>
+                        );
+                      }
+                      return (
+                        <a
+                          href={link}
+                          {...(link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className={cls}
+                        >
+                          {slide.primaryCta}
+                        </a>
+                      );
+                    })()}
                     {slide.secondaryCta && (
                       <a
                         href={slide.secondaryLink || "#"}

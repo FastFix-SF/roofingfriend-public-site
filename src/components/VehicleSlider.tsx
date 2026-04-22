@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SmartImage from "@/components/ui/SmartImage";
+import { useBooking } from "@/hooks/useBooking";
 import slideStandingSeam from "@/assets/slide-standing-seam.jpg";
 import slideStandingSeamWebp from "@/assets/slide-standing-seam.webp";
 import slideRPanel from "@/assets/slide-r-panel.jpg";
@@ -20,6 +21,7 @@ const vehicles = [
 ];
 
 const VehicleSlider = () => {
+  const { openBooking } = useBooking();
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false, slidesToScroll: 1, dragFree: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -55,7 +57,7 @@ const VehicleSlider = () => {
                     <h3 className="text-3xl md:text-4xl font-medium text-white">{v.title}</h3>
                     <p className="text-sm text-white/90 mt-1 underline underline-offset-4">{v.subtitle}</p>
                     <div className="flex gap-3 mt-5 flex-nowrap">
-                      <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-6 sm:px-8 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity whitespace-nowrap">{v.primaryCta}</a>
+                      <button onClick={openBooking} className="px-6 sm:px-8 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity whitespace-nowrap">{v.primaryCta}</button>
                       <Link to={v.learnMoreLink} className="px-6 sm:px-8 py-2.5 rounded text-sm font-medium bg-white text-foreground hover:bg-white/90 transition-colors whitespace-nowrap">{v.secondaryCta}</Link>
                     </div>
                   </div>

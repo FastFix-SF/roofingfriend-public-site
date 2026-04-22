@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Search, Wrench } from "lucide-react";
 import SearchDialog from "./SearchDialog";
+import { useBooking } from "@/hooks/useBooking";
 
 const BottomBar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const { openBooking } = useBooking();
 
   return (
     <>
@@ -16,13 +18,13 @@ const BottomBar = () => {
             <Search size={14} strokeWidth={1.5} />
             Find Something
           </button>
-          <a
-            href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
+          <button
+            onClick={openBooking}
             className="flex-1 inline-flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-6 py-2.5 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all text-[10px] md:text-xs whitespace-nowrap"
           >
             <Wrench size={14} strokeWidth={1.5} />
             Schedule an Inspection Today
-          </a>
+          </button>
         </div>
       </div>
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
