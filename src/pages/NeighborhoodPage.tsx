@@ -40,7 +40,7 @@ const NeighborhoodPage = () => {
     name: "The Roofing Friend",
     image: "https://theroof.info/og-image.jpg",
     telephone: PHONE,
-    email: "info@theroof.info",
+    email: "roofingfriend@gmail.com",
     url: canonicalUrl,
     areaServed: [
       { "@type": "Place", name: `${neighborhood.name}, ${city.name}` },

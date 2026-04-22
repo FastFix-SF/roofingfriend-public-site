@@ -85,7 +85,7 @@ const Index = () => {
           "@type": "RoofingContractor",
           name: "The Roofing Friend",
           telephone: "(415) 697-1849",
-          email: "info@theroof.info",
+          email: "roofingfriend@gmail.com",
           url: "https://theroof.info",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
           openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },

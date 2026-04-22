@@ -40,7 +40,7 @@ const CityPage = () => {
     name: "The Roofing Friend",
     image: "https://theroof.info/og-image.jpg",
     telephone: PHONE,
-    email: "info@theroof.info",
+    email: "roofingfriend@gmail.com",
     url: canonicalUrl,
     areaServed: [
       { "@type": "City", name: city.name },

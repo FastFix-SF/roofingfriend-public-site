@@ -47,7 +47,7 @@ const About = () => (
         name: "The Roofing Friend",
         description: "Veteran-owned California metal roofing contractor — standing seam, R-Panel, Multi-V and TPO systems across the San Francisco Bay Area.",
         telephone: "(415) 697-1849",
-        email: "info@theroof.info",
+        email: "roofingfriend@gmail.com",
         url: "https://theroof.info",
         address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
         areaServed: cities.map(c => ({ "@type": "City", name: c.name })),
