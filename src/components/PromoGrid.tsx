@@ -2,8 +2,8 @@ import SmartImage from "@/components/ui/SmartImage";
 import { useBooking } from "@/hooks/useBooking";
 import promoOffers from "@/assets/promo-offers.jpg";
 import promoOffersWebp from "@/assets/promo-offers.webp";
-import promoHeroes from "@/assets/promo-inspection.jpg";
-import promoHeroesWebp from "@/assets/promo-inspection.webp";
+import promoReferralShare from "@/assets/promo-referral-share.jpg";
+import promoReferralShareWebp from "@/assets/promo-referral-share.webp";
 import promoStandingSeam from "@/assets/slide-standing-seam.jpg";
 import promoStandingSeamWebp from "@/assets/slide-standing-seam.webp";
 import promoVeteran from "@/assets/hero-veteran-government-roofing.jpg";
@@ -40,7 +40,7 @@ const PromoGrid = () => {
               </a>
             </div>
             <div className="sm:w-[45%] h-40 sm:h-auto">
-              <SmartImage src={promoHeroes} webpSrc={promoHeroesWebp} alt="Referral Program" width={768} height={512} className="w-full h-full object-cover" />
+              <SmartImage src={promoReferralShare} webpSrc={promoReferralShareWebp} alt="Refer a friend, earn a commission on every completed metal roof install" width={768} height={512} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
