@@ -23,6 +23,27 @@ const stateDensity: Record<string, number> = {
   "District of Columbia": 0.15,
 };
 
+// Approximate geographic centroid [lng, lat] of every US state — used for client-side reverse-geocoding.
+const stateCentroids: Record<string, [number, number]> = {
+  "Alabama": [-86.8, 32.8], "Alaska": [-152.4, 64.2], "Arizona": [-111.7, 34.3],
+  "Arkansas": [-92.4, 34.9], "California": [-119.4, 36.8], "Colorado": [-105.5, 39.0],
+  "Connecticut": [-72.7, 41.6], "Delaware": [-75.5, 39.0], "District of Columbia": [-77.0, 38.9],
+  "Florida": [-81.7, 27.8], "Georgia": [-83.4, 32.9], "Hawaii": [-156.5, 20.6],
+  "Idaho": [-114.5, 44.4], "Illinois": [-89.2, 40.0], "Indiana": [-86.3, 39.9],
+  "Iowa": [-93.2, 42.0], "Kansas": [-98.4, 38.5], "Kentucky": [-84.9, 37.7],
+  "Louisiana": [-91.9, 31.0], "Maine": [-69.4, 45.4], "Maryland": [-76.8, 39.0],
+  "Massachusetts": [-71.8, 42.2], "Michigan": [-84.7, 44.3], "Minnesota": [-94.3, 46.3],
+  "Mississippi": [-89.7, 32.7], "Missouri": [-92.5, 38.5], "Montana": [-110.4, 47.0],
+  "Nebraska": [-99.8, 41.5], "Nevada": [-117.0, 39.3], "New Hampshire": [-71.6, 43.7],
+  "New Jersey": [-74.5, 40.2], "New Mexico": [-106.1, 34.4], "New York": [-75.5, 42.9],
+  "North Carolina": [-79.8, 35.6], "North Dakota": [-100.5, 47.5], "Ohio": [-82.8, 40.3],
+  "Oklahoma": [-97.5, 35.6], "Oregon": [-120.5, 44.0], "Pennsylvania": [-77.7, 40.9],
+  "Rhode Island": [-71.5, 41.7], "South Carolina": [-80.9, 33.8], "South Dakota": [-99.4, 44.4],
+  "Tennessee": [-86.7, 35.7], "Texas": [-99.0, 31.5], "Utah": [-111.9, 39.3],
+  "Vermont": [-72.7, 44.0], "Virginia": [-78.2, 37.5], "Washington": [-120.5, 47.4],
+  "West Virginia": [-80.6, 38.6], "Wisconsin": [-89.6, 44.3], "Wyoming": [-107.5, 43.0],
+};
+
 // Estimated metal-roof homes per state (population × adoption rate).
 const statePipeCount: Record<string, number> = {
   "California": 600000, "Texas": 1100000, "Florida": 850000, "New York": 180000,
@@ -212,8 +233,22 @@ const ChargingSection = () => {
             nearestRegion = region;
           }
         }
-        const basePct = Math.round(20 + nearestRegion.density * 65);
         const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
+
+        // Resolve actual US state from user's lat/lng using nearest state centroid.
+        let region = "your area";
+        let minStateDist = Infinity;
+        for (const [state, [lng, lat]] of Object.entries(stateCentroids)) {
+          const d = Math.sqrt((lat - latitude) ** 2 + (lng - longitude) ** 2);
+          if (d < minStateDist) {
+            minStateDist = d;
+            region = state;
+          }
+        }
+
+        // Drive adoption % from the resolved state's own density.
+        const stateDens = stateDensity[region] ?? 0.3;
+        const basePct = Math.round(20 + stateDens * 65);
         const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
         const momentum = adoptionPct > 50
           ? "Hot market — lock in your quote before prices rise"
@@ -221,16 +256,8 @@ const ChargingSection = () => {
           ? "Smart timing — early adopters get the best installer slots"
           : "First-mover advantage — stand out and add resale value";
 
-        // Reverse-lookup closest state name
-        let region = "your area";
-        let closestStateDist = Infinity;
-        for (const [state, density] of Object.entries(stateDensity)) {
-          const diff = Math.abs(density - nearestRegion.density);
-          if (diff < closestStateDist) {
-            closestStateDist = diff;
-            region = state;
-          }
-        }
+        // nearestRegion retained for future use (variance seeding context).
+        void nearestRegion;
 
         setLocationResult({ adoptionPct, momentum, region });
         setLocating(false);
