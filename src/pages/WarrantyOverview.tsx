@@ -7,14 +7,23 @@ import { warrantyCategories, warrantyOverviewFaqs } from "@/lib/warranty-data";
 import { CheckCircle2, Building, Landmark, Home } from "lucide-react";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
+import warrantyCommercialWebp from "@/assets/warranty-commercial.webp";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
+import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
 import warrantyResidential from "@/assets/warranty-residential.jpg";
+import warrantyResidentialWebp from "@/assets/warranty-residential.webp";
 import ctaWarrantyOverview from "@/assets/cta-warranty-overview.jpg";
 
 const categoryImages: Record<string, string> = {
   commercial: warrantyCommercial,
   industrial: warrantyIndustrial,
   residential: warrantyResidential,
+};
+
+const categoryImagesWebp: Record<string, string> = {
+  commercial: warrantyCommercialWebp,
+  industrial: warrantyIndustrialWebp,
+  residential: warrantyResidentialWebp,
 };
 
 const categoryIcons: Record<string, typeof Building> = {
@@ -53,13 +62,16 @@ const WarrantyOverview = () => (
       <link rel="canonical" href="https://roofingfriend.com/warranty" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+      <link rel="preload" as="image" href={warrantyResidentialWebp} type="image/webp" fetchPriority="high" />
     </Helmet>
 
     <Navbar />
 
     {/* Hero */}
     <section className="snap-section relative overflow-hidden">
-      <img
+      <picture>
+        <source srcSet={warrantyResidentialWebp} type="image/webp" />
+        <img
         src={warrantyResidential}
         alt="Roofing Friend metal roof warranty coverage"
         className="absolute inset-0 w-full h-full object-cover"
