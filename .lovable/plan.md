@@ -2,34 +2,44 @@
 
 ## Goal
 
-Replace every instance of the old phone number `(510) 999-7663` / `5109997663` with the new number `+1 (415) 697-1849` / `14156971849` across the entire site.
+Make the About page **hero** actually represent The Roofing Friend — using the real team photo and the real logo — instead of the current generic AI roof image.
 
-## Files to update
+## What changes
 
-A site-wide search will catch every occurrence, but based on what I've seen so far the number lives in at least:
+### 1. Hero background = real crew photo
+The same iconic team selfie from roofingfriend.com is already in the project at `src/assets/about-crew.jpg` / `.webp`. Use **that** as the hero background image (replacing `hero-about.jpg`).
 
-1. **`src/components/Footer.tsx`** — Contact Info column `tel:` link and display text.
-2. **`src/pages/Contact.tsx`** — Phone card (`tel:` + display), JSON-LD `telephone`, and the inline call link under the form.
-3. **`src/components/BottomBar.tsx`** — sticky mobile call button (likely).
-4. **`src/components/Navbar.tsx`** — header call CTA (if present).
-5. **`src/components/HeroSection.tsx` / `ServiceHero.tsx` / `BookingDialog.tsx`** — any embedded call CTAs.
-6. **`index.html`** + **`public/llms.txt`** — any hardcoded contact references.
-7. **Any other page** (`About`, `CityPage`, `Reviews`, `Rebates`, `Referral`, `WarrantyDetail`, etc.) that hardcodes the number.
+To keep it readable behind white text:
+- Stronger gradient overlay (dark from bottom-left → semi-transparent top-right) instead of the current flat `bg-black/60`.
+- Slight `object-position: top` so faces aren't cropped at the chin on wide screens.
 
-## Format used everywhere
+### 2. Real logo overlay in the hero
+Add the real `roofing-friend-logo.png` (already in `src/assets/`) above the H1, sized ~80px tall with a soft white drop-shadow so the blue/green logo pops on the dark photo.
 
-- **Display text**: `(415) 697-1849`
-- **`tel:` href**: `tel:+14156971849` (E.164, with the `+`)
-- **JSON-LD `telephone`**: `+1-415-697-1849`
+### 3. ServiceHero component — extend, don't break
+`ServiceHero` is shared by other pages, so add **two optional props** that only the About page uses:
+- `logo?: { src: string; webp?: string; alt: string }` → renders the logo above the title
+- `overlayClassName?: string` → lets About pass a custom gradient (`bg-gradient-to-tr from-black/85 via-black/60 to-black/40`) instead of the default `bg-black/60`
 
-## Approach
+Default behavior for every other page stays identical.
 
-1. Run a project-wide search for `5109997663`, `510 999`, `510) 999`, `999-7663`, and `999.7663` to enumerate every occurrence.
-2. Replace each with the new number using the format conventions above (display vs. tel vs. schema).
-3. Leave all surrounding labels (e.g. "Call or text anytime", "24/7 Emergency Service") untouched.
+### 4. About page — swap the assets
+- `hero-about` imports → replaced by `about-crew` imports for the hero.
+- The current `aboutCrew` image used in the "Our Story" section gets swapped for a more contextual shot. Since we don't have another real Roofing Friend team photo in `src/assets/`, generate one new on-brand image (`about-team-jobsite.jpg/.webp`) showing a Roofing Friend crew on a Bay Area metal-roof job site, hi-vis vests, golden hour — and use it in the Our Story figure. (No fake faces of specific people; wide jobsite shot.)
+- `<link rel="preload">` updated to point to the new hero webp.
+
+### 5. Hero copy stays the same
+"About The Roofing Friend" / "We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed." — already matches the live site's tone. No copy change.
+
+## Files touched
+
+- `src/components/ServiceHero.tsx` — add `logo` + `overlayClassName` optional props
+- `src/pages/About.tsx` — swap hero imports, add logo prop, update preload, swap Our Story image
+- `src/assets/about-team-jobsite.jpg` + `.webp` — newly generated jobsite photo (for Our Story slot only)
 
 ## Out of scope
 
-- No layout, copy, or component changes — number swap only.
-- Email addresses, hours, and addresses stay as they are.
+- Other pages using `ServiceHero` (Contact, Reviews, Warranty, etc.) — untouched.
+- Navbar, footer, stats, services list, coverage, CTA — untouched.
+- No copy changes.
 
