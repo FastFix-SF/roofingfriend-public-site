@@ -9,6 +9,8 @@ import { cities } from "@/lib/cities-data";
 import ctaAbout from "@/assets/cta-about.jpg";
 import heroAbout from "@/assets/hero-about.jpg";
 import heroAboutWebp from "@/assets/hero-about.webp";
+import aboutCrew from "@/assets/about-crew.jpg";
+import aboutCrewWebp from "@/assets/about-crew.webp";
 
 const stats = [
   { value: "500+", label: "Bay Area Roofs", sub: "Residential, commercial & government", icon: Briefcase },
@@ -56,29 +58,48 @@ const About = () => (
 
     {/* Mission */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-sm font-medium text-cta-gold uppercase tracking-widest mb-2">Veteran-Built · California-Licensed #1067709</p>
-        <div className="flex gap-8 flex-wrap mb-6">
-          <div><span className="text-3xl font-bold text-foreground">15+</span><p className="text-sm text-muted-foreground">Years in Business</p></div>
-          <div><span className="text-3xl font-bold text-foreground">13+</span><p className="text-sm text-muted-foreground">Bay Area Locations</p></div>
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p className="text-sm font-medium text-cta-gold uppercase tracking-widest mb-2">Veteran-Built · California-Licensed #1067709</p>
+          <div className="flex gap-8 flex-wrap mb-6">
+            <div><span className="text-3xl font-bold text-foreground">15+</span><p className="text-sm text-muted-foreground">Years in Business</p></div>
+            <div><span className="text-3xl font-bold text-foreground">13+</span><p className="text-sm text-muted-foreground">Bay Area Locations</p></div>
+          </div>
+          <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+            The Roofing Friend is a veteran-owned California roofing contractor specializing in premium metal roof systems across the San Francisco Bay Area. From standing seam on luxury Marin estates to TPO on retail centers and spec-grade installs for government facilities, we deliver Awwwards-level craftsmanship on every roof — backed by industry-leading warranties up to 50 years.
+          </p>
+          <ul className="space-y-3">
+            {[
+              "Standing seam, R-Panel, Multi-V and TPO metal roof systems",
+              "Up to 50-year manufacturer warranties on residential",
+              "Class A fire rating — non-combustible WUI-zone protection",
+              "Title 24 cool-roof certified panels for PG&E rebates",
+              "Veteran-owned · California-licensed · GSA-friendly",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-foreground">
+                <CheckCircle2 size={18} className="text-cta-gold mt-0.5 shrink-0" />
+                <span className="text-sm md:text-base">{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
-          The Roofing Friend is a veteran-owned California roofing contractor specializing in premium metal roof systems across the San Francisco Bay Area. From standing seam on luxury Marin estates to TPO on retail centers and spec-grade installs for government facilities, we deliver Awwwards-level craftsmanship on every roof — backed by industry-leading warranties up to 50 years.
-        </p>
-        <ul className="space-y-3">
-          {[
-            "Standing seam, R-Panel, Multi-V and TPO metal roof systems",
-            "Up to 50-year manufacturer warranties on residential",
-            "Class A fire rating — non-combustible WUI-zone protection",
-            "Title 24 cool-roof certified panels for PG&E rebates",
-            "Veteran-owned · California-licensed · GSA-friendly",
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-3 text-foreground">
-              <CheckCircle2 size={18} className="text-cta-gold mt-0.5 shrink-0" />
-              <span className="text-sm md:text-base">{item}</span>
-            </li>
-          ))}
-        </ul>
+        <figure className="lg:order-last">
+          <picture>
+            <source srcSet={aboutCrewWebp} type="image/webp" />
+            <img
+              src={aboutCrew}
+              alt="The Roofing Friend crew on a Bay Area job site"
+              loading="lazy"
+              decoding="async"
+              width={1200}
+              height={1600}
+              className="w-full h-auto rounded-2xl shadow-lg object-cover"
+            />
+          </picture>
+          <figcaption className="mt-3 text-sm text-muted-foreground italic text-center">
+            The Roofing Friend crew — on the job in the Bay Area.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
