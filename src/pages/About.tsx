@@ -7,10 +7,12 @@ import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
 import { cities } from "@/lib/cities-data";
 import ctaAbout from "@/assets/cta-about.jpg";
-import heroAbout from "@/assets/hero-about.jpg";
-import heroAboutWebp from "@/assets/hero-about.webp";
-import aboutCrew from "@/assets/about-crew.jpg";
-import aboutCrewWebp from "@/assets/about-crew.webp";
+import heroCrew from "@/assets/about-crew.jpg";
+import heroCrewWebp from "@/assets/about-crew.webp";
+import aboutJobsite from "@/assets/about-team-jobsite.jpg";
+import aboutJobsiteWebp from "@/assets/about-team-jobsite.webp";
+import roofingFriendLogo from "@/assets/roofing-friend-logo.png";
+import roofingFriendLogoWebp from "@/assets/roofing-friend-logo.webp";
 
 const stats = [
   { value: "500+", label: "Bay Area Roofs", sub: "Residential, commercial & government", icon: Briefcase },
@@ -34,7 +36,7 @@ const About = () => (
       <title>About | The Roofing Friend</title>
       <meta name="description" content="The Roofing Friend — veteran-owned California metal roofing contractor serving the San Francisco Bay Area with standing seam, R-Panel, Multi-V & TPO systems." />
       <link rel="canonical" href="https://theroof.info/about" />
-      <link rel="preload" as="image" href={heroAboutWebp} type="image/webp" fetchPriority="high" />
+      <link rel="preload" as="image" href={heroCrewWebp} type="image/webp" fetchPriority="high" />
       <meta property="og:title" content="About | The Roofing Friend" />
       <meta property="og:description" content="Veteran-owned California metal roofing contractor serving the San Francisco Bay Area." />
       <meta property="og:url" content="https://theroof.info/about" />
@@ -54,7 +56,15 @@ const About = () => (
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="About The Roofing Friend" tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed." backgroundImage={heroAbout} backgroundImageWebp={heroAboutWebp} />
+    <ServiceHero
+      title="About The Roofing Friend"
+      tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed."
+      backgroundImage={heroCrew}
+      backgroundImageWebp={heroCrewWebp}
+      backgroundImageClassName="object-top"
+      overlayClassName="bg-gradient-to-tr from-black/85 via-black/60 to-black/40"
+      logo={{ src: roofingFriendLogo, webp: roofingFriendLogoWebp, alt: "The Roofing Friend logo" }}
+    />
 
     {/* Mission */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
@@ -85,14 +95,14 @@ const About = () => (
         </div>
         <figure className="lg:order-last">
           <picture>
-            <source srcSet={aboutCrewWebp} type="image/webp" />
+            <source srcSet={aboutJobsiteWebp} type="image/webp" />
             <img
-              src={aboutCrew}
-              alt="The Roofing Friend crew on a Bay Area job site"
+              src={aboutJobsite}
+              alt="The Roofing Friend crew installing a standing seam metal roof on a Bay Area home at golden hour"
               loading="lazy"
               decoding="async"
-              width={1200}
-              height={1600}
+              width={1600}
+              height={1200}
               className="w-full h-auto rounded-2xl shadow-lg object-cover"
             />
           </picture>
