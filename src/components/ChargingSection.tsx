@@ -2,6 +2,7 @@ import { Home, TrendingUp, AlertTriangle, Loader2 } from "lucide-react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import React, { useMemo, useState, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useBooking } from "@/hooks/useBooking";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -202,6 +203,7 @@ const legendItems = [
 ];
 
 const ChargingSection = () => {
+  const { openBooking } = useBooking();
   const isMobile = useIsMobile();
   const dots = useMemo(() => generateDots(), []);
   const [tooltip, setTooltip] = useState<{ name: string; density: number; pipes: number; x: number; y: number } | null>(null);
@@ -397,9 +399,9 @@ const ChargingSection = () => {
                   }`} />
                   <span className="text-xs font-medium text-foreground">{locationResult.momentum}</span>
                 </div>
-                <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
+                <button onClick={openBooking} className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
                   Claim My Free Quote →
-                </a>
+                </button>
               </div>
             )}
           </div>
@@ -418,7 +420,7 @@ const ChargingSection = () => {
             8.4 million homeowners already switched. They cut cooling bills 25%, skip a $15,000 reroof every 15 years, and sleep through hurricanes that shred shingles. Quote prices lock for 30 days — yours is free.
           </p>
           <div className="flex gap-3 mt-4">
-            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Lock My Free Quote (30 sec)</a>
+            <button onClick={openBooking} className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Lock My Free Quote (30 sec)</button>
             <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">See Lifetime Warranty →</a>
           </div>
         </div>

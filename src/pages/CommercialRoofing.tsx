@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench, Check, Award, DollarSign, Store, UtensilsCrossed, Warehouse, Briefcase, ShoppingBag, Car } from "lucide-react";
+import { openBookingDialog } from "@/lib/booking";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
@@ -116,9 +117,9 @@ const CommercialRoofing = () => {
             Standing Seam Roofs for Retail · Restaurants · Big-Box · Warehouses
           </p>
           <div className="flex flex-row items-center gap-3 mt-4">
-            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg text-sm">
+            <button onClick={openBookingDialog} className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg text-sm">
               Get a Commercial Quote
-            </a>
+            </button>
             <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-sm">
               Call (510) 999-7663
             </a>
@@ -143,9 +144,9 @@ const CommercialRoofing = () => {
                   <Icon size={28} className="text-cta-blue mb-4" strokeWidth={1.5} />
                   <h3 className="text-lg font-semibold text-foreground mb-2">{s.name}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
-                  <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-cta-blue hover:underline">
+                  <button onClick={openBookingDialog} className="text-sm font-medium text-cta-blue hover:underline">
                     Get a Quote →
-                  </a>
+                  </button>
                 </div>
               );
             })}
@@ -205,9 +206,9 @@ const CommercialRoofing = () => {
                 Cool-roof rated standing seam panels qualify for PG&amp;E commercial rebates and Title 24 energy compliance credits — typically offsetting 5–15% of total install cost.
               </p>
             </div>
-            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm font-medium text-cta-blue hover:underline">
+            <button onClick={openBookingDialog} className="mt-6 inline-block text-sm font-medium text-cta-blue hover:underline">
               Check Your Rebate Eligibility →
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -295,9 +296,9 @@ const CommercialRoofing = () => {
             Get a free roof survey and quote for a standing seam metal system engineered for your retail center, restaurant, or warehouse.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
+            <button onClick={openBookingDialog} className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
               Schedule a Free Roof Survey
-            </a>
+            </button>
             <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
               Call (510) 999-7663
             </a>
