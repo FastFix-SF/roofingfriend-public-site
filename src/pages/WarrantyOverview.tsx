@@ -7,12 +7,12 @@ import { warrantyCategories, warrantyOverviewFaqs } from "@/lib/warranty-data";
 import { CheckCircle2, Building, Landmark, Home } from "lucide-react";
 import { openBookingDialog } from "@/lib/booking";
 
-import warrantyCommercial from "@/assets/warranty-commercial.jpg";
-import warrantyCommercialWebp from "@/assets/warranty-commercial.webp";
+import warrantyCommercial from "@/assets/warranty-commercial-v2.jpg";
+import warrantyCommercialWebp from "@/assets/warranty-commercial-v2.webp";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
 import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
-import warrantyResidential from "@/assets/warranty-residential.jpg";
-import warrantyResidentialWebp from "@/assets/warranty-residential.webp";
+import warrantyResidential from "@/assets/warranty-residential-v2.jpg";
+import warrantyResidentialWebp from "@/assets/warranty-residential-v2.webp";
 import ctaWarrantyOverview from "@/assets/cta-warranty-overview.jpg";
 
 const categoryImages: Record<string, string> = {

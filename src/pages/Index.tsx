@@ -14,12 +14,12 @@ import heroVeteranGovernmentWebp from "@/assets/hero-veteran-government-roofing.
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
-import warrantyCommercial from "@/assets/warranty-commercial.jpg";
-import warrantyCommercialWebp from "@/assets/warranty-commercial.webp";
+import warrantyCommercial from "@/assets/warranty-commercial-v2.jpg";
+import warrantyCommercialWebp from "@/assets/warranty-commercial-v2.webp";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
 import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
-import warrantyResidential from "@/assets/warranty-residential.jpg";
-import warrantyResidentialWebp from "@/assets/warranty-residential.webp";
+import warrantyResidential from "@/assets/warranty-residential-v2.jpg";
+import warrantyResidentialWebp from "@/assets/warranty-residential-v2.webp";
 
 const LazyChargingSection = React.lazy(() => import("@/components/ChargingSection"));
 
