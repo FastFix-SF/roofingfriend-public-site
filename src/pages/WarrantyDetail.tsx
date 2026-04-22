@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
 import { warrantyCategories } from "@/lib/warranty-data";
-import { CheckCircle2, XCircle, Building, Factory, Home } from "lucide-react";
+import { CheckCircle2, XCircle, Building, Landmark, Home } from "lucide-react";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
@@ -19,7 +19,7 @@ const categoryImages: Record<string, string> = {
 
 const categoryIcons: Record<string, typeof Building> = {
   commercial: Building,
-  industrial: Factory,
+  industrial: Landmark,
   residential: Home,
 };
 
@@ -45,10 +45,10 @@ const WarrantyDetail = () => {
   const warrantySchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: `${data.name} Plumbing Warranty`,
+    serviceType: `${data.name} Roofing Warranty`,
     provider: {
-      "@type": "Plumber",
-      name: "West Peak Trenchless & Plumbing",
+      "@type": "RoofingContractor",
+      name: "Roofing Friend",
       areaServed: { "@type": "State", name: "California" },
     },
     description: data.description,
@@ -63,7 +63,7 @@ const WarrantyDetail = () => {
       <Helmet>
         <title>{data.metaTitle}</title>
         <meta name="description" content={data.metaDescription} />
-        <link rel="canonical" href={`https://westpeakplumbing.com/warranty/${data.slug}`} />
+        <link rel="canonical" href={`https://roofingfriend.com/warranty/${data.slug}`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(warrantySchema)}</script>
       </Helmet>
@@ -74,7 +74,7 @@ const WarrantyDetail = () => {
       <section className="snap-section relative overflow-hidden">
         <img
           src={categoryImages[data.slug]}
-          alt={`${data.name} plumbing warranty`}
+          alt={`${data.name} metal roof warranty`}
           className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
@@ -180,12 +180,12 @@ const WarrantyDetail = () => {
 
       {/* CTA */}
       <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
-        <img src={ctaWarrantyDetail} alt="Plumber inspecting copper pipes" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+        <img src={ctaWarrantyDetail} alt="Roofing Friend installer inspecting standing seam metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Need to Use Your Warranty?</h2>
           <p className="text-lg text-white/70 mb-8">
-            If something isn't right with your {data.name.toLowerCase()} plumbing, we'll make it right — guaranteed.
+            If something isn't right with your {data.name.toLowerCase()} roof, we'll make it right — guaranteed.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">

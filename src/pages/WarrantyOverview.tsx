@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
 import { warrantyCategories, warrantyOverviewFaqs } from "@/lib/warranty-data";
-import { CheckCircle2, Building, Factory, Home } from "lucide-react";
+import { CheckCircle2, Building, Landmark, Home } from "lucide-react";
 
 import warrantyCommercial from "@/assets/warranty-commercial.jpg";
 import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
@@ -19,7 +19,7 @@ const categoryImages: Record<string, string> = {
 
 const categoryIcons: Record<string, typeof Building> = {
   commercial: Building,
-  industrial: Factory,
+  industrial: Landmark,
   residential: Home,
 };
 
@@ -36,21 +36,21 @@ const faqSchema = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  serviceType: "Plumbing Warranty",
+  serviceType: "Roofing Warranty",
   provider: {
-    "@type": "Plumber",
-    name: "West Peak Trenchless & Plumbing",
+    "@type": "RoofingContractor",
+    name: "Roofing Friend",
     areaServed: { "@type": "State", name: "California" },
   },
-  description: "Industry-leading plumbing warranties: 40 years residential, 3 years commercial & industrial. Covers materials and labor. Exceeds California CSLB minimums.",
+  description: "Industry-leading metal roof warranties: up to 50-year manufacturer paint & substrate on residential, 25-year system warranty on commercial, spec-grade coverage on government & public sector. Veteran-owned California roofing contractor.",
 };
 
 const WarrantyOverview = () => (
   <>
     <Helmet>
-      <title>Plumbing Warranty — Up to 40 Years | West Peak Trenchless & Plumbing</title>
-      <meta name="description" content="West Peak offers the Bay Area's longest plumbing warranties: 40 years residential, 3 years commercial & industrial. Materials + labor included. Exceeds California CSLB requirements." />
-      <link rel="canonical" href="https://westpeakplumbing.com/warranty" />
+      <title>Metal Roof Warranty — Up to 50 Years | Roofing Friend</title>
+      <meta name="description" content="Roofing Friend offers California's strongest metal roof warranties: up to 50-year manufacturer paint & substrate on residential, 25-year system warranty on commercial, spec-grade coverage on government & public sector. Veteran-owned." />
+      <link rel="canonical" href="https://roofingfriend.com/warranty" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
     </Helmet>
@@ -61,7 +61,7 @@ const WarrantyOverview = () => (
     <section className="snap-section relative overflow-hidden">
       <img
         src={warrantyResidential}
-        alt="West Peak plumbing warranty coverage"
+        alt="Roofing Friend metal roof warranty coverage"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
         fetchPriority="high"
@@ -71,10 +71,10 @@ const WarrantyOverview = () => (
       <div className="absolute inset-0 hero-overlay" />
       <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">
-          Industry-Leading Plumbing Warranties
+          Industry-Leading Metal Roof Warranties
         </h1>
         <p className="mt-2 text-base md:text-lg font-light text-hero-text opacity-90">
-          Up to 40 years of protection · Materials + Labor · Exceeds California minimums
+          Up to 50 years of protection · Materials + Labor · Veteran-owned, California-licensed
         </p>
         <div className="flex flex-row items-center gap-3 mt-4 w-full max-w-lg">
           <a href="#categories" className="w-full sm:w-auto flex-1 text-center px-12 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-xs">
@@ -133,13 +133,13 @@ const WarrantyOverview = () => (
             </thead>
             <tbody>
               {[
-                { label: "Warranty Length", values: warrantyCategories.map((c) => c.yearLabel) },
+              { label: "Warranty Length", values: warrantyCategories.map((c) => c.yearLabel) },
                 { label: "Materials Covered", values: ["Yes", "Yes", "Yes"] },
                 { label: "Labor Covered", values: ["Yes", "Yes", "Yes"] },
-                { label: "Transferable", values: ["By Agreement", "By Agreement", "Automatic"] },
-                { label: "Emergency Callbacks", values: ["Included", "Included", "Included"] },
+                { label: "Transferable", values: ["Automatic", "By Agreement", "By Agreement"] },
+                { label: "Priority Callbacks", values: ["Included", "Included", "Included"] },
                 { label: "CA CSLB Minimum", values: ["1 Year", "1 Year", "1 Year"] },
-                { label: "West Peak Exceeds By", values: ["3×", "3×", "40×"] },
+                { label: "Roofing Friend Exceeds By", values: ["50×", "25×", "Spec-Grade"] },
               ].map((row, i) => (
                 <tr key={i} className="border-b border-border">
                   <td className="py-4 pr-4 text-sm font-medium text-foreground">{row.label}</td>
@@ -165,12 +165,12 @@ const WarrantyOverview = () => (
         <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-8">Why Our Warranties Matter</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            "California CSLB only requires 1-year contractor warranty — we offer up to 40×",
-            "Both materials and labor are covered for the full warranty period",
-            "Residential warranties transfer automatically to new homeowners",
-            "Emergency callbacks for warranted work at no extra charge",
-            "We comply with SB 800 Right to Repair and exceed all minimums",
-            "Song-Beverly Act protections apply — repeated failures get upgraded solutions",
+            "California CSLB only requires 1-year workmanship warranty — we go up to 50× on residential",
+            "Both manufacturer materials and Roofing Friend labor are covered together",
+            "Residential metal roof warranties transfer automatically to new homeowners",
+            "Priority callbacks on warranted work — same-day response on active leaks",
+            "We comply with SB 800 Right to Repair and Title 24 cool roof requirements",
+            "Veteran-owned, California-licensed — spec-grade documentation on every project",
           ].map((b, i) => (
             <div key={i} className="flex items-start gap-3 bg-muted rounded-lg p-4">
               <CheckCircle2 size={18} className="text-cta-blue mt-0.5 shrink-0" strokeWidth={1.5} />
@@ -183,7 +183,7 @@ const WarrantyOverview = () => (
 
     {/* CTA */}
     <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
-      <img src={ctaWarrantyOverview} alt="Plumbing workshop with tools and certificates" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+      <img src={ctaWarrantyOverview} alt="Roofing Friend warranty documentation and certificates" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">Questions About Your Warranty?</h2>
