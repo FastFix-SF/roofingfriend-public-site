@@ -4,6 +4,7 @@ import BottomBar from "@/components/BottomBar";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Building2, Zap, ShieldCheck, Clock, Leaf, Wrench, Check, Award, DollarSign, Store, UtensilsCrossed, Warehouse, Briefcase, ShoppingBag, Car } from "lucide-react";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
+import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
 const sectorCards = [
   { name: "Retail Centers", desc: "Strip malls, plazas, and shopping centers — phased installs that keep every storefront open.", icon: Store },
@@ -86,6 +87,7 @@ const CommercialRoofing = () => {
         <title>Commercial Metal Roofing | Standing Seam Roofs Bay Area</title>
         <meta name="description" content="Standing seam metal roofing for commercial properties in the Bay Area — retail centers, restaurants, warehouses, and big-box. 40-year warranty, 25–40% energy savings, zero tenant disruption." />
         <link rel="canonical" href={canonicalUrl} />
+        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" />
         <meta property="og:title" content="Commercial Metal Roofing | Standing Seam Roofs Bay Area" />
         <meta property="og:description" content="Standing seam metal roofing for commercial properties — retail, restaurants, warehouses, big-box. 40-year warranty." />
         <meta property="og:url" content={canonicalUrl} />
@@ -100,7 +102,11 @@ const CommercialRoofing = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ height: "70vh" }}>
-        <img src={heroCommercialRoofing} alt="Standing seam metal roof on a commercial building" className="absolute inset-0 w-full h-full object-cover" loading="eager" width={1920} height={1080} />
+        <picture>
+          <source srcSet={heroCommercialRoofingWebp} type="image/webp" />
+          {/* @ts-expect-error fetchpriority is valid HTML */}
+          <img src={heroCommercialRoofing} alt="Standing seam metal roof on a commercial building" className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchpriority="high" width={1920} height={1080} />
+        </picture>
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">
@@ -278,7 +284,10 @@ const CommercialRoofing = () => {
 
       {/* CTA */}
       <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
-        <img src={heroCommercialRoofing} alt="Commercial standing seam metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+        <picture>
+          <source srcSet={heroCommercialRoofingWebp} type="image/webp" />
+          <img src={heroCommercialRoofing} alt="Commercial standing seam metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+        </picture>
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Upgrade Your Commercial Roof</h2>

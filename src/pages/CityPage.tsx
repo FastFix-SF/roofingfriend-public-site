@@ -7,6 +7,7 @@ import BottomBar from "@/components/BottomBar";
 import ServiceHero from "@/components/ServiceHero";
 import { getCityBySlug, cities } from "@/lib/cities-data";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
+import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
 const services = [
   { name: "Standing Seam", desc: "Concealed-fastener architectural panels — clean lines, 50+ year lifespan.", icon: Building2 },
@@ -56,6 +57,7 @@ const CityPage = () => {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
+        <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
@@ -69,6 +71,7 @@ const CityPage = () => {
         tagline={city.tagline}
         backLink={{ label: "All Service Areas", to: "/" }}
         backgroundImage={heroCommercialRoofing}
+        backgroundImageWebp={heroCommercialRoofingWebp}
       />
 
       {/* Local intro */}
