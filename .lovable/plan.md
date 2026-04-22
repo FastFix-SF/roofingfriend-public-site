@@ -1,67 +1,37 @@
 
+
 ## Goal
 
-Update the **last card in the warranty slider** — the **Government & Public Sector** image — so it matches the newer premium, photo-real look of Residential and Commercial.
+Add the uploaded crew selfie photo into the **Mission** section on the About page, alongside the text, so the page feels real and human — actual Roofing Friend crew members on the job.
 
-## What happened
+## What this adds
 
-The current code shows this was not a rendering bug in the slider itself:
-
-- **Residential** already points to `warranty-residential-v2`
-- **Commercial** already points to `warranty-commercial-v2`
-- **Government & Public Sector** still points to the old original files:
-  - `src/assets/warranty-industrial.jpg`
-  - `src/assets/warranty-industrial.webp`
-
-So the “last one” stayed the same because it was never included in the previous image update scope.
+A real team photo (the hard-hat crew selfie you uploaded) integrated into the Mission section as a two-column layout on desktop, stacked on mobile. This humanizes the "veteran-owned, California-licensed" pitch with proof of the actual people doing the work.
 
 ## Implementation
 
-1. Create a new premium, photo-real replacement for the Government/Public Sector roof image that keeps the strong color direction but removes the fake-render look.
-2. Export matching optimized files:
-   - `src/assets/warranty-industrial-v2.jpg`
-   - `src/assets/warranty-industrial-v2.webp`
-3. Update all places that use the industrial warranty image to point at the new version.
+1. **Save the uploaded image** as a project asset:
+   - `src/assets/about-crew.jpg` — copied from `user-uploads://image-12.png` (saved as `.jpg` for consistency with other hero assets and smaller file size)
+   - `src/assets/about-crew.webp` — optimized WebP version (~1200px wide, q80) generated via `sharp` for performance, matching the pattern used by other images on the site
 
-## Files to update
+2. **Restructure the Mission section** (`src/pages/About.tsx`, lines 57–83) into a two-column grid:
+   - **Left column** — the existing eyebrow line, stats (15+ / 13+), paragraph, and checklist (unchanged copy)
+   - **Right column** — the crew photo in a rounded card with subtle shadow, with a small italic caption underneath: *"The Roofing Friend crew — on the job in the Bay Area."*
+   - Layout: `grid lg:grid-cols-2 gap-12 items-center`, container widened from `max-w-4xl` to `max-w-6xl` to accommodate two columns
+   - Mobile (<lg): photo stacks below the text
+   - Use `<picture>` with WebP `<source>` + JPG fallback, `loading="lazy"`, `decoding="async"`, explicit width/height to avoid CLS
+   - Alt text: `"The Roofing Friend crew on a Bay Area job site"`
 
-### New/updated asset
-- `src/assets/warranty-industrial-v2.jpg`
-- `src/assets/warranty-industrial-v2.webp`
+3. **No other changes** — Stats, Services, Coverage, and CTA sections stay exactly as they are.
 
-### Import references to switch over
-- `src/pages/Index.tsx`
-- `src/pages/WarrantyOverview.tsx`
-- `src/pages/WarrantyDetail.tsx`
+## Files
 
-## Visual direction
+- **Create**: `src/assets/about-crew.jpg`, `src/assets/about-crew.webp`
+- **Edit**: `src/pages/About.tsx` (Mission section only — add import + restructure to 2-column grid)
 
-Keep it:
-- premium
-- clean
-- realistic
-- government/commercial appropriate
+## Out of scope
 
-Avoid:
-- dirty or aged metal
-- CGI-perfect panel texture
-- exaggerated imperfections
-- muddy contrast that hurts headline readability
+- Changing any copy in the Mission section
+- Adding the photo to other pages
+- Modifying the hero, Stats, Services, Coverage, or CTA sections
 
-## Technical details
-
-Current source usage confirms the issue:
-
-```text
-Index.tsx
-- Residential -> warranty-residential-v2
-- Commercial -> warranty-commercial-v2
-- Government & Public Sector -> warranty-industrial (old)
-
-WarrantyOverview.tsx / WarrantyDetail.tsx
-- Also still import warranty-industrial (old)
-```
-
-## Result
-
-After implementation, all three warranty cards in the slider will use the newer premium visual standard, and the last card will no longer be the old unchanged image.
