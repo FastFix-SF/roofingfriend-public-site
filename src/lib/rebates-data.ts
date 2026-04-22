@@ -163,7 +163,7 @@ export const rebateFaqs = [
   {
     question: "Can I use PACE or GoGreen financing for a roof?",
     answer:
-      "Yes — both work for cool-roof projects. PACE (Property Assessed Clean Energy, e.g. Ygrene) is repaid through your property tax bill and qualifies on home equity rather than credit score. GoGreen Home is a state-backed unsecured loan through participating CA credit unions, up to ~$50K with terms to 15 years. Cool roofs qualify when bundled with insulation/air sealing.",
+      "GoGreen Home is the most reliable state-backed financing for California cool-roof projects — up to ~$50K, terms to 15 years, through participating CA credit unions, when bundled with insulation or air sealing under the Building Envelope EEM. PACE financing (repaid through your property tax bill) is still available in California through some county programs but availability has narrowed in recent years — Roofing Friend can check whether PACE is currently offered in your county at quote time.",
   },
   {
     question: "Is Title 24 cool-roof compliance required for my reroof?",
