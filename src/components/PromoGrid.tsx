@@ -1,7 +1,12 @@
+import SmartImage from "@/components/ui/SmartImage";
 import promoOffers from "@/assets/promo-offers.jpg";
-import promoHeroes from "@/assets/promo-inspection.png";
+import promoOffersWebp from "@/assets/promo-offers.webp";
+import promoHeroes from "@/assets/promo-inspection.jpg";
+import promoHeroesWebp from "@/assets/promo-inspection.webp";
 import promoStandingSeam from "@/assets/slide-standing-seam.jpg";
+import promoStandingSeamWebp from "@/assets/slide-standing-seam.webp";
 import promoVeteran from "@/assets/hero-veteran-government-roofing.jpg";
+import promoVeteranWebp from "@/assets/hero-veteran-government-roofing.webp";
 
 const PromoGrid = () => {
   return (
@@ -19,7 +24,7 @@ const PromoGrid = () => {
               </a>
             </div>
             <div className="sm:w-[45%] h-40 sm:h-auto">
-              <img src={promoOffers} alt="Current Offers" loading="lazy" decoding="async" width={768} height={512} className="w-full h-full object-cover" />
+              <SmartImage src={promoOffers} webpSrc={promoOffersWebp} alt="Current Offers" width={768} height={512} className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -33,7 +38,7 @@ const PromoGrid = () => {
               </a>
             </div>
             <div className="sm:w-[45%] h-40 sm:h-auto">
-              <img src={promoHeroes} alt="Referral Program" loading="lazy" decoding="async" width={768} height={512} className="w-full h-full object-cover" />
+              <SmartImage src={promoHeroes} webpSrc={promoHeroesWebp} alt="Referral Program" width={768} height={512} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -42,7 +47,7 @@ const PromoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* FSD card - larger */}
           <div className="md:col-span-3 relative rounded-lg overflow-hidden h-[400px] md:h-[500px]">
-            <img src={promoStandingSeam} alt="Built to Outlast Your Mortgage" loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <SmartImage src={promoStandingSeam} webpSrc={promoStandingSeamWebp} alt="Built to Outlast Your Mortgage" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <h3 className="text-2xl md:text-3xl font-medium text-white">Built to Outlast Your Mortgage</h3>
@@ -56,7 +61,7 @@ const PromoGrid = () => {
 
           {/* Features card - smaller */}
           <div className="md:col-span-2 relative rounded-lg overflow-hidden h-[400px] md:h-[500px]">
-            <img src={promoVeteran} alt="Veteran-Owned Mission-Driven" loading="lazy" decoding="async" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <SmartImage src={promoVeteran} webpSrc={promoVeteranWebp} alt="Veteran-Owned Mission-Driven" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <h3 className="text-2xl md:text-3xl font-medium text-white">Veteran-Owned. Mission-Driven.</h3>
