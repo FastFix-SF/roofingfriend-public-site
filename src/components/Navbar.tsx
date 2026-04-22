@@ -29,7 +29,8 @@ const Navbar = () => {
             </span>
             <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1">
               <span className="block w-4 sm:w-6 h-px bg-cta-gold" />
-              <span className="text-cta-gold font-medium text-[8px] sm:text-[10px] tracking-[0.25em] uppercase leading-none">
+              <span className="text-cta-gold font-medium text-[8px] sm:text-[10px] tracking-[0.25em] uppercase leading-none whitespace-nowrap">
+                Veteran-Built Metal
               </span>
               <span className="block w-4 sm:w-6 h-px bg-cta-gold" />
             </div>
