@@ -9,8 +9,8 @@ import { openBookingDialog } from "@/lib/booking";
 
 import warrantyCommercial from "@/assets/warranty-commercial-v2.jpg";
 import warrantyCommercialWebp from "@/assets/warranty-commercial-v2.webp";
-import warrantyIndustrial from "@/assets/warranty-industrial.jpg";
-import warrantyIndustrialWebp from "@/assets/warranty-industrial.webp";
+import warrantyIndustrial from "@/assets/warranty-industrial-v2.jpg";
+import warrantyIndustrialWebp from "@/assets/warranty-industrial-v2.webp";
 import warrantyResidential from "@/assets/warranty-residential-v2.jpg";
 import warrantyResidentialWebp from "@/assets/warranty-residential-v2.webp";
 import ctaWarrantyOverview from "@/assets/cta-warranty-overview.jpg";
