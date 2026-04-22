@@ -216,10 +216,10 @@ const ChargingSection = () => {
         const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
         const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
         const momentum = adoptionPct > 50
-          ? "High adoption — join your neighbors"
+          ? "Hot market — lock in your quote before prices rise"
           : adoptionPct > 25
-          ? "Growing fast — early-mover advantage"
-          : "Pioneer territory — be first on your block";
+          ? "Smart timing — early adopters get the best installer slots"
+          : "First-mover advantage — stand out and add resale value";
 
         // Reverse-lookup closest state name
         let region = "your area";
