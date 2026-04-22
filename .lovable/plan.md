@@ -1,46 +1,42 @@
 
 
 ## Goal
-Repurpose the four-card homepage slider (currently plumbing services: Trenchless / Water Heater / Hydro Jetting / Plumbing) so it educates visitors on the **metal roofing systems & service categories** that Roofing Friend actually offers — keeping the same visual layout, CTAs, and slider behavior.
+Repurpose the bottom row of `PromoGrid` (currently the plumbing-themed "Save Water, Save Money" + "California Rebate Programs" cards) so it speaks to **Roofing Friend's** veteran metal roofing positioning — keeping the same 3/5 + 2/5 layout, gradients, and CTA styling.
 
 ## Source mapping (from roofingfriend.com)
-Roofing Friend's portfolio features **4 distinct project types**, which map cleanly onto the existing 4 slide structure:
+The two strongest brand pillars on roofingfriend.com that aren't already covered by the slider above are:
+1. **Lifetime Value / Why Metal** — durability story (50+ year lifespan, hail/fire/wind resistance, energy efficiency). This is their #1 educational angle.
+2. **Veteran-Owned, Built to Serve** — their core trust pillar (already echoed in the navbar tagline and hero slide #3).
 
-| # | Roofing Friend offering | Slider card |
-|---|---|---|
-| 1 | Standing Seam Metal Roof (Coastal Property, Los Gatos — 24ga Kynar 500® Steel) | **Standing Seam** — "The Premium Metal Roof, Built to Last 50+ Years" |
-| 2 | R-Panel System (Modern Residential, Castro Valley — 24ga Kynar 500® Steel) | **R-Panel System** — "Affordable Metal Strength for Homes & Barns" |
-| 3 | Multi-V Panel (Luxury Home Renovation, Tiburon — 24ga Painted Steel) | **Multi-V Panel** — "Architectural Style for Luxury Homes" |
-| 4 | TPO Membrane (Commercial Warehouse, Tracy — 60mil White TPO) | **TPO Commercial** — "Energy-Efficient Flat Roofs for Business" |
+These map cleanly onto the existing two-card layout.
 
-This mirrors the educational intent of West Peak's original slider (each card = a service category with a one-line value prop, Book Now + Learn More).
+## Changes — `src/components/PromoGrid.tsx`
 
-## Changes
+### Card 1 (large, `md:col-span-3`) — replace "Save Water, Save Money"
+- **Image**: swap `promoFsd` import → use existing `slide-standing-seam.jpg` (charcoal standing seam roof, perfect hero shot for durability story).
+- **Title**: `Built to Outlast Your Mortgage`
+- **Subtitle**: `50+ year lifespan. Class A fire-rated. Hail, wind & wildfire ready.`
+- **Primary CTA**: `Get a Free Roof Assessment` → keeps ServiceTitan booking URL
+- **Secondary CTA**: `Why Metal?` → point to `/commercial-roofing` (only roofing page that exists today; flagged below)
 
-### 1. `src/components/VehicleSlider.tsx` — replace the `vehicles` array
-Swap the 4 entries for the new metal roofing categories. Keep all styling, embla setup, and CTA wiring as-is.
+### Card 2 (smaller, `md:col-span-2`) — replace "California Rebate Programs"
+- **Image**: swap `promoFeatures` import → use existing `hero-veteran-government-roofing.jpg` (already in repo, on-brand military/government imagery).
+- **Title**: `Veteran-Owned. Mission-Driven.`
+- **Subtitle**: `Discipline, integrity, and craftsmanship on every roof we install.`
+- **CTA**: `Our Story` → point to `/about`
 
+### Import changes (top of file)
 ```ts
-const vehicles = [
-  { image: slideStandingSeam, title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/standing-seam" },
-  { image: slideRPanel, title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/r-panel" },
-  { image: slideMultiV, title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/multi-v" },
-  { image: slideTpo, title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/tpo-commercial" },
-];
+// remove:
+import promoFsd from "@/assets/promo-fsd.jpg";
+import promoFeatures from "@/assets/promo-rebates.jpg";
+// add:
+import promoStandingSeam from "@/assets/slide-standing-seam.jpg";
+import promoVeteran from "@/assets/hero-veteran-government-roofing.jpg";
 ```
 
-### 2. New slide images (4 generated assets)
-Generate 4 high-quality photo-style images matching the card aspect ratio (4:5 mobile / 16:9 desktop) and replace the old plumbing imports:
-
-- `src/assets/slide-standing-seam.jpg` — close-up of a charcoal/black standing seam metal roof on a modern home, golden-hour lighting
-- `src/assets/slide-r-panel.jpg` — corrugated R-panel metal roof on a residential ranch / barn-style home
-- `src/assets/slide-multi-v.jpg` — multi-V profile metal roof on a luxury Tiburon-style hillside home
-- `src/assets/slide-tpo.jpg` — aerial view of a white TPO membrane on a flat commercial warehouse roof
-
-Update the import block at the top of `VehicleSlider.tsx` accordingly. The old slide image files (`slide-sedan.jpg`, `slide-suv.jpg`, `slide-hydro-jetter.png`, `slide-sports.jpg`, `slide-water-heater.png`) can stay on disk — only the imports change.
-
-## Notes / non-goals
-- **Routes**: `/standing-seam`, `/r-panel`, `/multi-v`, `/tpo-commercial` don't exist yet. The Learn More buttons will 404 until those pages are built. Out of scope for this change — flag only. If you want, I can point all four `learnMoreLink`s to `/commercial-roofing` (the one roofing page that already exists) as a temporary fallback. **Tell me which you prefer.**
-- Book Now buttons keep the same ServiceTitan booking URL (already hardcoded in the component).
-- No changes to `HeroSection`, `Navbar`, or any other component.
+## Out of scope / flags
+- **Top row** ("Current Offers" + "Referral Program") is left untouched — Referral is already on-brand and Current Offers still works as a generic promo. Tell me if you want those repurposed too.
+- **No new images generated** — both visuals reuse assets already in `src/assets/`, so this is a pure code edit (fast + free).
+- **`/commercial-roofing` fallback**: same situation as the slider above — the "Why Metal?" link goes there until a dedicated metal-roofing education page exists. Say the word and I'll spin one up in a follow-up.
 
