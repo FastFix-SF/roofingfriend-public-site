@@ -20,9 +20,9 @@ import warrantyResidential from "@/assets/warranty-residential.jpg";
 const LazyChargingSection = React.lazy(() => import("@/components/ChargingSection"));
 
 const secondarySlides = [
-  { image: warrantyCommercial, title: "Commercial", subtitle: "3-Year Warranty · Built for business continuity", primaryCta: "Learn More", link: "/warranty/commercial" },
-  { image: warrantyIndustrial, title: "Industrial", subtitle: "3-Year Warranty · Heavy-duty pipe solutions", primaryCta: "Learn More", link: "/warranty/industrial" },
-  { image: warrantyResidential, title: "Residential", subtitle: "40-Year Warranty · Lifetime protection for your home", primaryCta: "Learn More", link: "/warranty/residential" },
+  { image: warrantyResidential, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "Learn More", link: "/warranty/residential" },
+  { image: warrantyCommercial, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "Learn More", link: "/warranty/commercial" },
+  { image: warrantyIndustrial, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "Learn More", link: "/warranty/industrial" },
 ];
 
 const heroSlides = [
