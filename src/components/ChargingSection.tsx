@@ -321,7 +321,7 @@ const ChargingSection = () => {
         {/* Legend */}
         <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10">
           <p className="text-[10px] font-semibold text-foreground mb-1.5">% of homes with metal roofs</p>
-          <p className="text-[9px] text-muted-foreground mb-1">Each dot = ~10,000 metal-roof homes</p>
+          <p className="text-[9px] text-muted-foreground mb-1">Each dot = 10,000 homes that already switched</p>
           <div className="flex flex-col gap-1">
             {legendItems.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
