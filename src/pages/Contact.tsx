@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Award, Star, ShieldCheck, Zap } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import ServiceHero from "@/components/ServiceHero";
@@ -9,32 +9,55 @@ import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import heroContact from "@/assets/hero-contact-v2.jpg";
 import heroContactWebp from "@/assets/hero-contact-v2.webp";
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    preferredContact: "email",
+    projectType: "residential",
+  });
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     setTimeout(() => {
-      toast.success("Thank you! We'll get back to you within 24 hours.");
-      setForm({ name: "", email: "", phone: "", message: "" });
+      toast.success("Thanks! We'll contact you shortly via your preferred method.");
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        preferredContact: "email",
+        projectType: "residential",
+      });
       setSubmitting(false);
     }, 800);
   };
+
+  const stats = [
+    { icon: Award, value: "500+", label: "Projects Completed" },
+    { icon: Star, value: "4.9/5", label: "Customer Rating" },
+    { icon: ShieldCheck, value: "25-Year", label: "Warranty" },
+    { icon: Zap, value: "Same-Day", label: "Response Time" },
+  ];
 
   return (
     <>
       <Helmet>
         <title>Contact | The Roofing Friend</title>
-        <meta name="description" content="Contact The Roofing Friend for a free metal roof assessment. Call (510) 999-7663 for premium standing seam, R-Panel, Multi-V & TPO roofing across the SF Bay Area." />
+        <meta name="description" content="Book a service with The Roofing Friend — call or text (510) 999-7663 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
         <link rel="canonical" href="https://theroof.info/contact" />
         <link rel="preload" as="image" href={heroContactWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Contact | The Roofing Friend" />
-        <meta property="og:description" content="Get a free roof assessment. Call (510) 999-7663 for premium metal roofing across the San Francisco Bay Area." />
+        <meta property="og:description" content="Call or text anytime at (510) 999-7663. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
         <meta property="og:url" content="https://theroof.info/contact" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
@@ -44,8 +67,10 @@ const Contact = () => {
           telephone: "(510) 999-7663",
           email: "info@theroof.info",
           url: "https://theroof.info",
+          description: "Call or text anytime. 500+ projects completed, 4.9/5 customer rating, 25-year warranty, same-day response across the San Francisco Bay Area.",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
           openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "500" },
         })}</script>
       </Helmet>
 
@@ -59,7 +84,7 @@ const Contact = () => {
             <Phone size={28} className="text-cta-gold mb-3" />
             <h3 className="font-semibold text-foreground mb-1">Phone</h3>
             <p className="text-muted-foreground text-sm">(510) 999-7663</p>
-            <p className="text-xs text-cta-gold mt-1">24/7 Emergency</p>
+            <p className="text-xs text-cta-gold mt-1">Call or text anytime</p>
           </a>
           <a href="mailto:info@theroof.info" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
             <Mail size={28} className="text-cta-gold mb-3" />
@@ -83,10 +108,6 @@ const Contact = () => {
                 <span className="text-muted-foreground">8 AM – 4 PM</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border">
-                <span className="text-foreground font-medium">Saturday – Sunday</span>
-                <span className="text-muted-foreground">By appointment</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-border">
                 <span className="text-foreground font-medium">Emergency Storm Response</span>
                 <span className="text-muted-foreground">24/7</span>
               </div>
@@ -98,8 +119,8 @@ const Contact = () => {
           </div>
 
           <div>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">Get a Free Roof Assessment</h2>
-            <p className="text-muted-foreground text-sm mb-6">Tell us about your project and we'll get back to you within 24 hours.</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">Book a Service</h2>
+            <p className="text-muted-foreground text-sm mb-6">Fill out a few details and we'll contact you instantly.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1 block">Name</label>
@@ -113,18 +134,73 @@ const Contact = () => {
                 <label className="text-sm font-medium text-foreground mb-1 block">Phone</label>
                 <Input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="(555) 555-5555" />
               </div>
+
+              <div>
+                <span className="text-sm font-medium text-foreground mb-2 block">Preferred Contact Method</span>
+                <RadioGroup
+                  value={form.preferredContact}
+                  onValueChange={(v) => setForm({ ...form, preferredContact: v })}
+                  className="flex gap-6"
+                >
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="email" id="contact-email" />
+                    <Label htmlFor="contact-email" className="cursor-pointer">Email</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="text" id="contact-text" />
+                    <Label htmlFor="contact-text" className="cursor-pointer">Text Message</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div>
+                <span className="text-sm font-medium text-foreground mb-2 block">Project Type</span>
+                <RadioGroup
+                  value={form.projectType}
+                  onValueChange={(v) => setForm({ ...form, projectType: v })}
+                  className="flex flex-wrap gap-x-6 gap-y-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="residential" id="type-residential" />
+                    <Label htmlFor="type-residential" className="cursor-pointer">Residential</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="commercial" id="type-commercial" />
+                    <Label htmlFor="type-commercial" className="cursor-pointer">Commercial</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="repair" id="type-repair" />
+                    <Label htmlFor="type-repair" className="cursor-pointer">Service or Repair</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
               <div>
                 <label className="text-sm font-medium text-foreground mb-1 block">Message</label>
                 <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required placeholder="Tell us about your roof — type, size, timeline..." rows={4} />
               </div>
               <Button type="submit" disabled={submitting} className="w-full bg-cta-gold text-btn-primary-fg hover:opacity-90">
-                {submitting ? "Sending..." : "Request Assessment"}
+                {submitting ? "Sending..." : "Book Service"}
               </Button>
             </form>
             <div className="flex items-center gap-4 mt-6">
               <a href="tel:5109997663" className="text-sm font-medium text-cta-gold hover:underline">(510) 999-7663</a>
               <a href="mailto:info@theroof.info" className="text-sm font-medium text-cta-gold hover:underline">Email Us</a>
             </div>
+          </div>
+        </div>
+
+        {/* Trust Stats Strip */}
+        <div className="max-w-5xl mx-auto mt-20">
+          <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-10">Why Choose Us</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map(({ icon: Icon, value, label }) => (
+              <div key={label} className="flex flex-col items-center text-center bg-secondary rounded-lg p-6">
+                <Icon size={28} className="text-cta-gold mb-3" />
+                <div className="text-2xl font-bold text-foreground">{value}</div>
+                <div className="text-xs text-muted-foreground mt-1">{label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
