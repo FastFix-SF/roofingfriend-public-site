@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface SlideData {
   image: string;
@@ -17,11 +17,13 @@ interface SecondarySliderProps {
 }
 
 const SecondarySlider = ({ slides }: SecondarySliderProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, slidesToScroll: 1, dragFree: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false, slidesToScroll: 1, dragFree: true });
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
 
@@ -61,6 +63,15 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
             ))}
           </div>
         </div>
+
+        {canScrollPrev && (
+          <button
+            onClick={() => emblaApi?.scrollPrev()}
+            className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-sm bg-white/90 shadow flex items-center justify-center hover:bg-white transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
+        )}
 
         {canScrollNext && (
           <button
