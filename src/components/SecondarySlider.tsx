@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 interface SlideData {
   image: string;
+  imageWebp?: string;
   title: string;
   subtitle?: string;
   primaryCta: string;
@@ -41,7 +42,7 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
               <div key={v.title} className="min-w-0 shrink-0 grow-0 basis-[98%] sm:basis-[70%] lg:basis-[65%] pl-4">
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] lg:aspect-[16/9]">
                   <picture>
-                    <source srcSet={v.image.replace(/\.(jpe?g|png)$/i, ".webp")} type="image/webp" />
+                    {v.imageWebp && <source srcSet={v.imageWebp} type="image/webp" />}
                     <img src={v.image} alt={v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
