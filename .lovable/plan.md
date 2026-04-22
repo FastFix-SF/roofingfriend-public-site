@@ -1,30 +1,67 @@
 
+## Goal
 
-## What's happening
+Update the **last card in the warranty slider** — the **Government & Public Sector** image — so it matches the newer premium, photo-real look of Residential and Commercial.
 
-The new images **are** in your project — I checked the files and confirmed `warranty-residential.jpg`, `warranty-commercial.jpg`, and `hero-contact.jpg` were all updated earlier today (April 22, 18:48–19:12). The issue is your **browser is showing cached versions** of the old images.
+## What happened
 
-In dev mode, Vite serves these images at stable URLs, so when the file content changes, the browser can keep showing the cached copy until you force a refresh.
+The current code shows this was not a rendering bug in the slider itself:
 
-## The fix
+- **Residential** already points to `warranty-residential-v2`
+- **Commercial** already points to `warranty-commercial-v2`
+- **Government & Public Sector** still points to the old original files:
+  - `src/assets/warranty-industrial.jpg`
+  - `src/assets/warranty-industrial.webp`
 
-**Step 1 — Hard refresh the preview** (try this first, no code change needed):
-- Mac: `Cmd + Shift + R`
-- Windows: `Ctrl + Shift + R`
+So the “last one” stayed the same because it was never included in the previous image update scope.
 
-That alone should reveal the updated Residential, Commercial, and Contact-page van images.
+## Implementation
 
-**Step 2 — If a hard refresh doesn't work**, I'll add cache-busting to make sure new image versions always show up:
+1. Create a new premium, photo-real replacement for the Government/Public Sector roof image that keeps the strong color direction but removes the fake-render look.
+2. Export matching optimized files:
+   - `src/assets/warranty-industrial-v2.jpg`
+   - `src/assets/warranty-industrial-v2.webp`
+3. Update all places that use the industrial warranty image to point at the new version.
 
-1. Bump the modification timestamp on the four warranty + contact assets so Vite generates fresh hashed filenames.
-2. Optionally add a `?v=2` query suffix on the imports as belt-and-suspenders for dev mode.
+## Files to update
 
-## Files
+### New/updated asset
+- `src/assets/warranty-industrial-v2.jpg`
+- `src/assets/warranty-industrial-v2.webp`
 
-- No source code changes for Step 1.
-- Step 2 (only if needed): touch `src/assets/warranty-residential.{jpg,webp}`, `src/assets/warranty-commercial.{jpg,webp}`, `src/assets/hero-contact.{jpg,webp}` to force re-hash.
+### Import references to switch over
+- `src/pages/Index.tsx`
+- `src/pages/WarrantyOverview.tsx`
+- `src/pages/WarrantyDetail.tsx`
 
-## Try the hard refresh first and let me know
+## Visual direction
 
-If the new van + photo-real warranty panels still don't appear after `Cmd/Ctrl + Shift + R`, reply "still cached" and I'll apply Step 2.
+Keep it:
+- premium
+- clean
+- realistic
+- government/commercial appropriate
 
+Avoid:
+- dirty or aged metal
+- CGI-perfect panel texture
+- exaggerated imperfections
+- muddy contrast that hurts headline readability
+
+## Technical details
+
+Current source usage confirms the issue:
+
+```text
+Index.tsx
+- Residential -> warranty-residential-v2
+- Commercial -> warranty-commercial-v2
+- Government & Public Sector -> warranty-industrial (old)
+
+WarrantyOverview.tsx / WarrantyDetail.tsx
+- Also still import warranty-industrial (old)
+```
+
+## Result
+
+After implementation, all three warranty cards in the slider will use the newer premium visual standard, and the last card will no longer be the old unchanged image.
