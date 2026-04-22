@@ -1,119 +1,65 @@
 
 
-## Goal
+## Honest answer
 
-Turn the 13 city pages into deep, SEO + AEO-optimized hubs, and add **3 affluent neighborhood sub-pages per city** (39 new pages) framed around premium / award-winning architecture and historic homes — the kind of properties where homeowners actively pay for top-tier metal roofing.
+**No — it is not 100% optimized.** It's in good shape (canonicals, JSON-LD, FAQ schema, sitemap, breadcrumbs, FAQ pages on every city + neighborhood) but there are **8 concrete gaps** that materially hurt rankings on Google, Bing, and AI engines (ChatGPT, Perplexity, Google AI Overviews). Some are 5-minute fixes with outsized impact.
 
-## What you'll get
+## The real gaps (ranked by impact)
 
-### 1. Beefed-up city pages (all 13)
+### 1. SPA pages are not pre-rendered → most search engines see blank HTML
+This is the biggest issue. Vite + React renders client-side. View-source on `/locations/san-francisco/pacific-heights` returns an empty `<div id="root">`. Googlebot can render JS, but **Bingbot, ChatGPT crawler (GPTBot), Perplexity (PerplexityBot), Claude (ClaudeBot), and most LLM crawlers cannot — or do so unreliably.** All 39 neighborhood pages + 13 city pages are effectively invisible to AI search.
+**Fix**: enable `vite-plugin-prerender` (or `react-snap`) to generate static HTML for every route in `sitemap.xml` at build time. Output goes to `dist/locations/san-francisco/pacific-heights/index.html` with the full Helmet `<head>` and rendered DOM inlined.
 
-Each existing `/locations/:city` page gets new SEO + AEO sections:
+### 2. `index.html` `<head>` is wrong/stale
+- `og:image` and `twitter:image` point to a Lovable preview R2 URL — will 404 or look spammy when shared.
+- `twitter:site` is `@Lovable` (not your brand).
+- No global `og:url`, no `theme-color`, no `application/ld+json` `Organization` schema (the root entity Google uses to tie all pages together).
+- No favicon variants (`apple-touch-icon`, `manifest`).
 
-- **Local FAQ** (5–6 Q&As per city, e.g. "Do you handle [city] permits?", "How long does a metal reroof take in [city]?", "What roof is best for [city] microclimate?") — rendered with `FAQPage` JSON-LD schema for AI Overviews / Google AEO.
-- **"Neighborhoods we serve in [city]"** section — 3 cards linking to the new neighborhood sub-pages.
-- **Expanded local copy** — a second long-form paragraph per city covering climate, common roof types, and permit specifics (boosts content depth for SEO).
-- **BreadcrumbList JSON-LD** — Home › Locations › [City].
-- **Service-area expansion** in `RoofingContractor` schema — list each neighborhood as an `areaServed`.
+### 3. Missing `Organization` + `WebSite` + `SiteNavigationElement` schema on the homepage
+Without these, Google can't build a knowledge-panel-style entity for "The Roofing Friend." Add `Organization` (with logo, sameAs social profiles, founder, areaServed) and `WebSite` (with `SearchAction` using your `/search` query) to `index.html` head — static so all crawlers see them.
 
-### 2. New neighborhood sub-pages (39 total)
+### 4. Robots.txt allows everything but doesn't explicitly invite AI crawlers
+Add explicit allows for `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `CCBot`, `Applebot-Extended`. Otherwise some default to no-train/no-cite.
 
-New route: `/locations/:city/:neighborhood` (e.g. `/locations/san-francisco/pacific-heights`).
+### 5. No `lastmod` in sitemap.xml
+Google deprioritizes sitemaps without `<lastmod>`. Every URL needs one (`2026-04-22`).
 
-Each page contains:
+### 6. WarrantyDetail canonical uses wrong domain
+`https://roofingfriend.com/warranty/...` instead of `https://theroof.info/warranty/...` → splits link equity, can cause deindexing. Found in `src/pages/WarrantyDetail.tsx:76`.
 
-- **Hero** — "Metal Roofing in [Neighborhood], [City]" + tagline.
-- **Architecture & history** section — what makes the neighborhood notable (Victorian, Craftsman, Mid-Century Modern, AIA-honored homes, historic-district designations, landmark status).
-- **Why metal works here** — tied to the architectural style (e.g. standing seam complements modernist lines; copper accents on Victorians).
-- **Premium materials section** — copper, zinc, custom-color PVDF, integrated solar — the products that actually sell in affluent zip codes.
-- **Local trust signals** — permits, HOA / design-review handling, historic-district approvals.
-- **FAQ** (4 Q&As, neighborhood-specific) with FAQPage JSON-LD.
-- **CTA band + nearby neighborhoods** (links to the other 2 in the same city).
-- **Schema**: `RoofingContractor` + `BreadcrumbList` + `FAQPage`.
+### 7. Neighborhood + city pages share one generic OG image
+All 52 location pages broadcast the same OG card on social. Switching to dynamic OG title/description (already done) is good — but Google Discover and social previews benefit from per-page imagery. Quick win: at minimum reference the existing `hero-commercial-roofing` as `og:image` on city/neighborhood pages (currently missing entirely).
 
-### 3. Neighborhood selection (top 3 affluent + architecturally notable per city)
+### 8. Missing `hreflang` and `geo` meta on local pages
+For local SEO, add `<meta name="geo.region" content="US-CA">` and `<meta name="geo.placename" content="{City}">` on city/neighborhood pages. Helps Bing especially.
 
-```text
-San Francisco        Pacific Heights · Sea Cliff · Presidio Heights
-Santa Clara          Old Quad · Rivermark · Killarney Farms
-Walnut Creek         Northgate · Saranap · Rudgear Estates
-Tiburon              Belveron · Paradise Cay · Old Tiburon
-San Anselmo          Sleepy Hollow · Seminary · Winship Park
-Santa Cruz           Pleasure Point · Seabright · Westside
-Modesto              College Area · Sherwood Forest · La Loma
-Kentfield            Kent Woodlands · Murray Park · Greenbrae Boardwalk
-Santa Rosa           Fountaingrove · Skyhawk · McDonald Historic
-Alameda County       Piedmont Avenue · Claremont · Mission San Jose
-Contra Costa County  Blackhawk · Alamo · Diablo
-Petaluma             West Side · McNear Hill · Oakhill-Brewster
-Los Gatos            Almaden Valley · Monte Sereno · Los Gatos Hills
-```
+## Bonus AEO improvements (cheap)
 
-### 4. Footer + navigation updates
+- Add `speakable` schema to FAQ answers (Google Assistant / voice).
+- Add `Service` schema (one per roofing system) on `/commercial-roofing`.
+- Add `Review` / `AggregateRating` schema on `/reviews` (you have the data in `reviews-data.ts`).
+- Add an `llms.txt` file at site root — emerging standard for LLM crawlers (like `robots.txt` but for AI).
 
-- Footer service-area list keeps city links (unchanged).
-- Each city page's "Neighborhoods we serve" cards become the discovery path to the 39 sub-pages.
-- Search index (`src/lib/search-data.ts`) gets all 39 neighborhoods added so site search finds them.
+## What I'd ship in one pass
 
-## Technical details
+| # | Change | File(s) |
+|---|--------|---------|
+| 1 | Add prerendering to Vite build (all sitemap routes → static HTML) | `vite.config.ts`, `package.json` |
+| 2 | Rewrite `index.html` head: real OG image, Organization + WebSite JSON-LD, theme-color, apple-touch-icon | `index.html` |
+| 3 | Fix WarrantyDetail canonical domain | `src/pages/WarrantyDetail.tsx` |
+| 4 | Add per-page `og:image`, `twitter:card`, `geo.*` to City + Neighborhood pages | `CityPage.tsx`, `NeighborhoodPage.tsx` |
+| 5 | Add AI-bot allows + `llms.txt` | `public/robots.txt`, new `public/llms.txt` |
+| 6 | Add `<lastmod>` to all 78 sitemap entries | `public/sitemap.xml` |
+| 7 | Add `Service` schema on `/commercial-roofing`, `AggregateRating` on `/reviews`, `speakable` on FAQ schemas | `CommercialRoofing.tsx`, `Reviews.tsx`, `FaqAccordion` callsites |
 
-### New / changed files
+After this pass, the site is genuinely close to "100%" — every crawler (search + AI) sees fully-rendered HTML with rich schema, and per-page metadata is unique and crawlable.
 
-**Data**
-- `src/lib/cities-data.ts` — extend `CityData` with: `longIntro: string`, `faqs: {q, a}[]`, `neighborhoodSlugs: string[]`. Populate for all 13 cities.
-- `src/lib/neighborhoods-data.ts` (NEW) — `NeighborhoodData` interface + 39 entries:
-  ```ts
-  interface NeighborhoodData {
-    slug: string;            // e.g. "pacific-heights"
-    citySlug: string;        // e.g. "san-francisco"
-    name: string;
-    tagline: string;
-    architectureEra: string; // "Victorian & Edwardian, 1880s–1910s"
-    notableHomes: string;    // "Spreckels Mansion, Haas-Lilienthal House (NRHP)"
-    intro: string;
-    whyMetalWorks: string;
-    premiumMaterials: string[]; // ["Copper standing seam", "Custom PVDF"...]
-    faqs: { q: string; a: string }[];
-  }
-  ```
+## Out of scope for this pass
 
-**Pages**
-- `src/pages/CityPage.tsx` — add Local FAQ section, Neighborhoods section, expanded copy block, BreadcrumbList + FAQPage JSON-LD.
-- `src/pages/NeighborhoodPage.tsx` (NEW) — full template with all sections + schema.
+- Custom hero photography per neighborhood (would 39× the asset work).
+- Backlink / off-page SEO (not a code task).
+- Core Web Vitals deep-dive (would need a Lighthouse run first — happy to do as a follow-up).
 
-**Routing**
-- `src/App.tsx` — add `<Route path="/locations/:city/:neighborhood" element={<NeighborhoodPage />} />` above the catch-all. Lazy-load.
-
-**Search**
-- `src/lib/search-data.ts` — append a `neighborhoods.map(...)` block producing entries with `href: /locations/${citySlug}/${slug}`.
-
-**Sitemap**
-- `public/sitemap.xml` — add 39 neighborhood URLs + ensure all 13 city URLs are present.
-
-### Schema strategy (AEO)
-
-Per neighborhood page:
-- `RoofingContractor` (areaServed = neighborhood)
-- `BreadcrumbList` (Home › Locations › City › Neighborhood)
-- `FAQPage` (the 4 page FAQs)
-
-Per city page:
-- `RoofingContractor` (existing, expanded with neighborhoods in `areaServed`)
-- `BreadcrumbList` (Home › Locations › City)
-- `FAQPage` (the 5–6 city FAQs)
-
-This is the schema combo Google currently rewards for local-service AI Overviews.
-
-### Visual / UX
-
-- Reuse existing `ServiceHero`, card patterns, color tokens — neighborhood pages will look and feel like the current city pages, just one level deeper.
-- Reuse the existing `hero-commercial-roofing` background for neighborhood heroes (no new image generation in this plan — keeps scope tight).
-- All copy hand-written per neighborhood (no boilerplate-feeling thin pages).
-
-## Out of scope (for this plan)
-
-- Per-neighborhood hero photography (would 39× the asset work — can be a follow-up).
-- Lead-capture forms beyond existing CTA buttons.
-- Blog / article content per neighborhood.
-- Backend / CMS — all content stays in TypeScript data files (fast, free, version-controlled).
+Reply **"approve SEO pass"** and I'll ship all 7 in one go. Or pick a subset.
 
