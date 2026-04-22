@@ -23,10 +23,10 @@ const faqSchema = {
 const Rebates = () => (
   <>
     <Helmet>
-      <title>California Roofing Rebates, Tax Breaks & Insurance Discounts | Roofing Friend</title>
+      <title>California Roofing Rebates, Tax Deductions & Insurance Discounts (2025) | Roofing Friend</title>
       <meta
         name="description"
-        content="Stack utility cool-roof rebates, federal §179D tax deductions, and FAIR Plan wildfire insurance discounts on your new metal roof. Roofing Friend handles every application across California."
+        content="Verified 2025–2026 California roofing incentives: SMUD & LADWP cool-roof rebates, FAIR Plan wildfire discounts (up to 13.8%), federal §179D deduction (up to $5.94/sq ft), and GoGreen state-backed financing — all stackable on your new metal roof."
       />
       <link rel="canonical" href="https://roofingfriend.com/rebates" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -48,23 +48,23 @@ const Rebates = () => (
       <div className="absolute inset-0 hero-overlay" />
       <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">
-          Roofing Rebates & Insurance Discounts
+          California Roofing Rebates & Insurance Discounts
         </h1>
         <p className="mt-2 text-base md:text-lg font-light text-hero-text opacity-90">
-          Stack utility rebates, federal tax deductions, and wildfire insurance discounts on your new metal roof
+          Verified 2025–2026 programs: utility cool-roof rebates, FAIR Plan wildfire discounts, federal §179D deductions, and state-backed financing — all stackable on your new metal roof.
         </p>
         <div className="flex flex-row items-center gap-3 mt-4 w-full max-w-lg">
           <a
             href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
             className="w-full sm:w-auto flex-1 text-center px-12 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-xs"
           >
-            Get Your Free Roofing Assessment
+            Get Your Free Roof Assessment
           </a>
           <a
-            href="#title-24-compliance"
+            href="#title-24-cool-roof"
             className="w-full sm:w-auto flex-1 text-center px-12 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-xs"
           >
-            See All Programs
+            See All 6 Programs
           </a>
         </div>
       </div>
@@ -105,12 +105,12 @@ const Rebates = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Stack Your Roofing Savings</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Stack Every California Incentive</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Combine utility rebates, federal §179D deductions, and FAIR Plan wildfire discounts to slash your roof investment.
+                Most homeowners qualify for 3+ programs at once. We map every dollar before you sign.
               </p>
               <a
-                href="#title-24-compliance"
+                href="#title-24-cool-roof"
                 className="mt-4 inline-block w-fit px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors"
               >
                 See How
@@ -120,9 +120,9 @@ const Rebates = () => (
 
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground">We Handle the Paperwork</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">We Handle the CA Paperwork</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Roofing Friend files every rebate, cool-roof certification, and insurance discount form for you.
+                Title 24 cool-roof certificates, SMUD/LADWP rebate forms, FAIR Plan documentation — filed for you.
               </p>
               <a
                 href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
@@ -208,7 +208,7 @@ const Rebates = () => (
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">Not Sure Which Rebates You Qualify For?</h2>
         <p className="text-lg text-white/70 mb-8">
-          Book a free roof assessment. We'll evaluate your property, your Fire Hazard Severity Zone, and your utility — then identify every rebate, tax break, and insurance discount you qualify for.
+          Book a free roof assessment. We'll check your WUI fire zone, utility service area, and whether you're residential or commercial — then map every California rebate, tax deduction, and insurance discount you qualify for.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
