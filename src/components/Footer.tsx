@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin, Clock, Zap } from "lucide-react";
-import logo from "@/assets/west-peak-logo.png";
+import logo from "@/assets/roofing-friend-logo.png";
 import { cities } from "@/lib/cities-data";
 
 const Footer = () => {

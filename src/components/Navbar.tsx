@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/west-peak-logo.png";
+import logo from "@/assets/roofing-friend-logo.png";
 
 const navLinks = [
   { label: "Roofing", href: "/commercial-roofing" },
