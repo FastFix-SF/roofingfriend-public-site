@@ -8,9 +8,11 @@ interface SmartImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 /**
- * Drop-in replacement for <img>. Renders <picture> with a WebP source
- * (auto-derived from src if not provided) and a JPG/PNG fallback.
- * Lazy-loads by default; pass `priority` for above-the-fold images.
+ * Drop-in replacement for <img>. Renders <picture> with a WebP <source>
+ * + JPG/PNG fallback. Lazy by default; pass `priority` for above-the-fold.
+ *
+ * Pass `webpSrc` explicitly when using Vite-imported assets (filenames are
+ * hashed so we can't auto-derive). Auto-derivation works for /public URLs.
  */
 const SmartImage = ({
   src,
@@ -20,12 +22,13 @@ const SmartImage = ({
   className,
   ...rest
 }: SmartImageProps) => {
-  // Auto-derive webp sibling from Vite-hashed src (works at runtime too)
-  const derivedWebp = webpSrc || src.replace(/\.(jpe?g|png)(\?.*)?$/i, ".webp$2");
+  const derivedWebp =
+    webpSrc ||
+    (src.startsWith("/") ? src.replace(/\.(jpe?g|png)(\?.*)?$/i, ".webp$2") : undefined);
 
   return (
-    <picture className={className ? undefined : undefined}>
-      <source srcSet={derivedWebp} type="image/webp" />
+    <picture>
+      {derivedWebp && <source srcSet={derivedWebp} type="image/webp" />}
       <img
         src={src}
         alt={alt}
