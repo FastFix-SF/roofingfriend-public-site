@@ -44,7 +44,7 @@ const About = () => (
         "@type": "RoofingContractor",
         name: "The Roofing Friend",
         description: "Veteran-owned California metal roofing contractor — standing seam, R-Panel, Multi-V and TPO systems across the San Francisco Bay Area.",
-        telephone: "(510) 999-7663",
+        telephone: "(415) 697-1849",
         email: "info@theroof.info",
         url: "https://theroof.info",
         address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
@@ -164,8 +164,8 @@ const About = () => (
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">Ready to Get Started?</h2>
         <p className="text-white/70 mb-8">Contact us today for a free roof assessment on any metal roofing project.</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="tel:5109997663" className="inline-flex items-center gap-2 px-8 py-3 rounded bg-cta-gold text-btn-primary-fg font-medium hover:opacity-90 transition-all">
-            Call (510) 999-7663
+          <a href="tel:+14156971849" className="inline-flex items-center gap-2 px-8 py-3 rounded bg-cta-gold text-btn-primary-fg font-medium hover:opacity-90 transition-all">
+            Call (415) 697-1849
           </a>
           <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3 rounded border border-white/30 text-white font-medium hover:bg-white/10 transition-colors">
             Contact Us

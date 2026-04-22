@@ -62,7 +62,7 @@ const CommercialRoofing = () => {
     provider: {
       "@type": "RoofingContractor",
       name: "The Roofing Friend",
-      telephone: "(510) 999-7663",
+      telephone: "(415) 697-1849",
       areaServed: { "@type": "State", name: "California" },
     },
     serviceType: "Commercial Metal Roofing",
@@ -120,8 +120,8 @@ const CommercialRoofing = () => {
             <button onClick={openBookingDialog} className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg text-sm">
               Get a Commercial Quote
             </button>
-            <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-sm">
-              Call (510) 999-7663
+            <a href="tel:+14156971849" className="px-8 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-sm">
+              Call (415) 697-1849
             </a>
           </div>
         </div>
@@ -210,7 +210,7 @@ const CommercialRoofing = () => {
                 Cleared for federal, GSA, and municipal roofing contracts. From base housing to public works, our veteran-led crews deliver milspec quality on every commercial project.
               </p>
             </div>
-            <a href="tel:+15109997663" className="relative mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
+            <a href="tel:+14156971849" className="relative mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
               Talk to a Veteran Estimator →
             </a>
           </div>
@@ -315,8 +315,8 @@ const CommercialRoofing = () => {
             <button onClick={openBookingDialog} className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
               Schedule a Free Roof Survey
             </button>
-            <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
-              Call (510) 999-7663
+            <a href="tel:+14156971849" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
+              Call (415) 697-1849
             </a>
           </div>
         </div>
