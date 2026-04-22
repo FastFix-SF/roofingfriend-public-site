@@ -1,21 +1,6 @@
 import { Phone, Mail, MapPin, Clock, Zap } from "lucide-react";
 import logo from "@/assets/west-peak-logo.png";
-
-const serviceAreas = [
-  "San Francisco",
-  "Santa Clara",
-  "Walnut Creek",
-  "Tiburon",
-  "San Anselmo",
-  "Santa Cruz",
-  "Modesto",
-  "Kentfield",
-  "Santa Rosa",
-  "Alameda County",
-  "Contra Costa County",
-  "Petaluma",
-  "Los Gatos",
-];
+import { cities } from "@/lib/cities-data";
 
 const Footer = () => {
   return (
@@ -104,10 +89,15 @@ const Footer = () => {
             Service Areas
           </h3>
           <p className="text-center text-sm text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-            {serviceAreas.map((area, i) => (
-              <span key={area}>
-                <span className="hover:text-cta-gold transition-colors">{area}</span>
-                {i < serviceAreas.length - 1 && <span className="text-cta-gold/60 mx-2">·</span>}
+            {cities.map((city, i) => (
+              <span key={city.slug}>
+                <a
+                  href={`/locations/${city.slug}`}
+                  className="hover:text-cta-gold transition-colors"
+                >
+                  {city.name}
+                </a>
+                {i < cities.length - 1 && <span className="text-cta-gold/60 mx-2">·</span>}
               </span>
             ))}
           </p>

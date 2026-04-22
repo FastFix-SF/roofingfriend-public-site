@@ -23,6 +23,7 @@ const Rebates = React.lazy(() => import("./pages/Rebates"));
 const Referral = React.lazy(() => import("./pages/Referral"));
 const WarrantyOverview = React.lazy(() => import("./pages/WarrantyOverview"));
 const WarrantyDetail = React.lazy(() => import("./pages/WarrantyDetail"));
+const CityPage = React.lazy(() => import("./pages/CityPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/referral" element={<Referral />} />
               <Route path="/warranty" element={<WarrantyOverview />} />
               <Route path="/warranty/:category" element={<WarrantyDetail />} />
+              <Route path="/locations/:city" element={<CityPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
