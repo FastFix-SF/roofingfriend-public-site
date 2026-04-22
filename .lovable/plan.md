@@ -1,42 +1,60 @@
 
 
 ## Goal
-Repurpose the bottom row of `PromoGrid` (currently the plumbing-themed "Save Water, Save Money" + "California Rebate Programs" cards) so it speaks to **Roofing Friend's** veteran metal roofing positioning — keeping the same 3/5 + 2/5 layout, gradients, and CTA styling.
+Repurpose the entire `/rebates` page from plumbing/water-heater rebates (TECH Clean California, HEEHRA, etc.) into a **Roofing Friend Incentives & Savings** page covering the actual rebates, tax breaks, and insurance discounts available for **metal roofing & cool roofs** in California.
 
-## Source mapping (from roofingfriend.com)
-The two strongest brand pillars on roofingfriend.com that aren't already covered by the slider above are:
-1. **Lifetime Value / Why Metal** — durability story (50+ year lifespan, hail/fire/wind resistance, energy efficiency). This is their #1 educational angle.
-2. **Veteran-Owned, Built to Serve** — their core trust pillar (already echoed in the navbar tagline and hero slide #3).
+## Research summary — what's actually available for roofing
 
-These map cleanly onto the existing two-card layout.
+| # | Program | What it gives | Source |
+|---|---------|--------------|--------|
+| 1 | **California Title 24 Cool Roof Compliance** | Not a rebate — but every CRRC-rated metal roof we install meets/exceeds Title 24 reflectance & emittance. Avoids permit failures + unlocks utility rebates. | CEC Title 24 Part 6 |
+| 2 | **PG&E / SMUD / SDG&E Cool Roof Rebates** | $0.10–$0.20 per sq ft for CRRC-certified cool roofs (steep & low slope). On a 2,000 sq ft roof = $200–$400. | PG&E, SMUD, SDG&E utility programs |
+| 3 | **Federal §179D — Commercial Buildings Deduction** | Up to **$5.81/sq ft** tax deduction for energy-efficient commercial roof systems (TPO, cool metal). Huge for warehouses & multi-family. | IRC §179D |
+| 4 | **California FAIR Plan Wildfire Hardening Discount** | Up to **13.8% off the wildfire portion** of insurance premium for Class A fire-rated roofs (metal qualifies automatically) + ember-resistant details. | CA Dept of Insurance "Safer from Wildfires" |
+| 5 | **Standard Insurer Wildfire Mitigation Discounts** | Most CA homeowners insurers (State Farm, Allstate, USAA, Mercury) offer 5–25% premium discounts for Class A roofs in WUI zones. | Safer from Wildfires regulation |
+| 6 | **GoGreen Home Energy Financing** | Low-interest loans (state-backed) for cool roof + insulation packages. Up to $50K, terms to 15 yrs. | CAEATFA / CHEEF |
 
-## Changes — `src/components/PromoGrid.tsx`
+## Changes — file by file
 
-### Card 1 (large, `md:col-span-3`) — replace "Save Water, Save Money"
-- **Image**: swap `promoFsd` import → use existing `slide-standing-seam.jpg` (charcoal standing seam roof, perfect hero shot for durability story).
-- **Title**: `Built to Outlast Your Mortgage`
-- **Subtitle**: `50+ year lifespan. Class A fire-rated. Hail, wind & wildfire ready.`
-- **Primary CTA**: `Get a Free Roof Assessment` → keeps ServiceTitan booking URL
-- **Secondary CTA**: `Why Metal?` → point to `/commercial-roofing` (only roofing page that exists today; flagged below)
+### 1. `src/lib/rebates-data.ts` — full rewrite
+Replace all 6 `rebatePrograms` entries with the 6 above. Keep the same `RebateProgram` interface (slug, name, tagline, description, amount, whoQualifies, howToApply, highlights[6], optional link).
 
-### Card 2 (smaller, `md:col-span-2`) — replace "California Rebate Programs"
-- **Image**: swap `promoFeatures` import → use existing `hero-veteran-government-roofing.jpg` (already in repo, on-brand military/government imagery).
-- **Title**: `Veteran-Owned. Mission-Driven.`
-- **Subtitle**: `Discipline, integrity, and craftsmanship on every roof we install.`
-- **CTA**: `Our Story` → point to `/about`
+New slugs:
+- `title-24-compliance`
+- `utility-cool-roof-rebates`
+- `section-179d-commercial`
+- `fair-plan-wildfire-discount`
+- `insurance-wildfire-mitigation`
+- `gogreen-financing`
 
-### Import changes (top of file)
-```ts
-// remove:
-import promoFsd from "@/assets/promo-fsd.jpg";
-import promoFeatures from "@/assets/promo-rebates.jpg";
-// add:
-import promoStandingSeam from "@/assets/slide-standing-seam.jpg";
-import promoVeteran from "@/assets/hero-veteran-government-roofing.jpg";
-```
+Rewrite the 7 `rebateFaqs` entries to match the roofing context:
+- "Can I combine multiple roofing rebates?"
+- "Does a metal roof always qualify for the FAIR Plan discount?"
+- "How much can I save in insurance premiums after a metal roof?"
+- "Do I need a CRRC-rated product to get the utility rebate?"
+- "What's the difference between Title 24 compliance and a cool roof rebate?"
+- "Are commercial properties eligible for §179D?"
+- "Does Roofing Friend handle the rebate paperwork?"
+
+### 2. `src/pages/Rebates.tsx` — copy + meta updates only (structure stays)
+- **Helmet**: title → `California Roofing Rebates, Tax Breaks & Insurance Discounts | Roofing Friend`, description → focus on metal roof savings + FAIR Plan + §179D, canonical → `https://roofingfriend.com/rebates`.
+- **Hero H1**: `Roofing Rebates & Insurance Discounts`
+- **Hero subhead**: `Stack utility rebates, federal tax deductions, and wildfire insurance discounts on your new metal roof`
+- **Hero buttons**: keep ServiceTitan link, change CTA copy to `Get Your Free Roofing Assessment` and `See All Programs`.
+- **Stacking promo cards**: 
+  - Card 1: `Stack Your Roofing Savings` / `Combine utility rebates, federal §179D deductions, and FAIR Plan discounts to slash your roof investment.`
+  - Card 2: `We Handle the Paperwork` / `Roofing Friend files every rebate, tax certification, and insurance discount form for you.`
+- **CTA section near bottom**: H2 → `Not Sure Which Rebates You Qualify For?` (keep — already on-brand). Subhead updated to reference roof + property + WUI zone.
+- **Section icons array**: keep the 6 lucide icons (`Leaf, DollarSign, Home, Building2, Zap, MapPin`) — they map fine to the new programs (Leaf=Title 24, DollarSign=Utility, Building2=§179D, Zap=FAIR Plan, Home=Insurer Discounts, MapPin=GoGreen).
+
+### 3. Hero & CTA images
+Reuse existing assets — no new generation needed:
+- Hero: swap `promoRebates` import → use `slide-standing-seam.jpg` (charcoal metal roof, premium hero shot).
+- CTA bottom: swap `ctaRebates` import → use `hero-veteran-government-roofing.jpg` (already in repo).
+- Update `alt` text accordingly.
 
 ## Out of scope / flags
-- **Top row** ("Current Offers" + "Referral Program") is left untouched — Referral is already on-brand and Current Offers still works as a generic promo. Tell me if you want those repurposed too.
-- **No new images generated** — both visuals reuse assets already in `src/assets/`, so this is a pure code edit (fast + free).
-- **`/commercial-roofing` fallback**: same situation as the slider above — the "Why Metal?" link goes there until a dedicated metal-roofing education page exists. Say the word and I'll spin one up in a follow-up.
+- **Exact rebate $ amounts** are stated as ranges (e.g., "$0.10–$0.20/sq ft") because utility programs change. Each card's "How to Apply" notes that Roofing Friend confirms current amounts at quote time — this protects against stale numbers.
+- **No new images, no new components, no routing changes** — pure data + copy edit, ~2 files.
+- The page route stays at `/rebates`. If you want to rename it (e.g. `/incentives` or `/savings`), say the word.
 
