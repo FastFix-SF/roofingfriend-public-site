@@ -186,15 +186,31 @@ const CommercialRoofing = () => {
       {/* Promo Grid */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
-          <div className="rounded-lg bg-foreground text-background p-8 md:p-10 flex flex-col justify-between min-h-[260px]">
-            <div>
+          <div
+            className="relative overflow-hidden rounded-lg p-8 md:p-10 flex flex-col justify-between min-h-[260px]"
+            style={{
+              backgroundColor: "hsl(82 22% 22%)",
+              backgroundImage:
+                "linear-gradient(135deg, hsl(82 25% 18%) 0%, hsl(75 18% 28%) 50%, hsl(40 15% 22%) 100%)",
+            }}
+          >
+            {/* subtle camo-style overlay for depth, kept low opacity so text stays crisp */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
+              style={{
+                backgroundImage:
+                  "radial-gradient(ellipse at 20% 30%, hsl(60 20% 35%) 0%, transparent 40%), radial-gradient(ellipse at 75% 70%, hsl(30 15% 18%) 0%, transparent 45%), radial-gradient(ellipse at 50% 90%, hsl(90 20% 25%) 0%, transparent 50%)",
+              }}
+            />
+            <div className="relative">
               <Award size={32} className="text-cta-gold mb-4" strokeWidth={1.5} />
-              <h3 className="text-2xl md:text-3xl font-semibold mb-3">Veteran-Owned, Government-Trusted</h3>
-              <p className="text-sm md:text-base text-background/80 leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">Veteran-Owned, Government-Trusted</h3>
+              <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
                 Cleared for federal, GSA, and municipal roofing contracts. From base housing to public works, our veteran-led crews deliver milspec quality on every commercial project.
               </p>
             </div>
-            <a href="tel:+15109997663" className="mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
+            <a href="tel:+15109997663" className="relative mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
               Talk to a Veteran Estimator →
             </a>
           </div>
