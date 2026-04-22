@@ -143,7 +143,7 @@ export const rebateFaqs = [
   {
     question: "Which California utilities currently offer cool roof rebates?",
     answer:
-      "SMUD (Sacramento) and LADWP (Los Angeles) run the most active residential cool-roof programs in 2025. PG&E and SDG&E periodically open commercial cool-roof incentives. Programs change quarterly with funding cycles, so Roofing Friend verifies your specific utility's active rebate before you sign — and we file every form on your behalf.",
+      "LADWP runs the most consistently active residential cool-roof rebate in California as of 2025, alongside its stackable Attic Insulation rebate. Other California utility cool-roof programs (SMUD, PG&E, SDG&E) have wound down or shifted funding to heat-pump and electrification rebates. Roofing Friend verifies your specific utility's active programs before you sign — and we file every form on your behalf.",
   },
   {
     question: "How much is the FAIR Plan wildfire discount really worth?",
