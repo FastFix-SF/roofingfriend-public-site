@@ -1,58 +1,34 @@
 
 
-## What's wrong on the page (verified against official 2025 sources)
+## What's wrong
 
-I checked every program against its official source. Three issues to fix — the rest is solid.
+The 3 cards in the homepage `SecondarySlider` (selected element) still read like the old West Peak plumbing site:
+- "Commercial · 3-Year Warranty · **Built for business continuity**"
+- "Industrial · 3-Year Warranty · **Heavy-duty pipe solutions**"
+- "Residential · 40-Year Warranty · **Lifetime protection for your home**"
 
-| Issue | Source check | Fix |
-|---|---|---|
-| **SMUD cool roof rebate** is listed as "active" but SMUD's current rebate page only lists HVAC, heat pumps, water heaters, thermostats, induction cooktops, LEDs — **no cool roof**. The program was discontinued. | smud.org/Rebates-and-Savings-Tips/Rebates-for-My-Home (full page audit) | Remove SMUD from the utility card. |
-| **SDG&E commercial cool-roof rebates** listed as periodically open. They're not — SDG&E's Energy Efficiency Business Rebates program **stopped accepting applications in August 2024**. | rebates.energy SDG&E listing | Remove SDG&E. |
-| **PG&E commercial cool roof** — PG&E has a business rebate catalog but no dedicated cool-roof line item is currently published. | pge.com business rebates page | Soften wording — point to general business catalog, don't claim a specific cool-roof program. |
-| **Ygrene/PACE FAQ** — Ygrene's main site now reads "PACE financing for **Florida** homeowners" on its "How it works" page. CA eligibility page still exists but the program is heavily reduced in CA. | ygrene.com/how-it-works | Soften: keep PACE mention but note availability has narrowed; point users to verify with their county. |
+For Roofing Friend, "Industrial" doesn't fit the audience (roofing splits cleanly into Residential / Commercial / Government-Public Sector, matching the brand's veteran/government angle already on the hero). The taglines also reference pipes, not roofs.
 
-What's **verified active and California-genuine** (no changes needed):
-- ✅ Title 24 Cool Roof (energy.ca.gov) — CA state agency
-- ✅ LADWP Consumer Rebate Program — Cool Roof — CONFIRMED on current CRP application; LADWP just updated rebates Nov 1, 2025
-- ✅ FAIR Plan wildfire discount — cfpnet.com 11/15/2025 PDF confirmed (12 stackable / up to 13.8% commercial)
-- ✅ Safer from Wildfires admitted-carrier discounts — insurance.ca.gov
-- ✅ §179D Federal — IRS Rev. Proc. 2025-32 confirmed ($5.81 / $5.94)
-- ✅ GoGreen Home Energy Financing — treasurer.ca.gov/CAEATFA confirmed (cool roof under Building Envelope EEM, list updated Jan 2025)
+## Fix — `src/pages/Index.tsx` only (the `secondarySlides` array, lines 22–26)
 
-## Changes — `src/lib/rebates-data.ts` only
+Rewrite the 3 slides to match the roofing pivot. Same component, same images for now (warranty imagery is generic enough), same `/warranty/:category` route structure so links keep working.
 
-### 1. Rewrite the `utility-cool-roof-rebates` card → **LADWP-anchored**
+| Card | New title | New subtitle | Link |
+|---|---|---|---|
+| 1 | Residential | **Lifetime Metal Roof Warranty** · Standing seam built to outlast your mortgage | `/warranty/residential` |
+| 2 | Commercial | **25-Year System Warranty** · Standing seam & TPO for retail, restaurants & warehouses | `/warranty/commercial` |
+| 3 | Government & Public Sector | **Spec-Grade Coverage** · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects | `/warranty/industrial` (slug reused so route still resolves) |
 
-- **New name:** "LADWP Cool Roof Rebate (+ Stackable Insulation)"
-- **Tagline:** "Active 2025 Los Angeles cool-roof rebate, plus a stackable Attic Insulation rebate"
-- **Description:** Lead with LADWP's Consumer Rebate Program (active, just refreshed Nov 1 2025). Note that other CA utilities have wound down dedicated cool-roof rebates — Roofing Friend confirms current availability for any service area at quote time. No more SMUD/SDG&E/PG&E claims as active programs.
-- **Amount:** "LADWP per-sq-ft cool-roof rebate (verified at quote) + separate Attic Insulation rebate"
-- **Who qualifies:** LADWP residential customers installing CRRC-listed cool roofing on existing homes. Commercial via LADWP Commercial Programs.
-- **Highlights** (6 new):
-  - "LADWP Cool Roof rebate — active 2025"
-  - "LADWP Attic Insulation rebate stacks with it"
-  - "CRRC product listing required (we handle)"
-  - "LADWP commercial programs available"
-  - "Other CA utility rebates change quarterly — we verify"
-  - "We file every form for you"
-- **Link** stays: `https://www.ladwp.com/residential-services/assistance-programs/consumer-rebate-program`
+Order is flipped to lead with Residential (the brand's strongest warranty story), matching the hero's "Shingles to Standing Seam" video.
 
-### 2. Update FAQ #1 ("Which California utilities currently offer cool roof rebates?")
+Image mapping stays the same (`warrantyResidential` → Residential card, `warrantyCommercial` → Commercial, `warrantyIndustrial` → Government). No new images, no new routes.
 
-Rewrite honestly: "**LADWP** runs the most consistently active residential cool-roof rebate in California as of 2025, alongside its stackable Attic Insulation rebate. Other California utility cool-roof programs have wound down or shifted funding to heat-pump and electrification rebates. Roofing Friend verifies your specific utility's active programs before you sign — and we file every form on your behalf."
+## Out of scope (flagged for later)
 
-### 3. Update FAQ #5 (PACE / GoGreen)
+- The actual `/warranty/*` detail pages (`WarrantyOverview.tsx`, `WarrantyDetail.tsx`, `src/lib/warranty-data.ts`) **still contain full plumbing/CIPP/trenchless copy** — every card, every FAQ, every JSON-LD `serviceType: "Plumbing Warranty"` and `"@type": "Plumber"`. That's a much bigger rewrite (~150 lines of warranty-data.ts plus schema.org tags on 2 pages). Say the word and I'll do that as a separate pass — it's the right next step after this homepage fix.
+- No changes to the hero, PromoGrid, ChargingSection, Footer, or BottomBar in this pass.
 
-Soften PACE language: "**GoGreen Home** is the most reliable state-backed financing for California cool-roof projects (up to ~$50K, terms to 15 years, when bundled with insulation/air sealing). PACE financing is still available in California through some county programs but availability has narrowed in recent years — Roofing Friend can check whether PACE is currently offered in your county at quote time."
+## Files
 
-## What stays exactly the same
-- Title 24, FAIR Plan, Safer from Wildfires, §179D, GoGreen cards — all verified, no edits.
-- All other 5 FAQs — verified accurate.
-- `src/pages/Rebates.tsx` — no changes (slugs unchanged, icons unchanged, copy unchanged).
-- All official links already point to CA agencies (energy.ca.gov, ladwp.com, cfpnet.com, insurance.ca.gov, gogreenfinancing.com) + the one federal source for §179D (energy.gov, which is correct since §179D is a federal IRS deduction available **to** California property owners).
-
-## Out of scope / flags
-- The §179D program is federal, not California-administered — but it's claimed by CA property owners on CA commercial buildings, so it correctly belongs on a "California savings" page. Keeping it.
-- All dollar figures retain "verified at quote" caveats since utility funding cycles change.
-- One file edited. No structure, routing, or image changes.
+- `src/pages/Index.tsx` — replace the 3 entries in the `secondarySlides` array (lines 22–26). One file, ~3 lines edited.
 
