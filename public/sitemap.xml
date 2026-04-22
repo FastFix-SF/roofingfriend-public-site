@@ -12,16 +12,55 @@
   <url><loc>https://theroof.info/warranty/commercial</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/warranty/industrial</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/san-francisco</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/san-francisco/pacific-heights</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/san-francisco/sea-cliff</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/san-francisco/presidio-heights</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/santa-clara</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/santa-clara/old-quad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-clara/rivermark</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-clara/killarney-farms</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/walnut-creek</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/walnut-creek/northgate</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/walnut-creek/saranap</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/walnut-creek/rudgear-estates</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/tiburon</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/tiburon/belveron</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/tiburon/paradise-cay</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/tiburon/old-tiburon</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/san-anselmo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/san-anselmo/sleepy-hollow</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/san-anselmo/seminary</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/san-anselmo/winship-park</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/santa-cruz</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/santa-cruz/pleasure-point</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-cruz/seabright</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-cruz/westside</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/modesto</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/modesto/college-area</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/modesto/sherwood-forest</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/modesto/la-loma</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/kentfield</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/kentfield/kent-woodlands</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/kentfield/murray-park</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/kentfield/greenbrae-boardwalk</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/santa-rosa</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/santa-rosa/fountaingrove</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-rosa/skyhawk</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/santa-rosa/mcdonald-historic</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/alameda-county</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/alameda-county/piedmont-avenue</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/alameda-county/claremont</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/alameda-county/mission-san-jose</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/contra-costa-county</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/contra-costa-county/blackhawk</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/contra-costa-county/alamo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/contra-costa-county/diablo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/petaluma</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/petaluma/west-side</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/petaluma/mcnear-hill</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/petaluma/oakhill-brewster</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://theroof.info/locations/los-gatos</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://theroof.info/locations/los-gatos/almaden-valley</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/los-gatos/monte-sereno</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://theroof.info/locations/los-gatos/los-gatos-hills</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
