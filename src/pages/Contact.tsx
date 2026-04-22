@@ -65,7 +65,7 @@ const Contact = () => {
           "@type": "RoofingContractor",
           name: "The Roofing Friend",
           telephone: "(510) 999-7663",
-          email: "info@theroof.info",
+          email: "roofingfriend@gmail.com",
           url: "https://theroof.info",
           description: "Call or text anytime. 500+ projects completed, 4.9/5 customer rating, 25-year warranty, same-day response across the San Francisco Bay Area.",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
@@ -86,10 +86,10 @@ const Contact = () => {
             <p className="text-muted-foreground text-sm">(510) 999-7663</p>
             <p className="text-xs text-cta-gold mt-1">Call or text anytime</p>
           </a>
-          <a href="mailto:info@theroof.info" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
+          <a href="mailto:roofingfriend@gmail.com" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
             <Mail size={28} className="text-cta-gold mb-3" />
             <h3 className="font-semibold text-foreground mb-1">Email</h3>
-            <p className="text-muted-foreground text-sm">info@theroof.info</p>
+            <p className="text-muted-foreground text-sm">roofingfriend@gmail.com</p>
           </a>
           <div className="flex flex-col items-center text-center bg-secondary rounded-lg p-8">
             <MapPin size={28} className="text-cta-gold mb-3" />
@@ -185,7 +185,7 @@ const Contact = () => {
             </form>
             <div className="flex items-center gap-4 mt-6">
               <a href="tel:5109997663" className="text-sm font-medium text-cta-gold hover:underline">(510) 999-7663</a>
-              <a href="mailto:info@theroof.info" className="text-sm font-medium text-cta-gold hover:underline">Email Us</a>
+              <a href="mailto:roofingfriend@gmail.com" className="text-sm font-medium text-cta-gold hover:underline">Email Us</a>
             </div>
           </div>
         </div>
