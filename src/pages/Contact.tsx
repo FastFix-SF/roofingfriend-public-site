@@ -9,8 +9,8 @@ import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import heroContact from "@/assets/hero-contact.jpg";
-import heroContactWebp from "@/assets/hero-contact.webp";
+import heroContact from "@/assets/hero-contact-v2.jpg";
+import heroContactWebp from "@/assets/hero-contact-v2.webp";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
