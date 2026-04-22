@@ -30,7 +30,7 @@ export const rebatePrograms: RebateProgram[] = [
       "Reduces attic temps & HVAC load",
       "We file the CF-1R certificate with your permit",
     ],
-    link: "https://coolroofs.org",
+    link: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards",
   },
   {
     slug: "utility-cool-roof-rebates",
