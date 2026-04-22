@@ -69,9 +69,9 @@ const Footer = () => {
                   <span className="text-cta-gold text-xs font-medium">24/7 Emergency Service</span>
                 </span>
               </a>
-              <a href="mailto:info@theroof.info" className="flex items-center gap-2 hover:text-cta-gold transition-colors">
+              <a href="mailto:roofingfriend@gmail.com" className="flex items-center gap-2 hover:text-cta-gold transition-colors">
                 <Mail size={14} className="text-muted-foreground" />
-                info@theroof.info
+                roofingfriend@gmail.com
               </a>
               <div className="flex items-start gap-2 text-muted-foreground">
                 <MapPin size={14} className="mt-0.5 shrink-0" />
