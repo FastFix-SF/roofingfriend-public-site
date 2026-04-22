@@ -2,33 +2,34 @@
 
 ## What's wrong
 
-The 3 cards in the homepage `SecondarySlider` (selected element) still read like the old West Peak plumbing site:
-- "Commercial · 3-Year Warranty · **Built for business continuity**"
-- "Industrial · 3-Year Warranty · **Heavy-duty pipe solutions**"
-- "Residential · 40-Year Warranty · **Lifetime protection for your home**"
+The 3 cards in the homepage `SecondarySlider` use `warranty-residential.jpg`, `warranty-commercial.jpg`, and `warranty-industrial.jpg` — these are leftover **plumbing-era images** from West Peak (likely showing pipes, plumbers, or industrial fittings). The copy now says "Lifetime Metal Roof Warranty / Standing seam / Government metal roofing" but the images don't match.
 
-For Roofing Friend, "Industrial" doesn't fit the audience (roofing splits cleanly into Residential / Commercial / Government-Public Sector, matching the brand's veteran/government angle already on the hero). The taglines also reference pipes, not roofs.
+Same problem cascades to `/warranty` (overview page) and `/warranty/:slug` (detail pages) — they import the exact same three files.
 
-## Fix — `src/pages/Index.tsx` only (the `secondarySlides` array, lines 22–26)
+## Fix — generate 3 new roofing-specific images
 
-Rewrite the 3 slides to match the roofing pivot. Same component, same images for now (warranty imagery is generic enough), same `/warranty/:category` route structure so links keep working.
+Create three on-brand metal roofing photos and swap them in everywhere the old plumbing images are used.
 
-| Card | New title | New subtitle | Link |
-|---|---|---|---|
-| 1 | Residential | **Lifetime Metal Roof Warranty** · Standing seam built to outlast your mortgage | `/warranty/residential` |
-| 2 | Commercial | **25-Year System Warranty** · Standing seam & TPO for retail, restaurants & warehouses | `/warranty/commercial` |
-| 3 | Government & Public Sector | **Spec-Grade Coverage** · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects | `/warranty/industrial` (slug reused so route still resolves) |
+| File (overwrite) | New subject | Used on |
+|---|---|---|
+| `src/assets/warranty-residential.jpg` | Premium standing seam metal roof on a modern California home — clean ridge line, warm sunset light, suburban setting | Homepage Residential card, `/warranty` Residential card, `/warranty/residential` hero |
+| `src/assets/warranty-commercial.jpg` | Standing seam or TPO metal roof on a commercial building (retail center / restaurant / warehouse) — rooftop perspective, daylight | Homepage Commercial card, `/warranty` Commercial card, `/warranty/commercial` hero |
+| `src/assets/warranty-industrial.jpg` | Government / public-sector building with metal roofing — civic or federal building feel (municipal hall, military-base style facility), American flag optional, professional daylight | Homepage Government & Public Sector card, `/warranty` Government card, `/warranty/industrial` hero |
 
-Order is flipped to lead with Residential (the brand's strongest warranty story), matching the hero's "Shingles to Standing Seam" video.
+Filenames stay identical so all 3 import sites (`Index.tsx`, `WarrantyOverview.tsx`, `WarrantyDetail.tsx`) keep working with **zero code changes** — just the binary assets are replaced.
 
-Image mapping stays the same (`warrantyResidential` → Residential card, `warrantyCommercial` → Commercial, `warrantyIndustrial` → Government). No new images, no new routes.
-
-## Out of scope (flagged for later)
-
-- The actual `/warranty/*` detail pages (`WarrantyOverview.tsx`, `WarrantyDetail.tsx`, `src/lib/warranty-data.ts`) **still contain full plumbing/CIPP/trenchless copy** — every card, every FAQ, every JSON-LD `serviceType: "Plumbing Warranty"` and `"@type": "Plumber"`. That's a much bigger rewrite (~150 lines of warranty-data.ts plus schema.org tags on 2 pages). Say the word and I'll do that as a separate pass — it's the right next step after this homepage fix.
-- No changes to the hero, PromoGrid, ChargingSection, Footer, or BottomBar in this pass.
+Style: photorealistic, 16:9 wide, daylight, sharp focus on the roof, color palette consistent with the existing Roofing Friend brand (warm neutrals + metal tones). 1920×1080.
 
 ## Files
 
-- `src/pages/Index.tsx` — replace the 3 entries in the `secondarySlides` array (lines 22–26). One file, ~3 lines edited.
+- `src/assets/warranty-residential.jpg` — regenerate
+- `src/assets/warranty-commercial.jpg` — regenerate
+- `src/assets/warranty-industrial.jpg` — regenerate
+
+No code edits. No new imports. No route changes.
+
+## Out of scope
+
+- `cta-warranty-overview.jpg` (the bottom CTA strip on `/warranty`) — still generic warranty-paperwork imagery; works for now but flag for a future pass if you want it roofing-specific too.
+- Hero images on the homepage (`hero-fsd.jpg`, `hero-commercial-roofing.jpg`, `hero-veteran-government-roofing.jpg`) — already roofing-themed, no change.
 
