@@ -159,7 +159,6 @@ const WarrantyOverview = () => (
       </div>
     </section>
 
-    {/* Why West Peak */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-8">Why Our Warranties Matter</h2>

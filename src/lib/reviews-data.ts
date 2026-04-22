@@ -15,8 +15,8 @@ export const reviewsData: Review[] = [
     color: "bg-rose-500",
     date: "March 2026",
     rating: 5,
-    text: "West Peak Trenchless came out to our commercial property for a sewer line issue. They were incredibly professional and explained everything clearly. The trenchless repair saved us from tearing up our parking lot. Highly recommend their services!",
-    response: "Thank you, Yvonne! We're glad we could save your parking lot from excavation. We appreciate your trust in our team.",
+    text: "The Roofing Friend installed a new standing seam metal roof on our commercial property. They were incredibly professional and explained everything clearly. The crew finished ahead of schedule and the finish looks incredible. Highly recommend!",
+    response: "Thank you, Yvonne! We're glad the standing seam came out beautifully. We appreciate your trust in our team.",
   },
   {
     name: "Megan O'Neill",
@@ -24,8 +24,8 @@ export const reviewsData: Review[] = [
     color: "bg-blue-500",
     date: "March 2026",
     rating: 5,
-    text: "Outstanding service from start to finish. Juan and his team diagnosed our pipe problem quickly with their camera inspection and had it fixed the same day using CIPP lining. No mess, no digging. Five stars all the way!",
-    response: "Thanks so much, Megan! We love hearing that our trenchless solutions made the process easy for you.",
+    text: "Outstanding service from start to finish. The team did a drone survey, walked us through every panel option, and installed a gorgeous PVDF standing seam roof in two days. Five stars all the way!",
+    response: "Thanks so much, Megan! We love hearing that the install process was easy from quote to completion.",
   },
   {
     name: "Charley Diaz",
@@ -33,8 +33,8 @@ export const reviewsData: Review[] = [
     color: "bg-emerald-500",
     date: "February 2026",
     rating: 5,
-    text: "We had a major sewer backup at our restaurant and needed emergency service. West Peak was there within the hour and had everything flowing again. Their hydro jetting service was exactly what we needed. Lifesavers!",
-    response: "Thank you, Charley! We understand how critical plumbing is for restaurants. Glad we could get you back up and running fast.",
+    text: "We had storm damage on our restaurant roof and needed emergency tarp + repair. The Roofing Friend was on-site within the hour and had a permanent metal repair done by the next afternoon. Lifesavers!",
+    response: "Thank you, Charley! We understand how critical the roof is for restaurants. Glad we could get you back open fast.",
   },
   {
     name: "Paola Carbajal",
@@ -42,8 +42,8 @@ export const reviewsData: Review[] = [
     color: "bg-violet-500",
     date: "February 2026",
     rating: 5,
-    text: "Juan and the West Peak team replaced our aging sewer line using pipe bursting. The whole job was done in one day with minimal disruption to our tenants. Very impressed with their professionalism and expertise.",
-    response: "We appreciate the kind words, Paola! Pipe bursting is a great solution for aging lines, and we're happy it worked perfectly for your property.",
+    text: "The Roofing Friend reroofed our multi-unit property with R-Panel metal. The whole job was done in three days with minimal disruption to our tenants. Very impressed with their professionalism and craftsmanship.",
+    response: "We appreciate the kind words, Paola! R-Panel is a great solution for multi-unit properties — happy it worked perfectly.",
   },
   {
     name: "Jesus Padilla",
@@ -51,7 +51,7 @@ export const reviewsData: Review[] = [
     color: "bg-amber-500",
     date: "January 2026",
     rating: 5,
-    text: "Best plumbing company in the Bay Area, hands down. They fixed our commercial water heater and did a full inspection of our plumbing system. Fair pricing and top-notch work. Will definitely use them again.",
+    text: "Best roofing company in the Bay Area, hands down. They installed a standing seam roof on our commercial building and handled all the Title 24 paperwork for our PG&E rebate. Fair pricing and top-notch work.",
     response: "Thank you, Jesus! We strive to be the best, and reviews like yours keep us motivated. See you next time!",
   },
   {
@@ -60,8 +60,8 @@ export const reviewsData: Review[] = [
     color: "bg-cyan-500",
     date: "January 2026",
     rating: 5,
-    text: "Called West Peak for a clogged main line at our office building. They came out the same day, did a video inspection, and cleared everything with hydro jetting. Very thorough and professional service.",
-    response: "Thanks, M A! We're glad our same-day service and hydro jetting got everything cleared up for your building.",
+    text: "Called The Roofing Friend for a leak on our office building. They came out same day, found the failed flashing, and replaced it permanently with custom metal. Very thorough and professional.",
+    response: "Thanks, M A! We're glad our same-day response and custom flashing fab solved the leak for good.",
   },
   {
     name: "Zoe Smith",
@@ -69,8 +69,8 @@ export const reviewsData: Review[] = [
     color: "bg-pink-500",
     date: "December 2025",
     rating: 5,
-    text: "West Peak did a trenchless sewer repair for our property management company. They were able to line multiple pipes in a single day. The communication throughout the project was excellent. Highly recommend!",
-    response: "Thank you, Zoe! We love working with property management companies and are glad the multi-pipe lining went smoothly.",
+    text: "The Roofing Friend installed standing seam roofs on three properties for our property management company. They coordinated everything and finished on schedule. Communication throughout the project was excellent.",
+    response: "Thank you, Zoe! We love working with property management companies and are glad the multi-roof install went smoothly.",
   },
   {
     name: "Jon Kay",
@@ -78,8 +78,8 @@ export const reviewsData: Review[] = [
     color: "bg-indigo-500",
     date: "December 2025",
     rating: 5,
-    text: "Excellent experience with West Peak. They replaced our old commercial water heater efficiently and at a very competitive price. The team was courteous and cleaned up everything after the job. A+ service.",
-    response: "We appreciate the review, Jon! Glad we could deliver great service at a fair price.",
+    text: "Excellent experience with The Roofing Friend. They replaced our aging TPO with a new standing seam metal roof and the energy savings have been noticeable. Team was courteous and cleaned up everything. A+ service.",
+    response: "We appreciate the review, Jon! Glad the metal-over-TPO retrofit is already paying off.",
   },
   {
     name: "Jim Baldwin",
@@ -87,8 +87,8 @@ export const reviewsData: Review[] = [
     color: "bg-teal-500",
     date: "November 2025",
     rating: 5,
-    text: "Had West Peak come out for a sewer camera inspection and they found root intrusion in our lateral line. They recommended CIPP lining and the repair was seamless. No excavation needed. Very happy with the results.",
-    response: "Thank you, Jim! Root intrusion is a common issue and CIPP is the perfect no-dig solution. Glad it worked out great!",
+    text: "Had The Roofing Friend come out for a roof inspection — they found three areas of concern, walked me through each one with photos, and gave me an honest repair-vs-replace analysis. Ended up with a beautiful new metal roof.",
+    response: "Thank you, Jim! Honest assessments are the foundation of how we work. Glad the new roof looks great!",
   },
   {
     name: "Sarah Chen",
@@ -96,7 +96,7 @@ export const reviewsData: Review[] = [
     color: "bg-orange-500",
     date: "November 2025",
     rating: 5,
-    text: "We manage several commercial properties and West Peak is our go-to for all plumbing and sewer needs. Their preventative maintenance program has saved us thousands in potential repairs. Reliable and trustworthy team.",
+    text: "We manage several commercial properties and The Roofing Friend is our go-to for all metal roofing and TPO needs. Their preventative maintenance program has saved us thousands in potential repairs. Reliable and trustworthy team.",
     response: "Thank you, Sarah! We value our ongoing relationship with your properties. Preventative maintenance is always the smartest investment.",
   },
   {
@@ -105,7 +105,7 @@ export const reviewsData: Review[] = [
     color: "bg-lime-500",
     date: "October 2025",
     rating: 5,
-    text: "West Peak handled a complex pipe bursting job at our commercial facility. They coordinated everything with our operations team to minimize downtime. Professional, efficient, and excellent results.",
+    text: "The Roofing Friend handled a complex phased reroof on our commercial facility. They coordinated everything with our operations team to keep production running. Professional, efficient, and excellent results.",
     response: "Thanks, Robert! We always work closely with our commercial clients to ensure minimal disruption. Glad it went smoothly!",
   },
   {
@@ -114,7 +114,7 @@ export const reviewsData: Review[] = [
     color: "bg-fuchsia-500",
     date: "October 2025",
     rating: 5,
-    text: "Called for an emergency drain cleaning at our medical office. West Peak responded quickly and resolved the issue without any disruption to our patients. Can't ask for better service than that!",
+    text: "Called for an emergency tarp and leak repair on our medical office. The Roofing Friend responded quickly and resolved the issue without any disruption to our patients. Can't ask for better service than that!",
     response: "Thank you, Diana! We understand the importance of keeping medical facilities running smoothly. Happy to help anytime!",
   },
 ];

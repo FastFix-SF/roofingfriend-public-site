@@ -68,22 +68,22 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>West Peak Trenchless & Plumbing | Bay Area 24/7 Plumbing Services</title>
-        <meta name="description" content="West Peak Trenchless & Plumbing — trenchless pipe repair, sewer services, hydro jetting, water heater installation, and 24/7 emergency plumbing in the San Francisco Bay Area." />
-        <link rel="canonical" href="https://westpeakplumbing.com/" />
-        <meta property="og:title" content="West Peak Trenchless & Plumbing | Bay Area 24/7 Plumbing Services" />
-        <meta property="og:description" content="Trenchless pipe repair, sewer services, hydro jetting, water heater installation, and 24/7 emergency plumbing in the San Francisco Bay Area." />
-        <meta property="og:url" content="https://westpeakplumbing.com/" />
+        <title>The Roofing Friend | Premium Metal Roofing in the SF Bay Area</title>
+        <meta name="description" content="The Roofing Friend — standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned, California-licensed, 24/7 storm response." />
+        <link rel="canonical" href="https://theroof.info/" />
+        <meta property="og:title" content="The Roofing Friend | Premium Metal Roofing in the SF Bay Area" />
+        <meta property="og:description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned and California-licensed." />
+        <meta property="og:url" content="https://theroof.info/" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "West Peak Trenchless & Plumbing",
-          telephone: "(650) 379-8166",
-          email: "servicerequests@westpeak.biz",
-          url: "https://westpeakplumbing.com",
-          address: { "@type": "PostalAddress", streetAddress: "1030 Duane Ave", addressLocality: "Santa Clara", addressRegion: "CA", postalCode: "95054" },
-          openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" },
+          "@type": "RoofingContractor",
+          name: "The Roofing Friend",
+          telephone: "(510) 999-7663",
+          email: "info@theroof.info",
+          url: "https://theroof.info",
+          address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
+          openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },
           aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "181" },
         })}</script>
       </Helmet>

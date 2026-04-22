@@ -3,8 +3,8 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/west-peak-logo.png";
 
 const navLinks = [
-  { label: "Services", href: "/trenchless" },
   { label: "Roofing", href: "/commercial-roofing" },
+  { label: "Warranty", href: "/warranty" },
   { label: "About", href: "/about" },
   { label: "Reviews", href: "/reviews" },
   { label: "Contact", href: "/contact" },
@@ -20,7 +20,7 @@ const Navbar = () => {
         <a href="/" className="flex items-center gap-2 sm:gap-3">
           <img 
             src={logo} 
-            alt="West Peak Trenchless & Plumbing" 
+            alt="The Roofing Friend" 
             className="h-9 sm:h-14 w-auto"
           />
           <div className="flex flex-col items-start justify-center">

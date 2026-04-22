@@ -40,7 +40,7 @@ const systems = [
 ];
 
 const CommercialRoofing = () => {
-  const canonicalUrl = "https://westpeakplumbing.com/commercial-roofing";
+  const canonicalUrl = "https://theroof.info/commercial-roofing";
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -58,9 +58,9 @@ const CommercialRoofing = () => {
     name: "Commercial Standing Seam Metal Roofing — Bay Area",
     description: "Standing seam metal roofing installation for retail centers, restaurants, warehouses, and commercial properties across the San Francisco Bay Area.",
     provider: {
-      "@type": "LocalBusiness",
-      name: "West Peak Trenchless & Plumbing",
-      telephone: "(650) 379-8166",
+      "@type": "RoofingContractor",
+      name: "The Roofing Friend",
+      telephone: "(510) 999-7663",
       areaServed: { "@type": "State", name: "California" },
     },
     serviceType: "Commercial Metal Roofing",
@@ -113,8 +113,8 @@ const CommercialRoofing = () => {
             <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg text-sm">
               Get a Commercial Quote
             </a>
-            <a href="tel:+16503798166" className="px-8 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-sm">
-              Call (650) 379-8166
+            <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-sm">
+              Call (510) 999-7663
             </a>
           </div>
         </div>
@@ -187,7 +187,7 @@ const CommercialRoofing = () => {
                 Cleared for federal, GSA, and municipal roofing contracts. From base housing to public works, our veteran-led crews deliver milspec quality on every commercial project.
               </p>
             </div>
-            <a href="tel:+16503798166" className="mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
+            <a href="tel:+15109997663" className="mt-6 inline-block text-sm font-medium text-cta-gold hover:underline">
               Talk to a Veteran Estimator →
             </a>
           </div>
@@ -289,8 +289,8 @@ const CommercialRoofing = () => {
             <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
               Schedule a Free Roof Survey
             </a>
-            <a href="tel:+16503798166" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
-              Call (650) 379-8166
+            <a href="tel:+15109997663" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
+              Call (510) 999-7663
             </a>
           </div>
         </div>

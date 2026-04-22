@@ -7,14 +7,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import React, { Suspense } from "react";
 
 const Index = React.lazy(() => import("./pages/Index"));
-const TrenchlessOverview = React.lazy(() => import("./pages/TrenchlessOverview"));
-const TrenchlessCommercial = React.lazy(() => import("./pages/TrenchlessCommercial"));
-const TrenchlessIndustrial = React.lazy(() => import("./pages/TrenchlessIndustrial"));
-const TrenchlessMethod = React.lazy(() => import("./pages/TrenchlessMethod"));
-const WaterHeater = React.lazy(() => import("./pages/WaterHeater"));
-const AgingPipes = React.lazy(() => import("./pages/AgingPipes"));
-const HydroJetting = React.lazy(() => import("./pages/HydroJetting"));
-const Plumbing = React.lazy(() => import("./pages/Plumbing"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
@@ -38,14 +30,6 @@ const App = () => (
           <Suspense fallback={<div className="h-screen bg-background" />}>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/trenchless" element={<TrenchlessOverview />} />
-              <Route path="/trenchless/commercial" element={<TrenchlessCommercial />} />
-              <Route path="/trenchless/industrial" element={<TrenchlessIndustrial />} />
-              <Route path="/trenchless/:method" element={<TrenchlessMethod />} />
-              <Route path="/water-heater" element={<WaterHeater />} />
-              <Route path="/pipes" element={<AgingPipes />} />
-              <Route path="/hydro-jetting" element={<HydroJetting />} />
-              <Route path="/plumbing" element={<Plumbing />} />
               <Route path="/commercial-roofing" element={<CommercialRoofing />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />

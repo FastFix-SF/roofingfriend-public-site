@@ -5,13 +5,12 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { searchItems, type SearchItem } from "@/lib/search-data";
 
 const quickLinks = [
-  { label: "Trenchless", href: "/trenchless" },
-  { label: "Water Heater", href: "/water-heater" },
-  { label: "Plumbing", href: "/plumbing" },
-  { label: "Hydro Jetting", href: "/hydro-jetting" },
-  { label: "Rebates", href: "/rebates" },
+  { label: "Commercial Roofing", href: "/commercial-roofing" },
   { label: "Warranty", href: "/warranty" },
+  { label: "Rebates", href: "/rebates" },
   { label: "Referral", href: "/referral" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Contact", href: "/contact" },
 ];
 
 interface SearchDialogProps {
@@ -89,7 +88,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-2">
             <Search size={18} className="text-muted-foreground" />
-            <span className="font-semibold text-base text-foreground">Search West Peak</span>
+            <span className="font-semibold text-base text-foreground">Search The Roofing Friend</span>
           </div>
           <button
             onClick={() => onOpenChange(false)}
@@ -143,7 +142,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             <div className="flex flex-col items-center py-8 text-center">
               <p className="font-medium text-foreground mb-1">No results found</p>
               <p className="text-sm text-muted-foreground">
-                Try searching for "trenchless", "water heater", or "rebates"
+                Try searching for "standing seam", "warranty", or "rebates"
               </p>
             </div>
           ) : (
