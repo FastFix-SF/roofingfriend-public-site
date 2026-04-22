@@ -1,36 +1,30 @@
 
 
-## Goal
+## What's happening
 
-Replace the Contact page hero background (`src/assets/hero-contact.jpg`) with a photo-real image of a **Roofing Friend service van** — clean, branded with the company logo on the side panel, parked in a real-world setting.
+The new images **are** in your project — I checked the files and confirmed `warranty-residential.jpg`, `warranty-commercial.jpg`, and `hero-contact.jpg` were all updated earlier today (April 22, 18:48–19:12). The issue is your **browser is showing cached versions** of the old images.
 
-## Approach
+In dev mode, Vite serves these images at stable URLs, so when the file content changes, the browser can keep showing the cached copy until you force a refresh.
 
-Use Nano Banana Pro (`google/gemini-3-pro-image-preview`) in **multi-image edit mode** — feed it the existing `roofing-friend-logo.png` so the model reproduces the actual brand mark on the vehicle (not an invented logo).
+## The fix
 
-### Prompt direction
+**Step 1 — Hard refresh the preview** (try this first, no code change needed):
+- Mac: `Cmd + Shift + R`
+- Windows: `Ctrl + Shift + R`
 
-> "Photo-realistic wide shot of a clean white commercial work van (Mercedes Sprinter / Ford Transit style) parked in a residential driveway during golden hour. The van's side panel prominently features the provided 'Roofing Friend' logo applied as professional vehicle vinyl wrap — logo crisp, well-lit, slightly reflective on the painted metal. Aluminum extension ladders mounted to the roof rack. Subtle Bay Area neighborhood backdrop with warm natural light. Premium, trustworthy, clean — looks like a real photo of a high-end roofing contractor's service vehicle. 16:9 aspect ratio, hero-banner composition with negative space on the left for overlay text."
+That alone should reveal the updated Residential, Commercial, and Contact-page van images.
 
-### Files to update
+**Step 2 — If a hard refresh doesn't work**, I'll add cache-busting to make sure new image versions always show up:
 
-1. `src/assets/hero-contact.jpg` — regenerate via image edit (using logo as second input)
-2. `src/assets/hero-contact.webp` — re-encode from new JPG (sharp, q80, ~1920px wide)
-
-### Process
-
-1. Read `src/assets/roofing-friend-logo.png` → base64.
-2. Send prompt + logo image to Lovable AI Gateway (`google/gemini-3-pro-image-preview`).
-3. Save returned image → JPG (q88, 1920px wide) and matching WebP (q80).
-4. **QA pass**: open the new JPG, verify (a) logo is recognizable and correctly placed, (b) van/scene looks photographic not CGI, (c) left-side negative space works for the white "Contact Us" headline + tagline overlay (the existing `bg-black/60` overlay in `ServiceHero` will keep text legible regardless). Re-run if logo is garbled or scene reads as fake.
+1. Bump the modification timestamp on the four warranty + contact assets so Vite generates fresh hashed filenames.
+2. Optionally add a `?v=2` query suffix on the imports as belt-and-suspenders for dev mode.
 
 ## Files
 
-- **Edit**: `src/assets/hero-contact.jpg`, `src/assets/hero-contact.webp`.
-- No code changes — `Contact.tsx` already imports these paths.
+- No source code changes for Step 1.
+- Step 2 (only if needed): touch `src/assets/warranty-residential.{jpg,webp}`, `src/assets/warranty-commercial.{jpg,webp}`, `src/assets/hero-contact.{jpg,webp}` to force re-hash.
 
-## Out of scope
+## Try the hard refresh first and let me know
 
-- Changing the page copy ("Contact Us" / tagline) or layout.
-- Adding the van imagery to other pages — only the Contact hero.
+If the new van + photo-real warranty panels still don't appear after `Cmd/Ctrl + Shift + R`, reply "still cached" and I'll apply Step 2.
 
