@@ -121,10 +121,10 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                     ref={el => { videoRefs[i] = el; }}
                     autoPlay
                     muted
-                    loop
                     playsInline
                     preload="metadata"
                     onCanPlay={() => setVideoReady(prev => ({ ...prev, [i]: true }))}
+                    onEnded={() => { if (i === selectedIndex) emblaApi?.scrollNext(); }}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady[i] ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <source src={slide.video.replace('.mp4', '.webm')} type="video/webm" />
