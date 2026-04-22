@@ -2,47 +2,89 @@
 
 ## Goal
 
-Replace the current Footer content (West Peak Trenchless & Plumbing) with **The Roofing Friend** brand info pulled from roofingfriend.com, matching the uploaded reference.
+Make every city in the Footer's "Service Areas" row a clickable link to a real, dedicated city landing page (13 cities total). Use the same one-line taglines roofingfriend.com uses on its homepage map, plus a full local SEO page body underneath.
 
-## Source data (from roofingfriend.com)
+## Why one dynamic route, not 13 files
 
-- **Brand**: The Roofing Friend — "We Can, We Will"
-- **Tagline**: "Your trusted partner for premium metal roofing solutions across the San Francisco Bay Area. Licensed, insured, and committed to excellence."
-- **Phone**: (510) 999-7663 — 24/7 Emergency Service
-- **Email**: info@theroof.info
-- **Location**: San Francisco Bay Area — Serving 13+ locations
-- **Hours**: Mon–Fri: 8AM – 4PM, Weekends: Closed (Emergency 24/7)
-- **License**: CA License #1067709
-- **Copyright**: © 2026 The Roofing Friend
+Roofingfriend.com's own city pages 404 — they only show city *labels* on the homepage. So we're going *beyond* what they have, but we'll keep their copy style. 13 near-identical pages = one `<Route path="/locations/:city">` + one `cities-data.ts` file. Adding a city later = one entry in the data array, no new file.
 
-## Footer structure (4 columns, matching the uploaded reference)
+## Source taglines (verbatim from roofingfriend.com homepage)
 
-1. **Brand column** — Logo + "The Roofing Friend" / "We Can, We Will" + tagline + social icons (YouTube, Instagram, Facebook, TikTok, Google)
-2. **Quick Links** — Home, About Us, Projects, Material Store, Contact, Get Quote
-3. **Services** — Metal Roof Installation, Roof Repair & Maintenance, Standing Seam Systems, R-Panel Installation, Commercial Roofing, Residential Roofing
-4. **Contact Info** — Phone (with "24/7 Emergency Service"), Email, Location ("San Francisco Bay Area — Serving 13+ locations"), Hours ("Mon - Fri: 8AM - 4PM / Weekends: Closed")
+| City | Tagline |
+|---|---|
+| San Francisco | Premium metal roofing in the heart of the Bay Area |
+| Santa Clara | Residential and commercial roofing solutions |
+| Walnut Creek | Expert roofing services in Contra Costa County |
+| Tiburon | Luxury roofing for Marin County homes |
+| San Anselmo | Custom metal roofing installations |
+| Santa Cruz | Coastal roofing specialists |
+| Modesto | Central Valley roofing experts |
+| Kentfield | Premium roofing in Marin County |
+| Santa Rosa | North Bay roofing professionals |
+| Alameda County | Comprehensive roofing throughout Alameda County |
+| Contra Costa County | Full-service roofing across Contra Costa County |
+| Petaluma | Quality roofing in Sonoma County |
+| Los Gatos | High-end roofing solutions |
 
-**Service Areas row** (centered, below the 4-column grid): San Francisco · Santa Clara · Walnut Creek · Tiburon · San Anselmo · Santa Cruz · Modesto · Kentfield · Santa Rosa · Alameda County · Contra Costa County · Petaluma · Los Gatos
+## Implementation — 3 files
 
-**Bottom bar**: "© 2026 The Roofing Friend. All rights reserved. | Licensed & Insured | CA License #1067709" — Privacy Policy · Terms of Service · Powered by FastFix.AI badge (kept as-is).
+### 1. New: `src/lib/cities-data.ts`
 
-## Implementation
+Export `cities: CityData[]` with for each entry:
+- `slug` (e.g. `"san-francisco"`, `"alameda-county"`)
+- `name` (display)
+- `tagline` (the verbatim one-liner above)
+- `region` ("Marin County" / "Contra Costa County" / "Sonoma County" / "Bay Area" / "Central Valley")
+- `intro` (2-sentence local paragraph — climate, common roof types, why metal fits)
+- `localFacts` (array of 3 bullets: e.g. SF → "Coastal fog & salt air", "Earthquake-rated installs", "Strict permit timelines we handle")
+- `nearbyAreas` (array of 3 nearby city slugs for cross-linking)
 
-Single file edit: `src/components/Footer.tsx`
+Helper: `getCityBySlug(slug)`.
 
-- Swap all hardcoded copy (brand name, tagline, phone, email, address, services list, hours, copyright, license #) for the Roofing Friend values above.
-- Add a centered **Service Areas** strip between the 4-column grid and the bottom bar (separator above and below, matching the reference screenshot).
-- Keep the existing color scheme (`bg-[#f8f6f2]`, `cta-gold` accent), grid layout, icon usage (`Phone`, `Mail`, `MapPin`, `Clock`, `Zap`), and FastFix.AI badge unchanged — only copy + the new service-areas row change.
-- Logo stays as the existing `west-peak-logo.png` import (no new asset needed unless you want me to swap it — flagging as out of scope).
-- Social icons row: skipping for now — current footer has none and adding 5 new icon imports + dead links would be noise. Can add in a follow-up if you want them live.
+### 2. New: `src/pages/CityPage.tsx`
+
+Reads `:city` param, looks up city data, renders:
+- `<Helmet>` with city-specific `<title>`, meta description, canonical, and `LocalBusiness` JSON-LD with `areaServed` set to that city.
+- `Navbar`
+- `ServiceHero` — title `"Metal Roofing in {city}"`, tagline = the verbatim roofingfriend.com one-liner, background = `heroCommercialRoofing` (existing asset, no new uploads).
+- **Local intro section** — the 2-sentence intro paragraph + 3 local facts as `CheckCircle2` bullets.
+- **Services in {city}** — 4 cards reusing roofing services from existing pages: Standing Seam, R-Panel, Multi-V, TPO. Link each to `/commercial-roofing` (existing).
+- **Why local matters** — 3-stat block: "Free Bay Area Delivery", "Local crews, no subs", "{city} permits handled" using existing icons.
+- **CTA band** — phone (510) 999-7663 + "Get a Free {city} Quote" button → existing ServiceTitan URL.
+- **Nearby areas** — 3 chip-style links to other `/locations/{slug}` pages for SEO interlinking.
+- `Footer` + `BottomBar`.
+- 404 fallback if slug not found → `<Navigate to="/404">` (uses existing NotFound page via catch-all).
+
+### 3. Edit: `src/App.tsx`
+
+Add lazy import + route **above** the `*` catch-all:
+```tsx
+const CityPage = React.lazy(() => import("./pages/CityPage"));
+<Route path="/locations/:city" element={<CityPage />} />
+```
+
+### 4. Edit: `src/components/Footer.tsx` (lines 4–18 + 103–112)
+
+- Replace the string array `serviceAreas` with `import { cities } from "@/lib/cities-data"`.
+- In the Service Areas `<p>` (line ~106), wrap each city name in `<a href={`/locations/${city.slug}`}>` so each is now a real link with the existing hover-gold style. Dot separator stays. No layout change.
+
+## Routing & SEO notes
+
+- URL pattern: `/locations/san-francisco`, `/locations/alameda-county`, etc. Matches the convention roofingfriend.com *intended* (the 404'd `/locations/...` URLs).
+- Each page = unique `<title>`, meta description, H1, and JSON-LD → 13 net-new indexable pages for local search.
+- Nearby-areas cross-links create the internal link graph Google rewards for local SEO.
 
 ## Files
 
-- `src/components/Footer.tsx` — copy swap + add service-areas row (~15 lines added, ~20 lines of copy edited).
+- **NEW** `src/lib/cities-data.ts` (~80 lines, 13 entries)
+- **NEW** `src/pages/CityPage.tsx` (~140 lines)
+- **EDIT** `src/App.tsx` (+2 lines)
+- **EDIT** `src/components/Footer.tsx` (~10 lines: swap array + wrap names in `<a>`)
 
 ## Out of scope
 
-- Replacing the West Peak logo image with a Roofing Friend logo (no asset uploaded; would need a separate generation/upload pass).
-- Wiring social media icons (YouTube/Instagram/Facebook/TikTok/Google) — no real URLs available from the scrape.
-- Updating Footer links to point to actual `/projects`, `/material-store` routes — those pages don't exist in this project; links will go to closest existing routes (`/`, `/about`, `/contact`, etc.) and "Get Quote" → `/contact`.
+- Adding a new "Locations" hub page (`/locations`) listing all 13 — Footer + nearby-area links already cover discovery; can add later if you want a dedicated index page.
+- Per-city hero photography — using shared `heroCommercialRoofing` asset for all 13 to avoid 13 image generation passes. Easy to swap later by adding a `heroImage` field to `cities-data.ts`.
+- Per-city customer reviews/testimonials — would need real data; flagged as future.
+- Updating Navbar to surface a "Locations" link — current Navbar (Services / Roofing / About / Reviews / Contact) is full; Footer remains the discovery point.
 
