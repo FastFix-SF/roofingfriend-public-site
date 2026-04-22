@@ -1,7 +1,7 @@
 import promoOffers from "@/assets/promo-offers.jpg";
 import promoHeroes from "@/assets/promo-inspection.png";
-import promoFsd from "@/assets/promo-fsd.jpg";
-import promoFeatures from "@/assets/promo-rebates.jpg";
+import promoStandingSeam from "@/assets/slide-standing-seam.jpg";
+import promoVeteran from "@/assets/hero-veteran-government-roofing.jpg";
 
 const PromoGrid = () => {
   return (
