@@ -2,48 +2,34 @@
 
 ## Goal
 
-Sync the Contact page with the **real** content scraped live from roofingfriend.com so every detail matches the actual business — and add the trust signals the live site uses but our page is currently missing.
+Replace every instance of the old phone number `(510) 999-7663` / `5109997663` with the new number `+1 (415) 697-1849` / `14156971849` across the entire site.
 
-## What's already correct
+## Files to update
 
-- Phone `(510) 999-7663` ✓
-- Email `info@theroof.info` ✓
-- Service area "San Francisco Bay Area, 13+ locations" ✓
-- Hours "Mon–Fri 8AM–4PM" + "Emergency 24/7" ✓
+A site-wide search will catch every occurrence, but based on what I've seen so far the number lives in at least:
 
-## What's missing or off (from live site)
+1. **`src/components/Footer.tsx`** — Contact Info column `tel:` link and display text.
+2. **`src/pages/Contact.tsx`** — Phone card (`tel:` + display), JSON-LD `telephone`, and the inline call link under the form.
+3. **`src/components/BottomBar.tsx`** — sticky mobile call button (likely).
+4. **`src/components/Navbar.tsx`** — header call CTA (if present).
+5. **`src/components/HeroSection.tsx` / `ServiceHero.tsx` / `BookingDialog.tsx`** — any embedded call CTAs.
+6. **`index.html`** + **`public/llms.txt`** — any hardcoded contact references.
+7. **Any other page** (`About`, `CityPage`, `Reviews`, `Rebates`, `Referral`, `WarrantyDetail`, etc.) that hardcodes the number.
 
-| Field | Live site | Our page | Action |
-|---|---|---|---|
-| Phone subtitle | "Call or text anytime" | "24/7 Emergency" | Update — phone card should say "Call or text anytime"; keep 24/7 emergency as separate badge |
-| Contact method preference | Email / Text Message radio | (not present) | Add radio: "Preferred Contact Method" |
-| Project type | Residential / Commercial / Service-Repair | (free-text only) | Add radio group |
-| Trust stats block | 500+ Projects · 4.9/5 Rating · 25-Yr Warranty · Same Day Response | (not present) | Add a "Why Choose Us" stats strip below the form |
-| Form heading | "Book a Service" / "Fill out a few details and we'll contact you instantly." | "Get a Free Roof Assessment" | Change to match live wording |
-| Saturday/Sunday | (not mentioned on live) | "By appointment" | Remove — live site only shows Mon-Fri + Emergency 24/7 |
+## Format used everywhere
 
-## Changes (single file)
+- **Display text**: `(415) 697-1849`
+- **`tel:` href**: `tel:+14156971849` (E.164, with the `+`)
+- **JSON-LD `telephone`**: `+1-415-697-1849`
 
-**`src/pages/Contact.tsx`**
+## Approach
 
-1. **Phone card**: change subtitle from "24/7 Emergency" → "Call or text anytime".
-2. **Hours block**: remove the "Saturday – Sunday — By appointment" row (not on live site). Keep Mon–Fri and Emergency Storm Response 24/7.
-3. **Form**:
-   - Rename heading: "Get a Free Roof Assessment" → **"Book a Service"**
-   - Subtitle: "Tell us about your project..." → **"Fill out a few details and we'll contact you instantly."**
-   - Add **Preferred Contact Method** field (radio: Email / Text Message), default Email
-   - Add **Project Type** field (radio: Residential / Commercial / Service or Repair)
-   - Submit button: "Request Assessment" → **"Book Service"**
-   - Update form state shape + toast accordingly
-4. **New trust stats strip** below the hours/form grid: 4 stats from the live site
-   - 500+ Projects Completed
-   - 4.9/5 Customer Rating
-   - 25-Year Warranty
-   - Same-Day Response Time
-5. **SEO**: update meta description + JSON-LD to reflect the real positioning ("Call or text anytime", same-day response, 500+ projects).
+1. Run a project-wide search for `5109997663`, `510 999`, `510) 999`, `999-7663`, and `999.7663` to enumerate every occurrence.
+2. Replace each with the new number using the format conventions above (display vs. tel vs. schema).
+3. Leave all surrounding labels (e.g. "Call or text anytime", "24/7 Emergency Service") untouched.
 
 ## Out of scope
 
-- No new pages, no asset changes, no routing changes.
-- The 2-step wizard UI on the live site (kept as a single-page form for simplicity — same fields, one screen). Happy to convert to a 2-step wizard in a follow-up if you want exact parity.
+- No layout, copy, or component changes — number swap only.
+- Email addresses, hours, and addresses stay as they are.
 
