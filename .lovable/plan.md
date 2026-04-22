@@ -2,64 +2,63 @@
 
 ## Goal
 
-Make every image on every page load **fast**, on first visit and subsequent navigations.
+Replace every gold/brown CTA across the site that currently links out to ServiceTitan (`book.servicetitan.com/...`) with a button that opens a **modal popup** containing the live booking form, embedded inline.
 
-## Why images are still slow
+## Approach
 
-1. **`src/assets/` is 18 MB.** Vite bundles everything that's `import`-ed; multi-MB PNGs of unused plumbing/water-heater assets (and the 1.1 MB old `west-peak-logo.png`) inflate the build and compete for bandwidth.
-2. **The logo is 560 KB PNG** but renders at ~40px tall — used in Navbar + Footer on every page.
-3. **Only 2 hero images have `.webp` siblings.** Every other JPG/PNG ships uncompressed-by-modern-standards (~200–400 KB each, when WebP would be 30–80 KB).
-4. **No build-time image processing.** Each new asset added stays at original size forever unless we manually compress.
+### 1. New `BookingDialog` component
 
-## Fix — five layers, each cumulative
+Create `src/components/BookingDialog.tsx` — a Radix dialog (reusing `src/components/ui/dialog.tsx`) sized for a booking widget (~`max-w-3xl`, `h-[85vh]`). Inside: an `<iframe>` pointed at the ServiceTitan booking URL, full width/height, with a loading skeleton while it boots.
 
-### 1. Delete unused legacy assets (instant ~6 MB cut)
+```tsx
+<Dialog open={open} onOpenChange={onOpenChange}>
+  <DialogContent className="max-w-3xl w-[95vw] h-[85vh] p-0 overflow-hidden">
+    <iframe src={BOOKING_URL} className="w-full h-full border-0" title="Book an inspection" />
+  </DialogContent>
+</Dialog>
+```
 
-Many imports point only to *roofing* assets now. Plumbing/water-heater/trench files (`slide-water-heater.png`, `slide-hydro-jetter.png`, `west-peak-logo.png`, `wh-*.jpg`, `hj-*.jpg`, `plumb-*.jpg`, `trench-*.jpg`, `pipe-*.jpg`, `nasty-pipe-hero.jpg`, `cta-trenchless-*.jpg`, `hero-*-trenchless.jpg`, `hero-charging.jpg`, `hero-energy.jpg`, `hero-sedan.jpg`, `hero-suv.jpg`, `hero-truck.jpg`, `slide-sedan.jpg`, `slide-sports.jpg`, `slide-suv.jpg`, `slide-truck.jpg`) — grep each, delete any with **zero references**. Estimated savings: 5–7 MB removed from the bundle.
+> **Risk**: ServiceTitan may set `X-Frame-Options: DENY` or a `frame-ancestors` CSP that blocks embedding. If so, the iframe will render blank. Mitigation: fallback message inside the dialog ("Trouble loading? Open in new tab →") with the original link, plus a graceful `onError`/timeout detection. We'll verify after first deploy and, if blocked, switch to a custom HTML form that POSTs to the same booking endpoint, or to a Calendly/Cal.com replacement.
 
-### 2. Compress + convert remaining images to WebP
+### 2. Global open mechanism
 
-For every `.jpg`/`.png` actually referenced (~25 files): generate a `.webp` sibling at quality 78 (typical 60–85% size cut vs JPEG). Re-encode the original JPG with mozjpeg q80 as fallback for non-WebP browsers. Special case the PNG logo:
-- `roofing-friend-logo.png` (560 KB) → 600 px wide WebP + lightweight PNG fallback (~15 KB).
+Lots of files use this CTA. To avoid prop-drilling an `onClick` everywhere, mount **one** `BookingDialog` once in `App.tsx` and open it via a tiny event bus (same pattern already used for the assistant): `window.dispatchEvent(new Event('open-booking'))`. A `useBooking()` hook exposes `openBooking()` for components that prefer a function call.
 
-### 3. Smart `<img>` wrapper component
+### 3. Replace every ServiceTitan `<a>` with a button
 
-Create `src/components/ui/SmartImage.tsx` — a thin wrapper that:
-- Renders `<picture>` with WebP `<source>` + JPG fallback automatically (looks up the `.webp` sibling at module level).
-- Defaults to `loading="lazy"` + `decoding="async"`.
-- Accepts `priority` prop → swaps to `loading="eager"` + `fetchpriority="high"`.
-- Forwards width/height to prevent CLS.
+Find/replace across the 11 files that contain `book.servicetitan.com`:
 
-Replace `<img src={...} />` calls across `PromoGrid`, `VehicleSlider`, `SecondarySlider`, all `pages/*.tsx` CTAs, `Navbar`, `Footer`. Single-line drop-in.
+- `src/components/BottomBar.tsx` — "Schedule an Inspection Today"
+- `src/components/HeroSection.tsx` — primary CTA when `primaryLink` is the ServiceTitan URL (treat as a sentinel; swap to button)
+- `src/components/PromoGrid.tsx` — "Learn More", "Get a Free Roof Assessment"
+- `src/components/VehicleSlider.tsx` — primary CTA per slide
+- `src/components/SecondarySlider.tsx` — primary CTA per slide
+- `src/components/ChargingSection.tsx` — "Claim My Free Quote", "Lock My Free Quote"
+- `src/pages/Index.tsx` — slide config (`primaryLink` → sentinel `#book`)
+- `src/pages/Rebates.tsx` — 4 CTAs
+- `src/pages/CommercialRoofing.tsx` — all booking CTAs
+- `src/pages/CityPage.tsx` — booking CTAs
+- `src/pages/Contact.tsx` — booking CTAs
 
-### 4. Preload the LCP image on every page
+Each `<a href="https://book.servicetitan.com/...">` becomes:
+```tsx
+<button onClick={openBooking} className="…same classes…">…label…</button>
+```
 
-Each page already knows its hero image. Add a `<link rel="preload" as="image" imageSrcSet="…webp" type="image/webp" fetchpriority="high">` inside each page's `<Helmet>`. Pages to update: `Index`, `CommercialRoofing` (already done), `CityPage` (already done), `WarrantyOverview`, `WarrantyDetail`, `Rebates`, `Referral`, `About`, `Contact`, `Reviews`.
+For slide/data configs (`Index.tsx` slides, sliders), introduce a sentinel value like `primaryLink: "#book"` and let `HeroSection` / sliders detect that and call `openBooking()` instead of navigating.
 
-### 5. Long-cache headers for static assets
+### 4. Constants file
 
-Update `vercel.json` to send `Cache-Control: public, max-age=31536000, immutable` for `/assets/*` (Vite hashes filenames, so this is safe). Repeat-visit images become free.
-
-## Expected result
-
-| Metric | Before | After |
-|---|---|---|
-| `src/assets/` total | 18 MB | ~3 MB |
-| Hero LCP image | 200–400 KB JPG | 40–90 KB WebP (preloaded) |
-| Logo on every page | 560 KB PNG | ~10 KB WebP |
-| Repeat-visit image cost | refetch | 0 (immutable cache) |
+Create `src/lib/booking.ts` exporting `BOOKING_URL` (the ServiceTitan link) so the URL lives in one place — used by the iframe and by the fallback "open in new tab" link.
 
 ## Files
 
-- **Delete**: every `src/assets/*` with zero `import` references (verified per-file via grep).
-- **Re-encode + add `.webp`**: every remaining `src/assets/*.jpg` / `*.png` still in use.
-- **New**: `src/components/ui/SmartImage.tsx`.
-- **Edit**: `Navbar.tsx`, `Footer.tsx`, `PromoGrid.tsx`, `VehicleSlider.tsx`, `SecondarySlider.tsx`, `ServiceHero.tsx`, and all `src/pages/*.tsx` (swap `<img>` → `<SmartImage>` + add hero preload `<link>`).
-- **Edit**: `vercel.json` (cache headers for `/assets/*`).
+- **New**: `src/components/BookingDialog.tsx`, `src/hooks/useBooking.ts`, `src/lib/booking.ts`.
+- **Edit**: `src/App.tsx` (mount `<BookingDialog />`), plus all 11 files above to swap anchors → buttons.
 
 ## Out of scope
 
-- Build-time image plugin (`vite-imagetools`) — does the same work but adds a dep + config; manual sharp pass achieves identical output for current asset count.
-- AVIF — marginal additional 10–15% savings vs WebP, more encode time, weaker browser support a year ago (now fine but diminishing returns).
-- Per-breakpoint `srcset` (320/640/1280 widths) — worthwhile only for the heroes; flagged as a follow-up if mobile LCP still lags after this round.
+- Building a custom booking form from scratch (only happens if ServiceTitan blocks iframe embedding — handled as a follow-up).
+- Changing the "Call (510) 999-7663" / phone CTAs.
+- Restyling buttons; only their click behavior changes.
 
