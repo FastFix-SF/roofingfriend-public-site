@@ -42,26 +42,26 @@ const PromoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* FSD card - larger */}
           <div className="md:col-span-3 relative rounded-lg overflow-hidden h-[400px] md:h-[500px]">
-            <img src={promoFsd} alt="Save Water Save Money" loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <img src={promoStandingSeam} alt="Built to Outlast Your Mortgage" loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-2xl md:text-3xl font-medium text-white">Save Water, Save Money</h3>
-              <p className="text-sm text-white/80 mt-1">Old toilets and sinks waste water. Replace and Save</p>
+              <h3 className="text-2xl md:text-3xl font-medium text-white">Built to Outlast Your Mortgage</h3>
+              <p className="text-sm text-white/80 mt-1">50+ year lifespan. Class A fire-rated. Hail, wind & wildfire ready.</p>
               <div className="flex gap-3 mt-4">
-                <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity">Demo FSD (Supervised)</a>
-                <a href="/pipes" className="px-6 py-2.5 rounded text-sm font-medium bg-white text-foreground hover:bg-white/90 transition-colors">Learn More</a>
+                <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity">Get a Free Roof Assessment</a>
+                <a href="/commercial-roofing" className="px-6 py-2.5 rounded text-sm font-medium bg-white text-foreground hover:bg-white/90 transition-colors">Why Metal?</a>
               </div>
             </div>
           </div>
 
           {/* Features card - smaller */}
           <div className="md:col-span-2 relative rounded-lg overflow-hidden h-[400px] md:h-[500px]">
-            <img src={promoFeatures} alt="California Rebate Programs" loading="lazy" decoding="async" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <img src={promoVeteran} alt="Veteran-Owned Mission-Driven" loading="lazy" decoding="async" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-2xl md:text-3xl font-medium text-white">California Rebate Programs</h3>
-              <p className="text-sm text-white/80 mt-1">Get up to $8,000+ back when you upgrade your water heater or plumbing</p>
-              <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block px-8 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity">Discover</a>
+              <h3 className="text-2xl md:text-3xl font-medium text-white">Veteran-Owned. Mission-Driven.</h3>
+              <p className="text-sm text-white/80 mt-1">Discipline, integrity, and craftsmanship on every roof we install.</p>
+              <a href="/about" className="mt-4 inline-block px-8 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity">Our Story</a>
             </div>
           </div>
         </div>
