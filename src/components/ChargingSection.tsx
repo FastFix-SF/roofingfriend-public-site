@@ -361,9 +361,9 @@ const ChargingSection = () => {
               </div>
             ) : locationResult && (
               <div>
-                <p className="text-xs text-muted-foreground mb-1">Estimated for {locationResult.region}</p>
+                <p className="text-xs text-muted-foreground mb-1">Your area: {locationResult.region}</p>
                 <p className="text-2xl font-semibold text-foreground">{locationResult.adoptionPct}%</p>
-                <p className="text-xs text-muted-foreground mt-0.5">of homes in your area have metal roofs</p>
+                <p className="text-xs text-muted-foreground mt-0.5">of your neighbors already switched to metal</p>
                 <div className="mt-3 flex items-center gap-2">
                   <span className={`inline-block w-2 h-2 rounded-full ${
                     locationResult.adoptionPct > 50 ? "bg-[hsl(120,50%,45%)]" : locationResult.adoptionPct > 25 ? "bg-[hsl(40,90%,55%)]" : "bg-cta-gold"
@@ -371,7 +371,7 @@ const ChargingSection = () => {
                   <span className="text-xs font-medium text-foreground">{locationResult.momentum}</span>
                 </div>
                 <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
-                  Get a Metal Roof Quote
+                  Claim My Free Quote →
                 </a>
               </div>
             )}
