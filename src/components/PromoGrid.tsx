@@ -13,7 +13,7 @@ const PromoGrid = () => {
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">Current Offers</h3>
-              <p className="text-sm text-muted-foreground mt-1">Explore limited-time offers on our vehicles.</p>
+              <p className="text-sm text-muted-foreground mt-1">Explore current promotions on metal roofing.</p>
               <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block w-fit px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
                 Learn More
               </a>
@@ -27,7 +27,7 @@ const PromoGrid = () => {
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">Referral Program</h3>
-              <p className="text-sm text-muted-foreground mt-1">Refer a friend to West Peak and earn a commission on every completed job.</p>
+              <p className="text-sm text-muted-foreground mt-1">Refer a friend to The Roofing Friend and earn a commission on every completed install.</p>
               <a href="/referral" className="mt-4 inline-block w-fit px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
                 Learn More
               </a>

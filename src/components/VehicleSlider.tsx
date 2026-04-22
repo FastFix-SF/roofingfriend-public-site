@@ -8,10 +8,10 @@ import slideMultiV from "@/assets/slide-multi-v.jpg";
 import slideTpo from "@/assets/slide-tpo.jpg";
 
 const vehicles = [
-  { image: slideStandingSeam, category: "", title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/standing-seam" },
-  { image: slideRPanel, category: "", title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/r-panel" },
-  { image: slideMultiV, category: "", title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/multi-v" },
-  { image: slideTpo, category: "", title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/tpo-commercial" },
+  { image: slideStandingSeam, category: "", title: "Standing Seam", subtitle: "Premium Metal Roof · 50+ Year Lifespan", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideRPanel, category: "", title: "R-Panel System", subtitle: "Affordable Metal Strength for Homes & Barns", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideMultiV, category: "", title: "Multi-V Panel", subtitle: "Architectural Style for Luxury Homes", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
+  { image: slideTpo, category: "", title: "TPO Commercial", subtitle: "Energy-Efficient Flat Roofs for Business", primaryCta: "Get a Quote", secondaryCta: "Learn More", learnMoreLink: "/commercial-roofing" },
 ];
 
 const VehicleSlider = () => {
