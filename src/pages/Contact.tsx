@@ -53,18 +53,18 @@ const Contact = () => {
     <>
       <Helmet>
         <title>Contact | The Roofing Friend</title>
-        <meta name="description" content="Book a service with The Roofing Friend — call or text (510) 999-7663 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
+        <meta name="description" content="Book a service with The Roofing Friend — call or text (415) 697-1849 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
         <link rel="canonical" href="https://theroof.info/contact" />
         <link rel="preload" as="image" href={heroContactWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Contact | The Roofing Friend" />
-        <meta property="og:description" content="Call or text anytime at (510) 999-7663. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
+        <meta property="og:description" content="Call or text anytime at (415) 697-1849. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
         <meta property="og:url" content="https://theroof.info/contact" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RoofingContractor",
           name: "The Roofing Friend",
-          telephone: "(510) 999-7663",
+          telephone: "(415) 697-1849",
           email: "roofingfriend@gmail.com",
           url: "https://theroof.info",
           description: "Call or text anytime. 500+ projects completed, 4.9/5 customer rating, 25-year warranty, same-day response across the San Francisco Bay Area.",
@@ -80,10 +80,10 @@ const Contact = () => {
       {/* Contact Cards */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 mb-16">
-          <a href="tel:5109997663" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
+          <a href="tel:+14156971849" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
             <Phone size={28} className="text-cta-gold mb-3" />
             <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-            <p className="text-muted-foreground text-sm">(510) 999-7663</p>
+            <p className="text-muted-foreground text-sm">(415) 697-1849</p>
             <p className="text-xs text-cta-gold mt-1">Call or text anytime</p>
           </a>
           <a href="mailto:roofingfriend@gmail.com" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
@@ -184,7 +184,7 @@ const Contact = () => {
               </Button>
             </form>
             <div className="flex items-center gap-4 mt-6">
-              <a href="tel:5109997663" className="text-sm font-medium text-cta-gold hover:underline">(510) 999-7663</a>
+              <a href="tel:+14156971849" className="text-sm font-medium text-cta-gold hover:underline">(415) 697-1849</a>
               <a href="mailto:roofingfriend@gmail.com" className="text-sm font-medium text-cta-gold hover:underline">Email Us</a>
             </div>
           </div>

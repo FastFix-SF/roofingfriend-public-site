@@ -84,7 +84,7 @@ const Index = () => {
           "@context": "https://schema.org",
           "@type": "RoofingContractor",
           name: "The Roofing Friend",
-          telephone: "(510) 999-7663",
+          telephone: "(415) 697-1849",
           email: "info@theroof.info",
           url: "https://theroof.info",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },

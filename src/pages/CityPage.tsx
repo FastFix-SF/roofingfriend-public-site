@@ -19,8 +19,8 @@ const services = [
 ];
 
 const QUOTE_URL = "https://booking.servicetitan.com/";
-const PHONE = "(510) 999-7663";
-const PHONE_HREF = "tel:5109997663";
+const PHONE = "(415) 697-1849";
+const PHONE_HREF = "tel:+14156971849";
 
 const CityPage = () => {
   const { city: slug } = useParams<{ city: string }>();
