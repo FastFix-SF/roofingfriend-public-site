@@ -6,21 +6,27 @@ interface ServiceHeroProps {
   tagline: string;
   backLink?: { label: string; to: string };
   backgroundImage?: string;
+  backgroundImageWebp?: string;
 }
 
-const ServiceHero = ({ title, tagline, backLink, backgroundImage }: ServiceHeroProps) => (
+const ServiceHero = ({ title, tagline, backLink, backgroundImage, backgroundImageWebp }: ServiceHeroProps) => (
   <section className="relative text-white pt-24 pb-16 md:pt-32 md:pb-20 px-6 lg:px-12 overflow-hidden">
     {backgroundImage ? (
       <>
-        <img
-          src={backgroundImage}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-          decoding="async"
-          width={1920}
-          height={1080}
-        />
+        <picture className="absolute inset-0 w-full h-full">
+          {backgroundImageWebp && <source srcSet={backgroundImageWebp} type="image/webp" />}
+          <img
+            src={backgroundImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+            // @ts-expect-error fetchpriority is valid HTML
+            fetchpriority="high"
+            width={1920}
+            height={1080}
+          />
+        </picture>
         <div className="absolute inset-0 bg-black/60" />
       </>
     ) : (
