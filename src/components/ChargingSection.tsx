@@ -1,42 +1,43 @@
-import { Wrench, AlertTriangle, Loader2 } from "lucide-react";
+import { Home, TrendingUp, AlertTriangle, Loader2 } from "lucide-react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import React, { useMemo, useState, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
+// Metal roof adoption rate by state (0–1). Highest in storm-prone, rural & mountain states.
 const stateDensity: Record<string, number> = {
-  "California": 0.9, "Texas": 0.85, "New York": 0.95, "Florida": 0.8,
-  "Illinois": 0.75, "Pennsylvania": 0.88, "Ohio": 0.82, "Michigan": 0.78,
-  "New Jersey": 0.92, "Massachusetts": 0.87, "Georgia": 0.6, "Virginia": 0.65,
-  "North Carolina": 0.55, "Washington": 0.5, "Arizona": 0.45, "Indiana": 0.7,
-  "Tennessee": 0.6, "Missouri": 0.65, "Maryland": 0.72, "Wisconsin": 0.68,
-  "Minnesota": 0.58, "Colorado": 0.4, "Alabama": 0.55, "Louisiana": 0.7,
-  "Kentucky": 0.62, "Oregon": 0.48, "Oklahoma": 0.52, "Connecticut": 0.85,
-  "Iowa": 0.5, "Mississippi": 0.58, "Arkansas": 0.5, "Kansas": 0.45,
-  "Utah": 0.35, "Nevada": 0.38, "New Mexico": 0.42, "West Virginia": 0.75,
-  "Nebraska": 0.4, "Idaho": 0.3, "Hawaii": 0.25, "Maine": 0.65,
-  "New Hampshire": 0.6, "Rhode Island": 0.88, "Montana": 0.28,
-  "Delaware": 0.8, "South Dakota": 0.3, "North Dakota": 0.25,
-  "Alaska": 0.2, "Vermont": 0.62, "Wyoming": 0.22, "District of Columbia": 0.9,
-  "South Carolina": 0.5,
+  "Florida": 0.85, "Texas": 0.75, "Colorado": 0.7, "North Carolina": 0.7,
+  "South Carolina": 0.68, "Tennessee": 0.65, "Georgia": 0.6, "Alabama": 0.62,
+  "Mississippi": 0.6, "Louisiana": 0.65, "Arkansas": 0.6, "Oklahoma": 0.6,
+  "Kansas": 0.58, "Missouri": 0.55, "Kentucky": 0.6, "West Virginia": 0.62,
+  "Virginia": 0.5, "Maryland": 0.35, "Pennsylvania": 0.3, "Ohio": 0.4,
+  "Indiana": 0.45, "Illinois": 0.35, "Michigan": 0.4, "Wisconsin": 0.45,
+  "Minnesota": 0.5, "Iowa": 0.5, "Nebraska": 0.55, "South Dakota": 0.6,
+  "North Dakota": 0.58, "Montana": 0.7, "Wyoming": 0.7, "Idaho": 0.68,
+  "Utah": 0.62, "Nevada": 0.5, "Arizona": 0.55, "New Mexico": 0.6,
+  "California": 0.55, "Oregon": 0.55, "Washington": 0.5, "Alaska": 0.75,
+  "Hawaii": 0.4, "Maine": 0.55, "Vermont": 0.6, "New Hampshire": 0.5,
+  "Massachusetts": 0.25, "Rhode Island": 0.2, "Connecticut": 0.25,
+  "New York": 0.25, "New Jersey": 0.22, "Delaware": 0.3,
+  "District of Columbia": 0.15,
 };
 
+// Estimated metal-roof homes per state (population × adoption rate).
 const statePipeCount: Record<string, number> = {
-  "California": 18200, "Texas": 15400, "New York": 12800, "Florida": 11500,
-  "Illinois": 8200, "Pennsylvania": 9100, "Ohio": 7800, "Michigan": 6500,
-  "New Jersey": 5800, "Massachusetts": 4900, "Georgia": 5200, "Virginia": 4800,
-  "North Carolina": 5100, "Washington": 4200, "Arizona": 3600, "Indiana": 3900,
-  "Tennessee": 3800, "Missouri": 3500, "Maryland": 3200, "Wisconsin": 3400,
-  "Minnesota": 3300, "Colorado": 3100, "Alabama": 2800, "Louisiana": 2700,
-  "Kentucky": 2600, "Oregon": 2400, "Oklahoma": 2200, "Connecticut": 2300,
-  "Iowa": 1900, "Mississippi": 1700, "Arkansas": 1600, "Kansas": 1700,
-  "Utah": 1500, "Nevada": 1400, "New Mexico": 1100, "West Virginia": 1200,
-  "Nebraska": 1100, "Idaho": 900, "Hawaii": 700, "Maine": 900,
-  "New Hampshire": 800, "Rhode Island": 700, "Montana": 600,
-  "Delaware": 600, "South Dakota": 500, "North Dakota": 450,
-  "Alaska": 400, "Vermont": 450, "Wyoming": 350, "District of Columbia": 500,
-  "South Carolina": 2800,
+  "California": 600000, "Texas": 1100000, "Florida": 850000, "New York": 180000,
+  "Pennsylvania": 220000, "Illinois": 200000, "Ohio": 280000, "Georgia": 320000,
+  "North Carolina": 480000, "Michigan": 230000, "New Jersey": 110000,
+  "Virginia": 270000, "Washington": 200000, "Arizona": 240000, "Massachusetts": 95000,
+  "Tennessee": 350000, "Indiana": 220000, "Missouri": 210000, "Maryland": 110000,
+  "Wisconsin": 200000, "Colorado": 320000, "Minnesota": 240000, "South Carolina": 290000,
+  "Alabama": 240000, "Louisiana": 230000, "Kentucky": 220000, "Oregon": 170000,
+  "Oklahoma": 220000, "Connecticut": 70000, "Utah": 180000, "Iowa": 150000,
+  "Nevada": 140000, "Arkansas": 160000, "Mississippi": 150000, "Kansas": 140000,
+  "New Mexico": 110000, "Nebraska": 100000, "West Virginia": 100000, "Idaho": 120000,
+  "Hawaii": 50000, "New Hampshire": 60000, "Maine": 65000, "Montana": 90000,
+  "Rhode Island": 18000, "Delaware": 28000, "South Dakota": 50000, "North Dakota": 45000,
+  "Alaska": 55000, "Vermont": 40000, "Wyoming": 40000, "District of Columbia": 10000,
 };
 
 const getDensityColor = (density: number) => {
@@ -172,11 +173,11 @@ function generateDots() {
 }
 
 const legendItems = [
-  { color: "hsl(0, 70%, 45%)", label: "80–100%" },
-  { color: "hsl(20, 80%, 50%)", label: "60–80%" },
-  { color: "hsl(40, 90%, 55%)", label: "40–60%" },
-  { color: "hsl(50, 85%, 60%)", label: "20–40%" },
-  { color: "hsl(60, 70%, 70%)", label: "0–20%" },
+  { color: "hsl(0, 70%, 45%)", label: "60%+" },
+  { color: "hsl(20, 80%, 50%)", label: "45–60%" },
+  { color: "hsl(40, 90%, 55%)", label: "30–45%" },
+  { color: "hsl(50, 85%, 60%)", label: "15–30%" },
+  { color: "hsl(60, 70%, 70%)", label: "Under 15%" },
 ];
 
 const ChargingSection = () => {
@@ -184,7 +185,7 @@ const ChargingSection = () => {
   const dots = useMemo(() => generateDots(), []);
   const [tooltip, setTooltip] = useState<{ name: string; density: number; pipes: number; x: number; y: number } | null>(null);
   const [locating, setLocating] = useState(false);
-  const [locationResult, setLocationResult] = useState<{ age: number; risk: string; region: string } | null>(null);
+  const [locationResult, setLocationResult] = useState<{ adoptionPct: number; momentum: string; region: string } | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
 
   const handleFindMe = useCallback(() => {
@@ -211,16 +212,19 @@ const ChargingSection = () => {
             nearestRegion = region;
           }
         }
-        const basePipeAge = Math.round(15 + nearestRegion.density * 45);
+        const basePct = Math.round(20 + nearestRegion.density * 65);
         const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
-        const estimatedAge = Math.max(5, basePipeAge + variance);
-        const risk = estimatedAge > 40 ? "High" : estimatedAge > 25 ? "Moderate" : "Low";
+        const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
+        const momentum = adoptionPct > 50
+          ? "High adoption — join your neighbors"
+          : adoptionPct > 25
+          ? "Growing fast — early-mover advantage"
+          : "Pioneer territory — be first on your block";
 
         // Reverse-lookup closest state name
         let region = "your area";
         let closestStateDist = Infinity;
         for (const [state, density] of Object.entries(stateDensity)) {
-          // rough proximity via density match
           const diff = Math.abs(density - nearestRegion.density);
           if (diff < closestStateDist) {
             closestStateDist = diff;
@@ -228,7 +232,7 @@ const ChargingSection = () => {
           }
         }
 
-        setLocationResult({ age: estimatedAge, risk, region });
+        setLocationResult({ adoptionPct, momentum, region });
         setLocating(false);
       },
       (error) => {
@@ -306,18 +310,18 @@ const ChargingSection = () => {
           >
             <p className="font-semibold text-foreground">{tooltip.name}</p>
             <p className="text-muted-foreground">
-              {Math.round(tooltip.density * 100)}% of pipes over 15 years
+              {Math.round(tooltip.density * 100)}% of homes have metal roofs
             </p>
             <p className="text-muted-foreground">
-              ~{Math.round(tooltip.pipes * tooltip.density).toLocaleString()} pipes need inspection
+              ~{tooltip.pipes.toLocaleString()} homes already switched
             </p>
           </div>
         )}
 
         {/* Legend */}
         <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10">
-          <p className="text-[10px] font-semibold text-foreground mb-1.5">% of pipes over 15 years</p>
-          <p className="text-[9px] text-muted-foreground mb-1">Each dot = ~10 pipes</p>
+          <p className="text-[10px] font-semibold text-foreground mb-1.5">% of homes with metal roofs</p>
+          <p className="text-[9px] text-muted-foreground mb-1">Each dot = ~10,000 metal-roof homes</p>
           <div className="flex flex-col gap-1">
             {legendItems.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
@@ -358,16 +362,16 @@ const ChargingSection = () => {
             ) : locationResult && (
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Estimated for {locationResult.region}</p>
-                <p className="text-2xl font-semibold text-foreground">{locationResult.age} years</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Average piping structure age</p>
+                <p className="text-2xl font-semibold text-foreground">{locationResult.adoptionPct}%</p>
+                <p className="text-xs text-muted-foreground mt-0.5">of homes in your area have metal roofs</p>
                 <div className="mt-3 flex items-center gap-2">
                   <span className={`inline-block w-2 h-2 rounded-full ${
-                    locationResult.risk === "High" ? "bg-destructive" : locationResult.risk === "Moderate" ? "bg-[hsl(40,90%,55%)]" : "bg-[hsl(120,50%,45%)]"
+                    locationResult.adoptionPct > 50 ? "bg-[hsl(120,50%,45%)]" : locationResult.adoptionPct > 25 ? "bg-[hsl(40,90%,55%)]" : "bg-cta-gold"
                   }`} />
-                  <span className="text-xs font-medium text-foreground">{locationResult.risk} risk — inspection {locationResult.risk === "Low" ? "optional" : "recommended"}</span>
+                  <span className="text-xs font-medium text-foreground">{locationResult.momentum}</span>
                 </div>
                 <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
-                  Schedule Inspection
+                  Get a Metal Roof Quote
                 </a>
               </div>
             )}
@@ -378,30 +382,30 @@ const ChargingSection = () => {
       {/* Info bar */}
       <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">Find how nasty is your plumbing</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">See how many homes near you already made the switch</h2>
           <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-lg">
-            View plumbing infrastructure across America with pipes older than 15 years that may need inspection or replacement.
+            Live map of metal-roof adoption across America. Florida leads at 85%. California is catching up fast. Where does your state rank?
           </p>
           <div className="flex gap-3 mt-4">
             <a href="#" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">View Map</a>
-            <a href="/pipes" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">Learn More</a>
+            <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">Learn More</a>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:flex md:gap-8">
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">142,500</span>
-              <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-destructive" />
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">8.4M</span>
+              <Home className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Pipes Over 15 Years</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Homes with metal roofs in America</span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">28,340</span>
-              <Wrench className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">32%</span>
+              <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-cta-gold" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Critical — Need Replacement</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Year-over-year adoption growth</span>
           </div>
         </div>
       </div>
