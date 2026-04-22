@@ -1,0 +1,51 @@
+# The Roofing Friend
+
+> Veteran-owned premium metal roofing contractor serving the entire San Francisco Bay Area. We install standing seam, R-Panel, Multi-V, TPO, copper, and zinc roof systems on residential, commercial, and historic-landmark properties. Licensed CA #1067709, fully insured, 24/7 emergency service.
+
+## Site
+
+- Website: https://theroof.info
+- Phone: (510) 999-7663
+- Email: info@theroof.info
+- License: California State License Board #1067709
+- Service area: San Francisco Bay Area (San Francisco, Alameda, Contra Costa, Marin, Santa Clara, Sonoma, Santa Cruz, Stanislaus counties)
+
+## Core services
+
+- Standing seam metal roofing (snap-lock, mechanical seam, copper, zinc)
+- R-Panel metal roofing
+- Multi-V metal roofing
+- TPO single-ply membrane roofing
+- Insulated Metal Panels (IMP)
+- Retrofit-over-existing roof systems
+- Historic-district and landmark roof restoration
+- 24/7 emergency tarp and leak repair
+- Permit handling and HOA / design-review submissions
+
+## Key pages
+
+- [Home](https://theroof.info/)
+- [Commercial Roofing](https://theroof.info/commercial-roofing)
+- [About](https://theroof.info/about)
+- [Reviews](https://theroof.info/reviews) — 5.0 stars, 181+ Google reviews
+- [Warranty Programs](https://theroof.info/warranty)
+- [Rebates](https://theroof.info/rebates)
+- [Referral Program](https://theroof.info/referral)
+- [Contact](https://theroof.info/contact)
+
+## Service areas
+
+City hubs and affluent neighborhood pages are listed in the [sitemap](https://theroof.info/sitemap.xml). Top-tier service areas include San Francisco (Pacific Heights, Sea Cliff, Presidio Heights), Tiburon, Kentfield, Los Gatos, Walnut Creek, Santa Rosa, and Santa Clara.
+
+## Differentiators
+
+- Veteran-owned, government and GSA contract eligible
+- W-2 in-house crews — never subcontracted
+- 30-year PVDF paint warranty, 40-year weathertightness warranty
+- Title 24 cool-roof compliant; PG&E rebate handling included
+- Class A fire rating (highest available) for WUI / wildfire zones
+- Free Bay Area panel delivery from in-house roll-forming shop
+
+## Crawl policy
+
+All AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot, etc.) are explicitly permitted to crawl, index, train on, and cite this site. See robots.txt for the full allow list.

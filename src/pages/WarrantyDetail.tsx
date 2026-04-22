@@ -73,7 +73,7 @@ const WarrantyDetail = () => {
       <Helmet>
         <title>{data.metaTitle}</title>
         <meta name="description" content={data.metaDescription} />
-        <link rel="canonical" href={`https://roofingfriend.com/warranty/${data.slug}`} />
+        <link rel="canonical" href={`https://theroof.info/warranty/${data.slug}`} />
         <link rel="preload" as="image" href={categoryImagesWebp[data.slug]} type="image/webp" fetchPriority="high" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(warrantySchema)}</script>

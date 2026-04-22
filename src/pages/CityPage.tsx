@@ -84,9 +84,19 @@ const CityPage = () => {
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
         <link rel="preload" as="image" href={heroCommercialRoofingWebp} type="image/webp" fetchPriority="high" />
+        <meta name="geo.region" content="US-CA" />
+        <meta name="geo.placename" content={`${city.name}, California`} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`https://theroof.info${heroCommercialRoofing}`} />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={`https://theroof.info${heroCommercialRoofing}`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
