@@ -73,7 +73,7 @@ const WarrantyDetail = () => {
       <Helmet>
         <title>{data.metaTitle}</title>
         <meta name="description" content={data.metaDescription} />
-        <link rel="canonical" href={`https://roofingfriend.com/warranty/${data.slug}`} />
+        <link rel="canonical" href={`https://theroof.info/warranty/${data.slug}`} />
         <link rel="preload" as="image" href={categoryImagesWebp[data.slug]} type="image/webp" fetchPriority="high" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(warrantySchema)}</script>
@@ -213,7 +213,7 @@ const WarrantyDetail = () => {
         </div>
       </section>
 
-      <FaqAccordion faqs={data.faqs} title={`${data.name} Warranty FAQ`} />
+      <FaqAccordion faqs={data.faqs} title={`${data.name} Warranty FAQ`} emitSchema={false} />
 
       {/* Other Categories */}
       <section className="bg-background py-8 md:py-12">
