@@ -1,6 +1,22 @@
 import { Phone, Mail, MapPin, Clock, Zap } from "lucide-react";
 import logo from "@/assets/west-peak-logo.png";
 
+const serviceAreas = [
+  "San Francisco",
+  "Santa Clara",
+  "Walnut Creek",
+  "Tiburon",
+  "San Anselmo",
+  "Santa Cruz",
+  "Modesto",
+  "Kentfield",
+  "Santa Rosa",
+  "Alameda County",
+  "Contra Costa County",
+  "Petaluma",
+  "Los Gatos",
+];
+
 const Footer = () => {
   return (
     <>
@@ -11,69 +27,90 @@ const Footer = () => {
           <div className="flex flex-col gap-5">
             <img
               src={logo}
-              alt="West Peak Trenchless & Plumbing"
+              alt="The Roofing Friend"
               className="h-14 w-auto self-start"
             />
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Innovative Solutions. Lasting Results.<br />No Digging.
-            </p>
-            <div className="flex flex-col gap-3 text-sm text-foreground">
-              <a href="tel:6503798166" className="flex items-center gap-2 hover:text-cta-gold transition-colors">
-                <Phone size={14} className="text-muted-foreground" />
-                (650) 379-8166
-              </a>
-              <a href="mailto:servicerequests@westpeak.biz" className="flex items-center gap-2 hover:text-cta-gold transition-colors">
-                <Mail size={14} className="text-muted-foreground" />
-                servicerequests@westpeak.biz
-              </a>
-              <div className="flex items-start gap-2">
-                <MapPin size={14} className="text-muted-foreground mt-0.5 shrink-0" />
-                <span>
-                  1030 Duane Ave, Santa Clara, CA 95054<br />
-                  Santa Clara, CA 95054
-                </span>
-              </div>
+            <div>
+              <p className="text-foreground font-semibold text-base">The Roofing Friend</p>
+              <p className="text-cta-gold text-sm font-medium tracking-wide uppercase mt-0.5">We Can, We Will</p>
             </div>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Your trusted partner for premium metal roofing solutions across the San Francisco Bay Area. Licensed, insured, and committed to excellence.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
+            <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground">
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Home</a></li>
+              <li><a href="/about" className="hover:text-cta-gold transition-colors">About Us</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Projects</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Material Store</a></li>
+              <li><a href="/contact" className="hover:text-cta-gold transition-colors">Contact</a></li>
+              <li><a href="/contact" className="hover:text-cta-gold transition-colors">Get Quote</a></li>
+            </ul>
           </div>
 
           {/* Services */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Services</h3>
             <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground">
-              <li><a href="/trenchless" className="hover:text-cta-gold transition-colors">Trenchless Services</a></li>
-              <li><a href="/aging-pipes" className="hover:text-cta-gold transition-colors">Sewer Services</a></li>
-              <li><a href="/plumbing" className="hover:text-cta-gold transition-colors">Plumbing Services</a></li>
-              <li><a href="/plumbing" className="hover:text-cta-gold transition-colors">Commercial Drain Cleaning</a></li>
-              <li><a href="/water-heater" className="hover:text-cta-gold transition-colors">Commercial Water Heater & Replacement</a></li>
-              <li><a href="/hydro-jetting" className="hover:text-cta-gold transition-colors">Hydro Jetting</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Metal Roof Installation</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Roof Repair & Maintenance</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Standing Seam Systems</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">R-Panel Installation</a></li>
+              <li><a href="/commercial-roofing" className="hover:text-cta-gold transition-colors">Commercial Roofing</a></li>
+              <li><a href="/" className="hover:text-cta-gold transition-colors">Residential Roofing</a></li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Company</h3>
-            <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground">
-              <li><a href="/about" className="hover:text-cta-gold transition-colors">About Us</a></li>
-              <li><a href="/contact" className="hover:text-cta-gold transition-colors">Contact</a></li>
-              <li><a href="/reviews" className="hover:text-cta-gold transition-colors">Reviews</a></li>
-            </ul>
-          </div>
-
-          {/* Hours */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Hours</h3>
-            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Clock size={14} className="shrink-0" />
-                <span>Mon-Fri: 24/7</span>
+            <h3 className="font-semibold text-foreground mb-4">Contact Info</h3>
+            <div className="flex flex-col gap-3 text-sm text-foreground">
+              <a href="tel:5109997663" className="flex items-start gap-2 hover:text-cta-gold transition-colors">
+                <Phone size={14} className="text-muted-foreground mt-0.5 shrink-0" />
+                <span className="flex flex-col">
+                  (510) 999-7663
+                  <span className="text-cta-gold text-xs font-medium">24/7 Emergency Service</span>
+                </span>
+              </a>
+              <a href="mailto:info@theroof.info" className="flex items-center gap-2 hover:text-cta-gold transition-colors">
+                <Mail size={14} className="text-muted-foreground" />
+                info@theroof.info
+              </a>
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <MapPin size={14} className="mt-0.5 shrink-0" />
+                <span>
+                  San Francisco Bay Area<br />
+                  Serving 13+ locations
+                </span>
               </div>
-              <div className="pl-[22px]">Sat: 24/7</div>
-              <div className="pl-[22px]">Sun: 24/7</div>
-              <p className="text-cta-gold font-medium mt-2">
-                24/7 Emergency Service Available
-              </p>
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <Clock size={14} className="mt-0.5 shrink-0" />
+                <span>
+                  Mon - Fri: 8AM - 4PM<br />
+                  Weekends: Closed
+                </span>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Service Areas */}
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border">
+          <h3 className="text-center font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">
+            Service Areas
+          </h3>
+          <p className="text-center text-sm text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+            {serviceAreas.map((area, i) => (
+              <span key={area}>
+                <span className="hover:text-cta-gold transition-colors">{area}</span>
+                {i < serviceAreas.length - 1 && <span className="text-cta-gold/60 mx-2">·</span>}
+              </span>
+            ))}
+          </p>
         </div>
       </footer>
 
@@ -81,7 +118,7 @@ const Footer = () => {
       <div className="bg-[#f8f6f2] border-t border-border px-6 lg:px-12 py-5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <p>
-            © 2026 West Peak Trenchless & Plumbing. All rights reserved. | Licensed & Insured | CA License #1093673
+            © 2026 The Roofing Friend. All rights reserved. | Licensed & Insured | CA License #1067709
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
