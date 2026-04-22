@@ -1,4 +1,5 @@
 import { cities } from "@/lib/cities-data";
+import { neighborhoods } from "@/lib/neighborhoods-data";
 
 export interface SearchItem {
   title: string;
@@ -15,6 +16,25 @@ const cityItems: SearchItem[] = cities.map((c) => ({
   category: "Locations",
   keywords: [c.name.toLowerCase(), c.region.toLowerCase(), "roofing", "metal roof", c.slug],
 }));
+
+const neighborhoodItems: SearchItem[] = neighborhoods.map((n) => {
+  const parentCity = cities.find((c) => c.slug === n.citySlug);
+  return {
+    title: `${n.name}, ${parentCity?.name ?? ""}`.trim().replace(/,$/, ""),
+    description: n.tagline,
+    href: `/locations/${n.citySlug}/${n.slug}`,
+    category: "Neighborhoods",
+    keywords: [
+      n.name.toLowerCase(),
+      n.slug,
+      parentCity?.name.toLowerCase() ?? "",
+      "neighborhood",
+      "metal roof",
+      "luxury",
+      "historic",
+    ],
+  };
+});
 
 export const searchIndex: SearchItem[] = [
   // Pages
@@ -47,6 +67,9 @@ export const searchIndex: SearchItem[] = [
 
   // Locations
   ...cityItems,
+
+  // Neighborhoods
+  ...neighborhoodItems,
 ];
 
 export function searchItems(query: string): SearchItem[] {
