@@ -216,10 +216,10 @@ const ChargingSection = () => {
         const variance = Math.round((seededRandom(Math.round(latitude * 1000))() - 0.5) * 10);
         const adoptionPct = Math.max(5, Math.min(95, basePct + variance));
         const momentum = adoptionPct > 50
-          ? "High adoption — join your neighbors"
+          ? "Hot market — lock in your quote before prices rise"
           : adoptionPct > 25
-          ? "Growing fast — early-mover advantage"
-          : "Pioneer territory — be first on your block";
+          ? "Smart timing — early adopters get the best installer slots"
+          : "First-mover advantage — stand out and add resale value";
 
         // Reverse-lookup closest state name
         let region = "your area";
@@ -310,10 +310,10 @@ const ChargingSection = () => {
           >
             <p className="font-semibold text-foreground">{tooltip.name}</p>
             <p className="text-muted-foreground">
-              {Math.round(tooltip.density * 100)}% of homes have metal roofs
+              {Math.round(tooltip.density * 100)}% of homes already upgraded to metal
             </p>
             <p className="text-muted-foreground">
-              ~{tooltip.pipes.toLocaleString()} homes already switched
+              ~{tooltip.pipes.toLocaleString()} neighbors made the switch
             </p>
           </div>
         )}
@@ -321,7 +321,7 @@ const ChargingSection = () => {
         {/* Legend */}
         <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10">
           <p className="text-[10px] font-semibold text-foreground mb-1.5">% of homes with metal roofs</p>
-          <p className="text-[9px] text-muted-foreground mb-1">Each dot = ~10,000 metal-roof homes</p>
+          <p className="text-[9px] text-muted-foreground mb-1">Each dot = 10,000 homes that already switched</p>
           <div className="flex flex-col gap-1">
             {legendItems.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
@@ -361,9 +361,9 @@ const ChargingSection = () => {
               </div>
             ) : locationResult && (
               <div>
-                <p className="text-xs text-muted-foreground mb-1">Estimated for {locationResult.region}</p>
+                <p className="text-xs text-muted-foreground mb-1">Your area: {locationResult.region}</p>
                 <p className="text-2xl font-semibold text-foreground">{locationResult.adoptionPct}%</p>
-                <p className="text-xs text-muted-foreground mt-0.5">of homes in your area have metal roofs</p>
+                <p className="text-xs text-muted-foreground mt-0.5">of your neighbors already switched to metal</p>
                 <div className="mt-3 flex items-center gap-2">
                   <span className={`inline-block w-2 h-2 rounded-full ${
                     locationResult.adoptionPct > 50 ? "bg-[hsl(120,50%,45%)]" : locationResult.adoptionPct > 25 ? "bg-[hsl(40,90%,55%)]" : "bg-cta-gold"
@@ -371,7 +371,7 @@ const ChargingSection = () => {
                   <span className="text-xs font-medium text-foreground">{locationResult.momentum}</span>
                 </div>
                 <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block px-4 py-1.5 rounded text-xs font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity">
-                  Get a Metal Roof Quote
+                  Claim My Free Quote →
                 </a>
               </div>
             )}
@@ -382,12 +382,12 @@ const ChargingSection = () => {
       {/* Info bar */}
       <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">See how many homes near you already made the switch</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">8.4 million Americans already ditched shingles. Your turn.</h2>
           <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-lg">
-            Live map of metal-roof adoption across America. Florida leads at 85%. California is catching up fast. Where does your state rank?
+            Metal roofs last 3x longer, cut cooling bills up to 25%, and survive hurricanes shingles can't. See how many of your neighbors already made the switch — then join them.
           </p>
           <div className="flex gap-3 mt-4">
-            <a href="#" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">View Map</a>
+            <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Get My Free Quote</a>
             <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">Learn More</a>
           </div>
         </div>
@@ -395,17 +395,17 @@ const ChargingSection = () => {
         <div className="grid grid-cols-2 gap-3 md:flex md:gap-8">
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">8.4M</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">50+ yrs</span>
               <Home className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Homes with metal roofs in America</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Lifespan vs. 15–20 for asphalt shingles</span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">32%</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">25%</span>
               <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-cta-gold" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground">Year-over-year adoption growth</span>
+            <span className="text-xs md:text-sm text-muted-foreground">Lower cooling bills with reflective metal</span>
           </div>
         </div>
       </div>
