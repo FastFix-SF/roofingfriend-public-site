@@ -5,8 +5,8 @@ import FaqAccordion from "@/components/FaqAccordion";
 import { rebatePrograms, rebateFaqs } from "@/lib/rebates-data";
 import { CheckCircle2, DollarSign, Leaf, Home, Building2, Zap, MapPin } from "lucide-react";
 
-import heroImg from "@/assets/promo-rebates.jpg";
-import ctaRebates from "@/assets/cta-rebates.jpg";
+import heroImg from "@/assets/slide-standing-seam.jpg";
+import ctaRebates from "@/assets/hero-veteran-government-roofing.jpg";
 
 const sectionIcons = [Leaf, DollarSign, Home, Building2, Zap, MapPin];
 
@@ -23,12 +23,12 @@ const faqSchema = {
 const Rebates = () => (
   <>
     <Helmet>
-      <title>California Rebates for Water Heaters & Plumbing | West Peak</title>
+      <title>California Roofing Rebates, Tax Breaks & Insurance Discounts | Roofing Friend</title>
       <meta
         name="description"
-        content="Save $5,000–$10,000+ with California rebate programs for heat pump water heaters and plumbing upgrades. TECH Clean California, federal tax credits, HEEHRA, and Bay Area utility rebates. West Peak handles the paperwork."
+        content="Stack utility cool-roof rebates, federal §179D tax deductions, and FAIR Plan wildfire insurance discounts on your new metal roof. Roofing Friend handles every application across California."
       />
-      <link rel="canonical" href="https://westpeakplumbing.com/rebates" />
+      <link rel="canonical" href="https://roofingfriend.com/rebates" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
 
@@ -38,7 +38,7 @@ const Rebates = () => (
     <section className="snap-section relative overflow-hidden">
       <img
         src={heroImg}
-        alt="Modern heat pump water heater installation"
+        alt="Charcoal standing seam metal roof installed by Roofing Friend"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
         fetchPriority="high"
@@ -48,20 +48,20 @@ const Rebates = () => (
       <div className="absolute inset-0 hero-overlay" />
       <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-hero-text">
-          California Rebate Programs
+          Roofing Rebates & Insurance Discounts
         </h1>
         <p className="mt-2 text-base md:text-lg font-light text-hero-text opacity-90">
-          Save $5,000–$10,000+ when you upgrade your water heater or plumbing
+          Stack utility rebates, federal tax deductions, and wildfire insurance discounts on your new metal roof
         </p>
         <div className="flex flex-row items-center gap-3 mt-4 w-full max-w-lg">
           <a
             href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
             className="w-full sm:w-auto flex-1 text-center px-12 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-xs"
           >
-            Get Your Free Rebate Assessment
+            Get Your Free Roofing Assessment
           </a>
           <a
-            href="#tech-clean-california"
+            href="#title-24-compliance"
             className="w-full sm:w-auto flex-1 text-center px-12 py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-xs"
           >
             See All Programs
@@ -105,12 +105,12 @@ const Rebates = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Stack Your Savings</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Stack Your Roofing Savings</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Combine federal, state, and utility rebates to cover most — or all — of your upgrade cost.
+                Combine utility rebates, federal §179D deductions, and FAIR Plan wildfire discounts to slash your roof investment.
               </p>
               <a
-                href="#tech-clean-california"
+                href="#title-24-compliance"
                 className="mt-4 inline-block w-fit px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors"
               >
                 See How
@@ -122,7 +122,7 @@ const Rebates = () => (
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">We Handle the Paperwork</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                West Peak files every rebate application for you — so you get maximum savings with zero hassle.
+                Roofing Friend files every rebate, cool-roof certification, and insurance discount form for you.
               </p>
               <a
                 href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer"
@@ -203,12 +203,12 @@ const Rebates = () => (
 
     {/* CTA */}
     <section className="py-16 md:py-20 px-6 lg:px-12 relative overflow-hidden text-white text-center">
-      <img src={ctaRebates} alt="Modern heat pump water heater in utility room" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
+      <img src={ctaRebates} alt="Veteran-owned Roofing Friend crew installing a Class A metal roof" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">Not Sure Which Rebates You Qualify For?</h2>
         <p className="text-lg text-white/70 mb-8">
-          Book a free consultation. We'll assess your property, identify every rebate available to you, and handle all the paperwork — so you get maximum savings.
+          Book a free roof assessment. We'll evaluate your property, your Fire Hazard Severity Zone, and your utility — then identify every rebate, tax break, and insurance discount you qualify for.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D" target="_blank" rel="noopener noreferrer" className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
