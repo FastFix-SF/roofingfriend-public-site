@@ -34,24 +34,24 @@ export const rebatePrograms: RebateProgram[] = [
   },
   {
     slug: "utility-cool-roof-rebates",
-    name: "Utility Cool Roof Rebates (SMUD, LADWP, PG&E, SDG&E)",
-    tagline: "Per-square-foot rebates from your local California utility",
+    name: "LADWP Cool Roof Rebate (+ Stackable Insulation)",
+    tagline: "Active 2025 Los Angeles cool-roof rebate, plus a stackable Attic Insulation rebate",
     description:
-      "California's major utilities run cool-roof rebate programs for customers who install CRRC-listed roofing on existing buildings. SMUD (Sacramento) and LADWP (Los Angeles) currently run the most active residential programs, with LADWP also offering a separate Attic Insulation rebate that pairs perfectly with a new metal roof. PG&E and SDG&E periodically open commercial cool-roof incentives. Amounts and funding cycles change quarterly — Roofing Friend confirms the active rebate for your service address before you sign.",
-    amount: "Per-sq-ft rebates — verified at quote time based on your utility & funding cycle",
+      "The Los Angeles Department of Water and Power (LADWP) Consumer Rebate Program — refreshed November 1, 2025 — remains the most consistently active utility cool-roof rebate in California. LADWP residential customers who install CRRC-listed cool roofing on an existing home qualify for a per-square-foot rebate, and LADWP's separate Attic Insulation rebate stacks on top for additional savings. Other major California utilities (SMUD, PG&E, SDG&E) have wound down dedicated residential cool-roof rebates and shifted funding toward heat-pump and electrification programs — Roofing Friend confirms current availability for your specific service address at quote time so nothing is promised that isn't real.",
+    amount: "LADWP per-sq-ft cool-roof rebate (verified at quote) + separate Attic Insulation rebate",
     whoQualifies:
-      "Active residential or commercial customer of SMUD, LADWP, PG&E, or SDG&E installing a CRRC-listed cool roof on an existing building. Some programs require a pre-installation application.",
+      "Active LADWP residential customers installing a CRRC-listed cool roof on an existing home. Commercial properties may qualify through LADWP's Commercial Programs — we verify eligibility at quote time.",
     howToApply:
-      "Roofing Friend confirms current rebate availability for your utility, files the pre-approval (when required), submits the CRRC product listing + CF-1R certificate, and supplies the post-install documentation the utility needs to issue your check.",
+      "Roofing Friend confirms your LADWP rebate eligibility, files the pre-approval, submits the CRRC product listing + CF-1R certificate, and supplies the post-install documentation LADWP requires to issue your rebate check.",
     highlights: [
-      "SMUD residential cool-roof rebate (Sacramento)",
-      "LADWP Consumer Rebate Program — Cool Roof (LA)",
-      "LADWP Attic Insulation rebate stacks with cool roof",
-      "PG&E & SDG&E commercial programs (when open)",
-      "Stackable with HVAC & insulation rebates",
+      "LADWP Cool Roof rebate — active 2025",
+      "LADWP Attic Insulation rebate stacks with it",
+      "CRRC product listing required (we handle)",
+      "LADWP commercial programs available",
+      "Other CA utility rebates change quarterly — we verify",
       "We file every form for you",
     ],
-    link: "https://www.ladwp.com/account/customer-service/rebates-and-programs",
+    link: "https://www.ladwp.com/residential-services/assistance-programs/consumer-rebate-program",
   },
   {
     slug: "section-179d-commercial",
@@ -143,7 +143,7 @@ export const rebateFaqs = [
   {
     question: "Which California utilities currently offer cool roof rebates?",
     answer:
-      "SMUD (Sacramento) and LADWP (Los Angeles) run the most active residential cool-roof programs in 2025. PG&E and SDG&E periodically open commercial cool-roof incentives. Programs change quarterly with funding cycles, so Roofing Friend verifies your specific utility's active rebate before you sign — and we file every form on your behalf.",
+      "LADWP runs the most consistently active residential cool-roof rebate in California as of 2025, alongside its stackable Attic Insulation rebate. Other California utility cool-roof programs (SMUD, PG&E, SDG&E) have wound down or shifted funding to heat-pump and electrification rebates. Roofing Friend verifies your specific utility's active programs before you sign — and we file every form on your behalf.",
   },
   {
     question: "How much is the FAIR Plan wildfire discount really worth?",
@@ -163,7 +163,7 @@ export const rebateFaqs = [
   {
     question: "Can I use PACE or GoGreen financing for a roof?",
     answer:
-      "Yes — both work for cool-roof projects. PACE (Property Assessed Clean Energy, e.g. Ygrene) is repaid through your property tax bill and qualifies on home equity rather than credit score. GoGreen Home is a state-backed unsecured loan through participating CA credit unions, up to ~$50K with terms to 15 years. Cool roofs qualify when bundled with insulation/air sealing.",
+      "GoGreen Home is the most reliable state-backed financing for California cool-roof projects — up to ~$50K, terms to 15 years, through participating CA credit unions, when bundled with insulation or air sealing under the Building Envelope EEM. PACE financing (repaid through your property tax bill) is still available in California through some county programs but availability has narrowed in recent years — Roofing Friend can check whether PACE is currently offered in your county at quote time.",
   },
   {
     question: "Is Title 24 cool-roof compliance required for my reroof?",
