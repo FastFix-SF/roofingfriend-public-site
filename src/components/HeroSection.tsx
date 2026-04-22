@@ -139,14 +139,14 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                     <a
                       href={slide.primaryLink || "https://book.servicetitan.com/vmadxb0e83zkwoi8thap9g0p?rwg_token=AFd1xnHm_fIKuH_JYBwfBgvD1oSa4EnqOc2Um2NB4Cgkn_2pX-5T7KQ3kOKSNULOarVKezuLXXDkYj-ESPEDDkWkUNuJfb4n4g%3D%3D"}
                       {...((slide.primaryLink || "").startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="w-full sm:w-auto flex-1 text-center px-6 md:px-12 py-2.5 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-xs md:text-sm"
+                      className="w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-[11px] md:text-sm whitespace-nowrap"
                     >
                       {slide.primaryCta}
                     </a>
                     {slide.secondaryCta && (
                       <a
                         href={slide.secondaryLink || "#"}
-                        className="w-full sm:w-auto flex-1 text-center px-6 md:px-12 py-2.5 md:py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-xs md:text-sm"
+                        className="w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-[11px] md:text-sm whitespace-nowrap"
                       >
                         {slide.secondaryCta}
                       </a>
