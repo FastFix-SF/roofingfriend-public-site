@@ -1,11 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { CheckCircle2, Phone, Truck, Users, FileCheck, Building2, Wrench, ShieldCheck, Zap } from "lucide-react";
+import { CheckCircle2, Phone, Truck, Users, FileCheck, Building2, Wrench, ShieldCheck, Zap, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomBar from "@/components/BottomBar";
 import ServiceHero from "@/components/ServiceHero";
+import FaqAccordion from "@/components/FaqAccordion";
 import { getCityBySlug, cities } from "@/lib/cities-data";
+import { getNeighborhoodsByCity } from "@/lib/neighborhoods-data";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
@@ -30,6 +32,8 @@ const CityPage = () => {
   const title = `Metal Roofing in ${city.name} | The Roofing Friend`;
   const description = `${city.tagline}. Premium standing seam, R-Panel, and TPO roofing installed in ${city.name} by The Roofing Friend — licensed, insured, CA #1067709.`;
 
+  const cityNeighborhoods = getNeighborhoodsByCity(city.slug);
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
@@ -38,13 +42,35 @@ const CityPage = () => {
     telephone: PHONE,
     email: "info@theroof.info",
     url: canonicalUrl,
-    areaServed: { "@type": "City", name: city.name },
+    areaServed: [
+      { "@type": "City", name: city.name },
+      ...cityNeighborhoods.map((n) => ({ "@type": "Place", name: `${n.name}, ${city.name}` })),
+    ],
     address: {
       "@type": "PostalAddress",
       addressRegion: "CA",
       addressCountry: "US",
     },
     priceRange: "$$$",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://theroof.info/" },
+      { "@type": "ListItem", position: 2, name: city.name, item: canonicalUrl },
+    ],
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: city.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 
   const nearby = city.nearbyAreas
@@ -62,6 +88,8 @@ const CityPage = () => {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
       <Navbar />
@@ -82,7 +110,8 @@ const CityPage = () => {
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-5">
               Why metal roofs work for {city.name}
             </h2>
-            <p className="text-muted-foreground leading-relaxed">{city.intro}</p>
+            <p className="text-muted-foreground leading-relaxed mb-5">{city.intro}</p>
+            <p className="text-muted-foreground leading-relaxed">{city.longIntro}</p>
           </div>
           <ul className="flex flex-col gap-4">
             {city.localFacts.map((fact) => (
@@ -120,8 +149,40 @@ const CityPage = () => {
         </div>
       </section>
 
+      {/* Neighborhoods we serve */}
+      {cityNeighborhoods.length > 0 && (
+        <section className="py-16 md:py-20 px-6 lg:px-12">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-center mb-3">
+              Neighborhoods we serve in {city.name}
+            </h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
+              Architect-grade metal roofing for {city.name}'s most distinguished addresses — historic landmarks, hillside estates, and award-winning custom homes.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {cityNeighborhoods.map((n) => (
+                <Link
+                  key={n.slug}
+                  to={`/locations/${city.slug}/${n.slug}`}
+                  className="group bg-background border border-border rounded-xl p-6 hover:border-cta-gold hover:shadow-md transition-all"
+                >
+                  <MapPin className="text-cta-gold mb-4" size={26} />
+                  <h3 className="font-semibold text-foreground mb-2 group-hover:text-cta-gold transition-colors">
+                    {n.name}
+                  </h3>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
+                    {n.architectureEra.split(",")[0]}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{n.tagline}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Why local */}
-      <section className="py-16 md:py-20 px-6 lg:px-12">
+      <section className="py-16 md:py-20 px-6 lg:px-12 bg-muted/30">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6">
           {[
             { icon: Truck, title: "Free Bay Area delivery", desc: "Panels roll-formed in our shop and delivered to your job site at no charge." },
@@ -138,6 +199,12 @@ const CityPage = () => {
           ))}
         </div>
       </section>
+
+      {/* FAQ */}
+      <FaqAccordion
+        faqs={city.faqs.map((f) => ({ question: f.q, answer: f.a }))}
+        title={`${city.name} metal roofing FAQ`}
+      />
 
       {/* CTA band */}
       <section className="py-14 md:py-16 px-6 lg:px-12 bg-foreground text-background">
