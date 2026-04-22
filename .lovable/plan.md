@@ -2,38 +2,35 @@
 
 ## Goal
 
-Make the **Residential** and **Commercial** roof panel images in the warranty slider look photo-real by removing the cartoon-perfect texture, while keeping the exact same composition, color palette, and quality level you already love.
-
-## What's wrong today
-
-The current `warranty-residential.jpg` and `warranty-commercial.jpg` renders read as CGI: panels are mathematically uniform, ribs are perfectly straight, seams have zero variation, and there are no real-world micro-details (subtle reflections shifting across panels, faint installation marks, light dust at seams, slight panel-to-panel tonal drift). The eye reads "render," not "roof."
+Replace the Contact page hero background (`src/assets/hero-contact.jpg`) with a photo-real image of a **Roofing Friend service van** — clean, branded with the company logo on the side panel, parked in a real-world setting.
 
 ## Approach
 
-Use Nano Banana Pro (`google/gemini-3-pro-image-preview`) in **edit mode** — feed it the existing JPG plus a prompt that locks color/composition and only adds realism. This preserves what you like and changes only the surface believability.
+Use Nano Banana Pro (`google/gemini-3-pro-image-preview`) in **multi-image edit mode** — feed it the existing `roofing-friend-logo.png` so the model reproduces the actual brand mark on the vehicle (not an invented logo).
 
-### Prompt direction (same for both, color-matched per image)
+### Prompt direction
 
-> "Photo-realistic edit. Keep the exact composition, camera angle, color palette, lighting direction, and panel layout. Only change: make the standing seam metal roof look like a real installed roof photographed on location — natural micro-variations in panel reflectivity, subtle tonal drift between adjacent panels, faint hairline scratches and handling marks near seams, realistic specular highlights that vary along each rib (not a perfect gradient), occasional slight waviness in long panels (oil-canning), real fastener shadows where applicable, atmospheric haze on distant panels. No dirt, no rust, no damage, no aging — these are brand-new premium panels, just photographed in the real world instead of rendered. Maintain premium, high-end feel."
+> "Photo-realistic wide shot of a clean white commercial work van (Mercedes Sprinter / Ford Transit style) parked in a residential driveway during golden hour. The van's side panel prominently features the provided 'Roofing Friend' logo applied as professional vehicle vinyl wrap — logo crisp, well-lit, slightly reflective on the painted metal. Aluminum extension ladders mounted to the roof rack. Subtle Bay Area neighborhood backdrop with warm natural light. Premium, trustworthy, clean — looks like a real photo of a high-end roofing contractor's service vehicle. 16:9 aspect ratio, hero-banner composition with negative space on the left for overlay text."
 
 ### Files to update
 
-1. `src/assets/warranty-residential.jpg` — regenerate via image edit
-2. `src/assets/warranty-residential.webp` — re-encode from new JPG (sharp, q80)
-3. `src/assets/warranty-commercial.jpg` — regenerate via image edit
-4. `src/assets/warranty-commercial.webp` — re-encode from new JPG
-
-`warranty-industrial.jpg` (Government & Public Sector tile) is **not** in scope — you only flagged residential and commercial. Confirm in chat if you want it included.
+1. `src/assets/hero-contact.jpg` — regenerate via image edit (using logo as second input)
+2. `src/assets/hero-contact.webp` — re-encode from new JPG (sharp, q80, ~1920px wide)
 
 ### Process
 
-1. Read each existing JPG → base64 → send to Lovable AI Gateway with the prompt above.
-2. Save returned PNG → convert to JPG (q88, ~1600px wide to match current dimensions).
-3. Regenerate matching `.webp` at q80 with `sharp`.
-4. QA: open both new JPGs, verify color/composition unchanged, verify panel surface now reads as real photography (varied highlights, subtle imperfections, no CGI uniformity). Re-run if either still looks rendered.
+1. Read `src/assets/roofing-friend-logo.png` → base64.
+2. Send prompt + logo image to Lovable AI Gateway (`google/gemini-3-pro-image-preview`).
+3. Save returned image → JPG (q88, 1920px wide) and matching WebP (q80).
+4. **QA pass**: open the new JPG, verify (a) logo is recognizable and correctly placed, (b) van/scene looks photographic not CGI, (c) left-side negative space works for the white "Contact Us" headline + tagline overlay (the existing `bg-black/60` overlay in `ServiceHero` will keep text legible regardless). Re-run if logo is garbled or scene reads as fake.
 
-### Files
+## Files
 
-- **Edit**: `src/assets/warranty-residential.jpg`, `src/assets/warranty-residential.webp`, `src/assets/warranty-commercial.jpg`, `src/assets/warranty-commercial.webp`.
-- No code changes — `SecondarySlider.tsx` and `Index.tsx` already point at these paths.
+- **Edit**: `src/assets/hero-contact.jpg`, `src/assets/hero-contact.webp`.
+- No code changes — `Contact.tsx` already imports these paths.
+
+## Out of scope
+
+- Changing the page copy ("Contact Us" / tagline) or layout.
+- Adding the van imagery to other pages — only the Contact hero.
 
