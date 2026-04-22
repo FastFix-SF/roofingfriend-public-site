@@ -138,7 +138,7 @@ const Referral = () => {
         </div>
       </section>
 
-      {/* Why Refer West Peak */}
+      {/* Why Refer The Roofing Friend */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-12 text-center">Why Refer The Roofing Friend?</h2>
