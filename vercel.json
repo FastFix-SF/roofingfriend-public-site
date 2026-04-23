@@ -5,27 +5,40 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
+    },
+    {
+      "source": "/admin-assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     }
   ],
   "rewrites": [
-    { "source": "/admin",                      "destination": "https://fastfix-crm-westpeak.vercel.app/admin" },
-    { "source": "/admin/:path*",               "destination": "https://fastfix-crm-westpeak.vercel.app/admin/:path*" },
-    { "source": "/admin-login",                "destination": "https://fastfix-crm-westpeak.vercel.app/admin-login" },
-    { "source": "/auth",                       "destination": "https://fastfix-crm-westpeak.vercel.app/admin-login" },
-    { "source": "/mobile",                     "destination": "https://fastfix-crm-westpeak.vercel.app/mobile" },
-    { "source": "/mobile/:path*",              "destination": "https://fastfix-crm-westpeak.vercel.app/mobile/:path*" },
-    { "source": "/portal",                     "destination": "https://fastfix-crm-westpeak.vercel.app/portal" },
-    { "source": "/portal/:path*",              "destination": "https://fastfix-crm-westpeak.vercel.app/portal/:path*" },
-    { "source": "/workboard",                  "destination": "https://fastfix-crm-westpeak.vercel.app/workboard" },
-    { "source": "/qbo-callback",               "destination": "https://fastfix-crm-westpeak.vercel.app/qbo-callback" },
-    { "source": "/invoice/:id*",               "destination": "https://fastfix-crm-westpeak.vercel.app/invoice/:id*" },
-    { "source": "/invoice-payment/:id*",       "destination": "https://fastfix-crm-westpeak.vercel.app/invoice-payment/:id*" },
-    { "source": "/contract-signing/:token*",   "destination": "https://fastfix-crm-westpeak.vercel.app/contract-signing/:token*" },
-    { "source": "/invite/:token*",             "destination": "https://fastfix-crm-westpeak.vercel.app/invite/:token*" },
-    { "source": "/team/invite/:token*",        "destination": "https://fastfix-crm-westpeak.vercel.app/team/invite/:token*" },
-    { "source": "/project-invite/:token*",     "destination": "https://fastfix-crm-westpeak.vercel.app/project-invite/:token*" },
-    { "source": "/client-portal/:slug*",       "destination": "https://fastfix-crm-westpeak.vercel.app/client-portal/:slug*" },
-    { "source": "/customer-dashboard",         "destination": "https://fastfix-crm-westpeak.vercel.app/customer-dashboard" },
-    { "source": "/((?!admin|mobile|portal|admin-login|auth|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|client-portal|customer-dashboard|assets).*)", "destination": "/index.html" }
+    { "source": "/admin",                       "destination": "https://roofing-friend-panels-shop.vercel.app/admin" },
+    { "source": "/admin/:path*",                "destination": "https://roofing-friend-panels-shop.vercel.app/admin/:path*" },
+    { "source": "/admin-login",                 "destination": "https://roofing-friend-panels-shop.vercel.app/admin-login" },
+    { "source": "/admin-assets/:path*",         "destination": "https://roofing-friend-panels-shop.vercel.app/admin-assets/:path*" },
+    { "source": "/auth",                        "destination": "https://roofing-friend-panels-shop.vercel.app/auth" },
+    { "source": "/dev-login",                   "destination": "https://roofing-friend-panels-shop.vercel.app/dev-login" },
+    { "source": "/mobile",                      "destination": "https://roofing-friend-panels-shop.vercel.app/mobile" },
+    { "source": "/mobile/:path*",               "destination": "https://roofing-friend-panels-shop.vercel.app/mobile/:path*" },
+    { "source": "/portal",                      "destination": "https://roofing-friend-panels-shop.vercel.app/portal" },
+    { "source": "/portal/:path*",               "destination": "https://roofing-friend-panels-shop.vercel.app/portal/:path*" },
+    { "source": "/workboard",                   "destination": "https://roofing-friend-panels-shop.vercel.app/workboard" },
+    { "source": "/qbo-callback",                "destination": "https://roofing-friend-panels-shop.vercel.app/qbo-callback" },
+    { "source": "/invoice/:id*",                "destination": "https://roofing-friend-panels-shop.vercel.app/invoice/:id*" },
+    { "source": "/invoice-payment/:id*",        "destination": "https://roofing-friend-panels-shop.vercel.app/invoice-payment/:id*" },
+    { "source": "/contract-signing/:token*",    "destination": "https://roofing-friend-panels-shop.vercel.app/contract-signing/:token*" },
+    { "source": "/invite/:token*",              "destination": "https://roofing-friend-panels-shop.vercel.app/invite/:token*" },
+    { "source": "/team/invite/:token*",         "destination": "https://roofing-friend-panels-shop.vercel.app/team/invite/:token*" },
+    { "source": "/project-invite/:token*",      "destination": "https://roofing-friend-panels-shop.vercel.app/project-invite/:token*" },
+    { "source": "/client-portal/:slug*",        "destination": "https://roofing-friend-panels-shop.vercel.app/client-portal/:slug*" },
+    { "source": "/customer-dashboard",          "destination": "https://roofing-friend-panels-shop.vercel.app/customer-dashboard" },
+    { "source": "/customer-review/:projectId*", "destination": "https://roofing-friend-panels-shop.vercel.app/customer-review/:projectId*" },
+    { "source": "/approve/:token*",             "destination": "https://roofing-friend-panels-shop.vercel.app/approve/:token*" },
+    { "source": "/cart",                        "destination": "https://roofing-friend-panels-shop.vercel.app/cart" },
+    { "source": "/download",                    "destination": "https://roofing-friend-panels-shop.vercel.app/download" },
+    { "source": "/glasses",                     "destination": "https://roofing-friend-panels-shop.vercel.app/glasses" },
+    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets).*)", "destination": "/index.html" }
   ]
 }
