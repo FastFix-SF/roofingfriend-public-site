@@ -10,8 +10,8 @@ import { getCityBySlug } from "@/lib/cities-data";
 import { getNeighborhoodBySlug, getNeighborhoodsByCity } from "@/lib/neighborhoods-data";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
+import { openBookingDialog } from "@/lib/booking";
 
-const QUOTE_URL = "https://booking.servicetitan.com/";
 const PHONE = "(415) 697-1849";
 const PHONE_HREF = "tel:+14156971849";
 
@@ -241,14 +241,12 @@ const NeighborhoodPage = () => {
             >
               <Phone size={16} /> {PHONE}
             </a>
-            <a
-              href={QUOTE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openBookingDialog}
               className="inline-flex items-center justify-center px-6 py-3 rounded-md bg-cta-gold text-btn-primary-fg font-semibold hover:opacity-90 transition-opacity"
             >
               Get a Free {neighborhood.name} Quote
-            </a>
+            </button>
           </div>
         </div>
       </section>
