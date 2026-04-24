@@ -87,6 +87,23 @@
       "openingHours": "Mo-Su 00:00-23:59"
     }
     </script>
+
+    <script>
+      // Bounce installed PWAs (display-mode: standalone) that land on "/" to
+      // /mobile/home. Old installs cached "/" as start_url before the manifest
+      // pointed at /mobile/home, so tapping the icon shows this marketing
+      // site instead of the app. Scoped to exact "/" so legitimately public
+      // routes (contract-signing, invoice-payment, etc.) still work.
+      (function () {
+        try {
+          if (window.location.pathname !== '/') return;
+          var standalone =
+            (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+            window.navigator.standalone === true;
+          if (standalone) window.location.replace('/mobile/home');
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>
