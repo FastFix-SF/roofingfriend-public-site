@@ -58,9 +58,9 @@ const ChargingSectionWrapper = () => {
   }, []);
 
   return (
-    <div ref={ref} style={{ minHeight: "80vh" }}>
+    <div ref={ref} style={{ minHeight: "100vh" }}>
       {visible && (
-        <Suspense fallback={<div className="h-[80vh] bg-muted animate-pulse" />}>
+        <Suspense fallback={<div className="h-screen bg-muted animate-pulse" />}>
           <LazyChargingSection />
         </Suspense>
       )}
