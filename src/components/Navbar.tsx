@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <a
             href={`tel:${companyConfig.phoneRaw}`}
-            className="hidden lg:inline-flex items-center px-4 py-2 rounded-md bg-cta-gold text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="hidden lg:inline-flex items-center px-3 py-1.5 rounded-md bg-cta-gold text-primary-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
           >
             {companyConfig.phone}
           </a>
