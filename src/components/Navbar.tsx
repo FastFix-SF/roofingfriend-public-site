@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/roofing-friend-logo.png";
 import logoWebp from "@/assets/roofing-friend-logo.webp";
+import { companyConfig } from "@/config/company";
 
 const navLinks = [
   { label: "Roofing", href: "/commercial-roofing" },
@@ -59,6 +60,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          <a
+            href={`tel:${companyConfig.phoneRaw}`}
+            className="hidden lg:inline-flex items-center px-4 py-2 rounded-md bg-cta-gold text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            {companyConfig.phone}
+          </a>
           <button
             className="lg:hidden text-nav-text"
             onClick={() => setMobileOpen(!mobileOpen)}
