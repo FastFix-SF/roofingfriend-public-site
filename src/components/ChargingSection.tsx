@@ -277,10 +277,10 @@ const ChargingSection = () => {
   }, []);
 
   return (
-    <section className="bg-background flex flex-col overflow-hidden" style={{ minHeight: "80vh" }}>
+    <section className="bg-background flex flex-col overflow-hidden" style={{ height: "100vh", maxHeight: "100vh" }}>
       {/* Map */}
       <div
-        className="relative flex-1 min-h-[250px] md:min-h-[400px] bg-[hsl(210,20%,95%)] overflow-hidden"
+        className="relative flex-1 min-h-[200px] bg-[hsl(210,20%,95%)] overflow-hidden"
         onMouseLeave={() => setTooltip(null)}
       >
         <ComposableMap
@@ -409,7 +409,7 @@ const ChargingSection = () => {
       </div>
 
       {/* Info bar */}
-      <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="px-4 md:px-12 lg:px-20 py-4 md:py-5 flex flex-col md:flex-row md:items-end md:justify-between gap-4 flex-shrink-0">
         <div>
           <span className="inline-flex items-center gap-1.5 bg-cta-gold/10 text-cta-gold border border-cta-gold/30 rounded-full px-3 py-1 text-xs font-semibold mb-3">
             <AlertTriangle className="w-3.5 h-3.5" />
