@@ -409,7 +409,7 @@ const ChargingSection = () => {
       </div>
 
       {/* Info bar */}
-      <div className="px-4 md:px-12 lg:px-20 py-6 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="px-4 md:px-12 lg:px-20 py-4 md:py-5 flex flex-col md:flex-row md:items-end md:justify-between gap-4 flex-shrink-0">
         <div>
           <span className="inline-flex items-center gap-1.5 bg-cta-gold/10 text-cta-gold border border-cta-gold/30 rounded-full px-3 py-1 text-xs font-semibold mb-3">
             <AlertTriangle className="w-3.5 h-3.5" />
