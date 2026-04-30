@@ -38,8 +38,8 @@ const heroSlides = [
     { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
     { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
   ] },
-  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
-    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Learn More", secondaryLink: "/commercial-roofing", textColor: "light" as const },
+  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Learn More", secondaryLink: "/portfolio", textColor: "light" as const },
+    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Learn More", secondaryLink: "/portfolio", textColor: "light" as const },
 ];
 
 const ChargingSectionWrapper = () => {

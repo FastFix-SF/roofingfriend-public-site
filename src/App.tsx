@@ -9,6 +9,7 @@ import BookingDialog from "@/components/BookingDialog";
 
 const Index = React.lazy(() => import("./pages/Index"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
+const Portfolio = React.lazy(() => import("./pages/Portfolio"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
 const Reviews = React.lazy(() => import("./pages/Reviews"));
@@ -34,6 +35,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/commercial-roofing" element={<CommercialRoofing />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/reviews" element={<Reviews />} />
