@@ -74,7 +74,8 @@ const PUBLIC_PHOTO_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/object/public/proj
 
 function buildHeroPhotoUrl(photoPath: string | null): string | null {
   if (!photoPath) return null;
-  // photoPath is the storage path like "projects/<uuid>/<file>.jpeg" — public bucket so no signing needed.
+  // project_photos rows store full public URLs; older rows may store relative paths.
+  if (/^https?:\/\//i.test(photoPath)) return photoPath;
   return `${PUBLIC_PHOTO_BASE}/${photoPath}`;
 }
 
@@ -106,20 +107,25 @@ const Portfolio = () => {
           .limit(120);
         if (pErr) throw pErr;
 
-        // Pull the first photo per project from storage so cards have an
-        // image. We list the projects/<id>/ prefix and pick the first non-thumb.
+        // Pull customer-visible photos from project_photos. Storage LIST is
+        // blocked for anon, but the project_photos table is anon-readable when
+        // is_visible_to_customer = true and stores full public URLs.
         const projectIds = (rows ?? []).map((r) => r.id);
         const photos = new Map<string, string>();
         if (projectIds.length > 0) {
-          await Promise.all(
-            projectIds.map(async (id) => {
-              const { data: files } = await supabase.storage
-                .from("project-photos")
-                .list(`projects/${id}`, { limit: 5, sortBy: { column: "name", order: "desc" } });
-              const first = files?.find((f) => f.name && !f.name.startsWith("."))?.name;
-              if (first) photos.set(id, `projects/${id}/${first}`);
-            })
-          );
+          const { data: photoRows } = await supabase
+            .from("project_photos")
+            .select("project_id, photo_url, thumbnail_url, display_order, uploaded_at")
+            .in("project_id", projectIds)
+            .eq("is_visible_to_customer", true)
+            .order("display_order", { ascending: true })
+            .order("uploaded_at", { ascending: true });
+          for (const ph of photoRows ?? []) {
+            if (!photos.has(ph.project_id)) {
+              const url = ph.thumbnail_url || ph.photo_url;
+              if (url) photos.set(ph.project_id, url);
+            }
+          }
         }
 
         if (!cancelled) {
