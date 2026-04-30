@@ -1,10 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, MapPin, X, Building2, Home, Warehouse, Landmark, Wrench } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronsLeftRight,
+  Eye,
+  MapPin,
+  Star,
+  X,
+} from "lucide-react";
 import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 
@@ -12,125 +20,131 @@ type ProjectRow = {
   id: string;
   name: string;
   address: string | null;
-  client_name: string | null;
-  status: string | null;
-  project_category: string | null;
-  project_type: string | null;
-  property_type: string | null;
-  roof_type: string | null;
   description: string | null;
-  contract_amount: number | null;
-  is_featured: boolean | null;
+  project_type: string | null;
+  project_category: string | null;
+  roof_type: string | null;
   is_public: boolean | null;
+  is_featured: boolean | null;
   created_at: string;
 };
 
-type PortfolioCategory =
+type PhotoRow = {
+  id: string;
+  project_id: string;
+  photo_url: string;
+  thumbnail_url: string | null;
+  caption: string | null;
+  photo_tag: "before" | "after" | null;
+  is_highlighted_before: boolean | null;
+  is_highlighted_after: boolean | null;
+  uploaded_at: string;
+};
+
+type CategoryFilter = "all" | "residential" | "commercial";
+type RoofFilter =
   | "all"
-  | "residential"
-  | "commercial"
-  | "industrial"
-  | "government"
-  | "repairs";
+  | "standing_seam"
+  | "metal_panels"
+  | "stone_coated"
+  | "shingles"
+  | "flat_roof";
 
-const CATEGORY_LABELS: Record<PortfolioCategory, string> = {
-  all: "All Projects",
-  residential: "Residential",
-  commercial: "Commercial",
-  industrial: "Industrial",
-  government: "Government & Public",
-  repairs: "Repairs & Service",
-};
+const CATEGORY_OPTIONS: { label: string; slug: CategoryFilter }[] = [
+  { label: "All", slug: "all" },
+  { label: "Residential", slug: "residential" },
+  { label: "Commercial", slug: "commercial" },
+];
 
-const CATEGORY_ICONS: Record<Exclude<PortfolioCategory, "all">, typeof Building2> = {
-  residential: Home,
-  commercial: Building2,
-  industrial: Warehouse,
-  government: Landmark,
-  repairs: Wrench,
-};
+const ROOF_OPTIONS: { label: string; slug: RoofFilter }[] = [
+  { label: "All", slug: "all" },
+  { label: "Standing Seam", slug: "standing_seam" },
+  { label: "Metal Panels", slug: "metal_panels" },
+  { label: "Stone Coated", slug: "stone_coated" },
+  { label: "Shingles", slug: "shingles" },
+  { label: "Flat Roof", slug: "flat_roof" },
+];
 
-// Map raw DB fields to one of the portfolio buckets. Mirrors the same
-// classification logic the admin portfolio report uses so categories line
-// up across surfaces. Matches priority: explicit project_category →
-// project_type → name keyword → property_type → fallback.
-function classify(p: ProjectRow): Exclude<PortfolioCategory, "all"> {
-  const cat = (p.project_category ?? "").toLowerCase();
-  const type = (p.project_type ?? "").toLowerCase();
-  const prop = (p.property_type ?? "").toLowerCase();
-  const name = (p.name ?? "").toLowerCase();
-  const desc = (p.description ?? "").toLowerCase();
+const toSlug = (s?: string | null) =>
+  s ? s.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") : "";
 
-  if (cat.includes("cut and drop") || type === "cut_and_drop") return "repairs";
-  if (type === "service_ticket" || name.includes("repair") || desc.includes("repair")) return "repairs";
-  if (type === "federal" || type === "state" || cat === "government") return "government";
-  if (type === "industrial" || prop === "industrial") return "industrial";
-  if (type === "commercial" || prop === "commercial" || cat === "commercial") return "commercial";
-  return "residential";
+function pickHeroPhoto(photos: PhotoRow[]): PhotoRow | null {
+  if (!photos.length) return null;
+  return (
+    photos.find((p) => p.is_highlighted_after && p.photo_tag === "after") ||
+    photos.find((p) => p.photo_tag === "after") ||
+    photos[0]
+  );
 }
 
-const SUPABASE_PROJECT_URL = "https://mnitzgoythqqevhtkitj.supabase.co";
-const PUBLIC_PHOTO_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/object/public/project-photos`;
-
-function buildHeroPhotoUrl(photoPath: string | null): string | null {
-  if (!photoPath) return null;
-  // project_photos rows store full public URLs; older rows may store relative paths.
-  if (/^https?:\/\//i.test(photoPath)) return photoPath;
-  return `${PUBLIC_PHOTO_BASE}/${photoPath}`;
+function formatMonth(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
 const Portfolio = () => {
   const [projects, setProjects] = useState<ProjectRow[]>([]);
-  const [photoMap, setPhotoMap] = useState<Map<string, string>>(new Map());
+  const [featured, setFeatured] = useState<ProjectRow[]>([]);
+  const [photoMap, setPhotoMap] = useState<Record<string, PhotoRow[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState<PortfolioCategory>("all");
-  const [selectedProject, setSelectedProject] = useState<ProjectRow | null>(null);
+  const [filterCategory, setFilterCategory] = useState<CategoryFilter>("all");
+  const [filterRoof, setFilterRoof] = useState<RoofFilter>("all");
+  const [selected, setSelected] = useState<ProjectRow | null>(null);
 
-  // ─── Fetch projects + their first photo ───────────────────────────────
+  // ─── Fetch ─────────────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        // Public-facing portfolio: only completed/in-progress projects with
-        // an address. Excludes leads, drafts, and archived rows.
-        const { data: rows, error: pErr } = await supabase
+        const { data: regular, error: rErr } = await supabase
           .from("projects")
           .select(
-            "id, name, address, client_name, status, project_category, project_type, property_type, roof_type, description, contract_amount, is_featured, is_public, created_at"
+            "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
           )
-          .eq("archived", false)
-          .not("name", "is", null)
-          .not("address", "is", null)
-          .order("is_featured", { ascending: false, nullsFirst: false })
-          .order("created_at", { ascending: false })
-          .limit(120);
-        if (pErr) throw pErr;
+          .eq("is_public", true)
+          .eq("is_featured", false)
+          .order("created_at", { ascending: false });
+        if (rErr) throw rErr;
 
-        // Pull customer-visible photos from project_photos. Storage LIST is
-        // blocked for anon, but the project_photos table is anon-readable when
-        // is_visible_to_customer = true and stores full public URLs.
-        const projectIds = (rows ?? []).map((r) => r.id);
-        const photos = new Map<string, string>();
-        if (projectIds.length > 0) {
-          const { data: photoRows } = await supabase
+        const { data: feats, error: fErr } = await supabase
+          .from("projects")
+          .select(
+            "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
+          )
+          .eq("is_public", true)
+          .eq("is_featured", true)
+          .order("created_at", { ascending: false })
+          .limit(3);
+        if (fErr) throw fErr;
+
+        const allIds = [
+          ...(feats ?? []).map((p) => p.id),
+          ...(regular ?? []).map((p) => p.id),
+        ];
+
+        let map: Record<string, PhotoRow[]> = {};
+        if (allIds.length > 0) {
+          const { data: photoRows, error: pErr } = await supabase
             .from("project_photos")
-            .select("project_id, photo_url, thumbnail_url, display_order, uploaded_at")
-            .in("project_id", projectIds)
+            .select(
+              "id, project_id, photo_url, thumbnail_url, caption, photo_tag, is_highlighted_before, is_highlighted_after, uploaded_at"
+            )
+            .in("project_id", allIds)
+            .not("photo_tag", "is", null)
             .eq("is_visible_to_customer", true)
-            .order("display_order", { ascending: true })
             .order("uploaded_at", { ascending: true });
+          if (pErr) throw pErr;
           for (const ph of photoRows ?? []) {
-            if (!photos.has(ph.project_id)) {
-              const url = ph.thumbnail_url || ph.photo_url;
-              if (url) photos.set(ph.project_id, url);
-            }
+            if (!map[ph.project_id]) map[ph.project_id] = [];
+            map[ph.project_id].push(ph as PhotoRow);
           }
         }
 
         if (!cancelled) {
-          setProjects(rows ?? []);
-          setPhotoMap(photos);
+          setProjects(regular ?? []);
+          setFeatured(feats ?? []);
+          setPhotoMap(map);
         }
       } catch (e) {
         if (!cancelled) setError((e as Error)?.message ?? "Failed to load portfolio");
@@ -143,29 +157,35 @@ const Portfolio = () => {
     };
   }, []);
 
-  // ─── Derived: counts + filtered list ──────────────────────────────────
-  const decorated = useMemo(
-    () => projects.map((p) => ({ ...p, category: classify(p) })),
-    [projects]
+  const hasPhotos = useCallback(
+    (id: string) => (photoMap[id]?.length ?? 0) > 0,
+    [photoMap]
   );
 
-  const counts = useMemo(() => {
-    const c: Record<PortfolioCategory, number> = {
-      all: decorated.length,
-      residential: 0,
-      commercial: 0,
-      industrial: 0,
-      government: 0,
-      repairs: 0,
-    };
-    for (const p of decorated) c[p.category]++;
-    return c;
-  }, [decorated]);
+  const featuredWithPhotos = useMemo(
+    () => featured.filter((p) => hasPhotos(p.id)),
+    [featured, hasPhotos]
+  );
 
-  const filtered = useMemo(() => {
-    if (activeCategory === "all") return decorated;
-    return decorated.filter((p) => p.category === activeCategory);
-  }, [decorated, activeCategory]);
+  const filteredRegular = useMemo(() => {
+    return projects
+      .filter((p) => hasPhotos(p.id))
+      .filter((p) => {
+        const catSlug = toSlug(p.project_category || p.project_type);
+        const roofSlug = toSlug(p.roof_type);
+        const matchesCat =
+          filterCategory === "all" ||
+          catSlug === filterCategory ||
+          (filterCategory === "residential" && !catSlug);
+        const matchesRoof = filterRoof === "all" || roofSlug === filterRoof;
+        return matchesCat && matchesRoof;
+      });
+  }, [projects, hasPhotos, filterCategory, filterRoof]);
+
+  const totalCount = useMemo(
+    () => projects.filter((p) => hasPhotos(p.id)).length,
+    [projects, hasPhotos]
+  );
 
   return (
     <>
@@ -204,8 +224,8 @@ const Portfolio = () => {
             Our Portfolio
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-white/90 mt-4 max-w-2xl">
-            Standing seam, R-Panel, and TPO roofs across the Bay Area — residential homes,
-            commercial sites, government buildings, and everything in between.
+            Standing seam, R-Panel, and TPO roofs across the Bay Area — residential,
+            commercial, government, and more.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <button
@@ -227,39 +247,76 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* ─── Filter chips ─────────────────────────────────────────── */}
-      <section id="portfolio-grid" className="border-b border-border bg-background sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2">
-          {(Object.keys(CATEGORY_LABELS) as PortfolioCategory[]).map((key) => {
-            const isActive = activeCategory === key;
-            const label = CATEGORY_LABELS[key];
-            const n = counts[key];
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setActiveCategory(key)}
-                className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${
-                  isActive
-                    ? "bg-foreground text-background"
-                    : "bg-muted text-foreground hover:bg-muted-foreground/15"
-                }`}
-              >
-                {label} <span className="opacity-60">({n})</span>
-              </button>
-            );
-          })}
+      {/* ─── Featured (max 3) ──────────────────────────────────────── */}
+      {featuredWithPhotos.length > 0 && (
+        <section className="bg-muted/30 py-12 sm:py-16">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+                Featured Projects
+              </h2>
+              <p className="mt-2 text-base sm:text-lg text-muted-foreground">
+                A showcase of our most exceptional transformations
+              </p>
+            </div>
+            <div
+              className={`grid gap-6 ${
+                featuredWithPhotos.length === 1
+                  ? "grid-cols-1 max-w-md mx-auto"
+                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+            >
+              {featuredWithPhotos.map((p) => (
+                <PortfolioCard
+                  key={p.id}
+                  project={p}
+                  photos={photoMap[p.id] ?? []}
+                  showFeatured
+                  onClick={() => setSelected(p)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── Filters ─────────────────────────────────────────────── */}
+      <section
+        id="portfolio-grid"
+        className="border-b border-border bg-background sticky top-0 z-30"
+      >
+        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-6 flex-1 min-w-0">
+            <FilterRow
+              label="Category"
+              value={filterCategory}
+              options={CATEGORY_OPTIONS}
+              onChange={(v) => setFilterCategory(v)}
+            />
+            <FilterRow
+              label="Roof"
+              value={filterRoof}
+              options={ROOF_OPTIONS}
+              onChange={(v) => setFilterRoof(v)}
+            />
+          </div>
+          <div className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
+            {filteredRegular.length} of {totalCount} projects
+          </div>
         </div>
       </section>
 
-      {/* ─── Grid ─────────────────────────────────────────────────── */}
+      {/* ─── Grid ───────────────────────────────────────────────── */}
       <section className="bg-background py-12">
         <div className="max-w-6xl mx-auto px-4">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="rounded-lg overflow-hidden border border-border bg-muted/40">
-                  <div className="aspect-[4/3] bg-muted animate-pulse" />
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl overflow-hidden border border-border bg-muted/40"
+                >
+                  <div className="aspect-[16/10] bg-muted animate-pulse" />
                   <div className="p-4 space-y-2">
                     <div className="h-5 bg-muted rounded w-3/4 animate-pulse" />
                     <div className="h-4 bg-muted rounded w-1/2 animate-pulse" />
@@ -271,161 +328,560 @@ const Portfolio = () => {
             <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-6 text-center">
               <p className="text-sm text-destructive">Couldn't load portfolio: {error}</p>
             </div>
-          ) : filtered.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-lg text-muted-foreground">
-                No projects in this category yet — check back soon.
+          ) : filteredRegular.length === 0 ? (
+            <div className="text-center py-16">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                No projects match those filters.
+              </h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                Try adjusting filters or clear them to see all projects.
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setFilterCategory("all");
+                  setFilterRoof("all");
+                }}
+                className="mt-6 px-6 py-3 rounded-md border border-border hover:bg-muted text-foreground font-medium transition-colors"
+              >
+                Clear Filters
+              </button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((p) => {
-                const photoPath = photoMap.get(p.id);
-                const photoUrl = buildHeroPhotoUrl(photoPath ?? null);
-                const Icon = CATEGORY_ICONS[p.category];
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setSelectedProject(p)}
-                    className="text-left rounded-lg overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow"
-                  >
-                    <div className="aspect-[4/3] bg-muted relative">
-                      {photoUrl ? (
-                        <img
-                          src={photoUrl}
-                          alt={p.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                          <Icon className="w-12 h-12 opacity-30" />
-                        </div>
-                      )}
-                      <div className="absolute top-3 left-3">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-xs font-medium text-foreground">
-                          <Icon className="w-3.5 h-3.5" />
-                          {CATEGORY_LABELS[p.category]}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground line-clamp-1">{p.name}</h3>
-                      {p.address && (
-                        <div className="mt-1.5 flex items-center gap-1.5 text-sm text-muted-foreground">
-                          <MapPin className="w-3.5 h-3.5 shrink-0" />
-                          <span className="line-clamp-1">{p.address}</span>
-                        </div>
-                      )}
-                      <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                        <span>{p.roof_type ?? p.project_type ?? "Metal roofing"}</span>
-                        <span className="inline-flex items-center gap-1 text-foreground/80 font-medium">
-                          View <ArrowRight className="w-3 h-3" />
-                        </span>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
+              {filteredRegular.map((p) => (
+                <PortfolioCard
+                  key={p.id}
+                  project={p}
+                  photos={photoMap[p.id] ?? []}
+                  onClick={() => setSelected(p)}
+                />
+              ))}
             </div>
           )}
         </div>
       </section>
 
-      {/* ─── Detail modal ─────────────────────────────────────────── */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div
-            className="bg-background rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative">
-              {(() => {
-                const path = photoMap.get(selectedProject.id);
-                const url = buildHeroPhotoUrl(path ?? null);
-                if (!url) return null;
-                return (
-                  <img
-                    src={url}
-                    alt={selectedProject.name}
-                    className="w-full aspect-[16/9] object-cover"
-                  />
-                );
-              })()}
-              <button
-                type="button"
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-3 right-3 rounded-full bg-black/60 hover:bg-black/80 text-white p-2"
-                aria-label="Close"
+      {/* ─── CTA ────────────────────────────────────────────────── */}
+      <section className="bg-background pb-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="rounded-2xl bg-gradient-to-r from-[#b8893d] to-[#a17832] text-white p-8 sm:p-12 text-center shadow-lg">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+              Ready for Your Transformation?
+            </h2>
+            <p className="mt-3 text-base sm:text-lg opacity-90 max-w-2xl mx-auto">
+              Get a free, no-obligation estimate. Our experts will assess your roof and
+              provide a detailed quote.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                to="/#book"
+                className="px-8 py-3 rounded-md bg-white text-[#a17832] hover:bg-white/90 font-semibold transition-colors"
               >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="p-6 sm:p-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                {selectedProject.name}
-              </h2>
-              {selectedProject.address && (
-                <div className="mt-2 flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="w-4 h-4" />
-                  <span>{selectedProject.address}</span>
-                </div>
-              )}
-
-              <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-                <div>
-                  <div className="text-xs uppercase text-muted-foreground tracking-wide">Category</div>
-                  <div className="mt-1 font-medium text-foreground">
-                    {CATEGORY_LABELS[classify(selectedProject)]}
-                  </div>
-                </div>
-                {selectedProject.roof_type && (
-                  <div>
-                    <div className="text-xs uppercase text-muted-foreground tracking-wide">Roof type</div>
-                    <div className="mt-1 font-medium text-foreground">{selectedProject.roof_type}</div>
-                  </div>
-                )}
-                {selectedProject.client_name && (
-                  <div>
-                    <div className="text-xs uppercase text-muted-foreground tracking-wide">Client</div>
-                    <div className="mt-1 font-medium text-foreground">{selectedProject.client_name}</div>
-                  </div>
-                )}
-              </div>
-
-              {selectedProject.description && (
-                <p className="mt-6 text-base text-foreground/80 leading-relaxed whitespace-pre-line">
-                  {selectedProject.description}
-                </p>
-              )}
-
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link
-                  to="/#book"
-                  className="px-6 py-3 rounded-md bg-[#b8893d] hover:bg-[#a17832] text-white font-medium text-center transition-colors"
-                >
-                  Get a Quote Like This
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => setSelectedProject(null)}
-                  className="px-6 py-3 rounded-md border border-border hover:bg-muted text-foreground font-medium transition-colors"
-                >
-                  Close
-                </button>
-              </div>
+                Get Free Estimate
+              </Link>
+              <Link
+                to="/contact"
+                className="px-8 py-3 rounded-md border-2 border-white text-white hover:bg-white/10 font-semibold transition-colors"
+              >
+                Contact Us
+              </Link>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ─── Detail modal ────────────────────────────────────────── */}
+      {selected && (
+        <ProjectDetail
+          project={selected}
+          photos={photoMap[selected.id] ?? []}
+          onClose={() => setSelected(null)}
+        />
       )}
 
       <BottomBar />
     </>
   );
 };
+
+// ─── Filter pill row ─────────────────────────────────────────────
+function FilterRow<T extends string>({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: T;
+  options: { label: string; slug: T }[];
+  onChange: (v: T) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2 overflow-x-auto pb-1">
+      <span className="text-xs sm:text-sm font-medium text-muted-foreground whitespace-nowrap">
+        {label}
+      </span>
+      {options.map((opt) => {
+        const active = value === opt.slug;
+        return (
+          <button
+            key={opt.slug}
+            type="button"
+            onClick={() => onChange(opt.slug)}
+            className={`text-xs sm:text-sm px-3 py-1.5 rounded-full border transition-colors whitespace-nowrap flex-shrink-0 ${
+              active
+                ? "bg-foreground text-background border-foreground"
+                : "bg-background text-foreground border-border hover:bg-muted"
+            }`}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── Portfolio card ──────────────────────────────────────────────
+function PortfolioCard({
+  project,
+  photos,
+  onClick,
+  showFeatured = false,
+}: {
+  project: ProjectRow;
+  photos: PhotoRow[];
+  onClick: () => void;
+  showFeatured?: boolean;
+}) {
+  const hero = pickHeroPhoto(photos);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="text-left group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
+    >
+      <div className="relative w-full aspect-[16/10] bg-muted overflow-hidden">
+        {hero ? (
+          <img
+            src={hero.thumbnail_url || hero.photo_url}
+            alt={project.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+            <Eye className="w-10 h-10 opacity-30" />
+          </div>
+        )}
+        {hero?.photo_tag === "after" && (
+          <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+            After
+          </span>
+        )}
+        {hero?.photo_tag === "before" && (
+          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+            Before
+          </span>
+        )}
+        {showFeatured && project.is_featured && (
+          <span className="absolute top-3 right-3 inline-flex items-center gap-1 bg-gradient-to-r from-[#b8893d] to-[#a17832] text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+            <Star className="w-3 h-3 fill-current" />
+            Featured
+          </span>
+        )}
+      </div>
+      <div className="flex-1 flex flex-col p-5 space-y-2">
+        {(project.project_category || project.project_type || project.roof_type) && (
+          <span className="self-start inline-flex items-center rounded-full bg-[#b8893d]/10 text-[#a17832] text-xs font-semibold px-3 py-1">
+            {project.project_category || project.project_type}
+            {project.roof_type ? ` • ${project.roof_type}` : ""}
+          </span>
+        )}
+        <h3 className="text-lg font-bold text-foreground line-clamp-2">{project.name}</h3>
+        {project.address && (
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="w-4 h-4 shrink-0" />
+            <span className="truncate">{project.address}</span>
+          </div>
+        )}
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <Eye className="w-4 h-4 shrink-0" />
+          <span>
+            {photos.length} {photos.length === 1 ? "photo" : "photos"}
+          </span>
+        </div>
+        <div className="mt-auto pt-3">
+          <span className="inline-flex items-center justify-center w-full bg-foreground hover:bg-foreground/90 text-background font-semibold rounded-md py-2.5 transition-colors">
+            View Project
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+// ─── Detail view: header + before/after slider + gallery + lightbox ─
+function ProjectDetail({
+  project,
+  photos,
+  onClose,
+}: {
+  project: ProjectRow;
+  photos: PhotoRow[];
+  onClose: () => void;
+}) {
+  const beforePhotos = photos.filter((p) => p.photo_tag === "before");
+  const afterPhotos = photos.filter((p) => p.photo_tag === "after");
+  const primaryBefore =
+    beforePhotos.find((p) => p.is_highlighted_before) || beforePhotos[0];
+  const primaryAfter =
+    afterPhotos.find((p) => p.is_highlighted_after) || afterPhotos[0];
+
+  const [sliderPct, setSliderPct] = useState(50);
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const next = useCallback(() => {
+    setLightboxIdx((idx) =>
+      idx === null ? null : (idx + 1) % photos.length
+    );
+  }, [photos.length]);
+  const prev = useCallback(() => {
+    setLightboxIdx((idx) =>
+      idx === null ? null : (idx - 1 + photos.length) % photos.length
+    );
+  }, [photos.length]);
+
+  // keyboard nav for lightbox + ESC closes detail
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (lightboxIdx !== null) {
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+        if (e.key === "Escape") setLightboxIdx(null);
+        return;
+      }
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIdx, prev, next, onClose]);
+
+  // Drag/click to move the comparison slider
+  const startDrag = (clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const update = (x: number) => {
+      const p = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+      setSliderPct(p);
+    };
+    update(clientX);
+    const onMove = (ev: MouseEvent | TouchEvent) => {
+      const x =
+        "touches" in ev
+          ? (ev as TouchEvent).touches[0]?.clientX ?? 0
+          : (ev as MouseEvent).clientX;
+      update(x);
+    };
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove as EventListener);
+      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchmove", onMove as EventListener);
+      window.removeEventListener("touchend", onUp);
+    };
+    window.addEventListener("mousemove", onMove as EventListener);
+    window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchmove", onMove as EventListener, { passive: true });
+    window.addEventListener("touchend", onUp);
+  };
+
+  return (
+    <>
+      <div
+        className="fixed inset-0 z-50 bg-black/70 flex items-start sm:items-center justify-center overflow-y-auto p-0 sm:p-4"
+        onClick={onClose}
+      >
+        <div
+          className="bg-background w-full sm:max-w-5xl sm:rounded-2xl overflow-hidden shadow-2xl my-0 sm:my-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="sticky top-0 z-10 bg-background border-b border-border px-4 sm:px-6 py-3 flex items-center justify-between">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground line-clamp-1 pr-4">
+              {project.name}
+            </h2>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full p-2 hover:bg-muted text-muted-foreground"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="px-4 sm:px-8 py-6 sm:py-8 space-y-8">
+            {/* Title + meta */}
+            <div className="text-center space-y-2">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+                {project.name}
+              </h3>
+              <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+                {project.address && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4" />
+                    {project.address}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5">
+                  <Eye className="w-4 h-4" />
+                  {photos.length} photos
+                </span>
+                <span>Completed {formatMonth(project.created_at)}</span>
+                {(project.project_category ||
+                  project.project_type ||
+                  project.roof_type) && (
+                  <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-[#b8893d]/10 text-[#a17832] text-xs font-semibold">
+                    {project.project_category || project.project_type}
+                    {project.roof_type ? ` • ${project.roof_type}` : ""}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Before/After comparison */}
+            {(primaryBefore || primaryAfter) && (
+              <div className="bg-card rounded-2xl shadow-lg overflow-hidden border border-border">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 text-center bg-gradient-to-r from-[#b8893d]/5 to-[#a17832]/10">
+                  <h4 className="text-xl sm:text-2xl font-bold text-foreground">
+                    Amazing Transformation
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    See the before and after — drag the handle to compare
+                  </p>
+                </div>
+                <div className="p-4 sm:p-6">
+                  {primaryBefore && primaryAfter ? (
+                    <>
+                      <div
+                        ref={containerRef}
+                        className="relative w-full rounded-xl overflow-hidden bg-muted aspect-[4/3] md:aspect-video select-none"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          startDrag(e.clientX);
+                        }}
+                        onTouchStart={(e) => startDrag(e.touches[0].clientX)}
+                      >
+                        <img
+                          src={primaryAfter.photo_url}
+                          alt="After"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          draggable={false}
+                        />
+                        <div
+                          className="absolute inset-0 overflow-hidden"
+                          style={{ clipPath: `inset(0 ${100 - sliderPct}% 0 0)` }}
+                        >
+                          <img
+                            src={primaryBefore.photo_url}
+                            alt="Before"
+                            className="absolute inset-0 w-full h-full object-cover"
+                            draggable={false}
+                          />
+                        </div>
+                        <div
+                          className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg pointer-events-none"
+                          style={{ left: `${sliderPct}%` }}
+                        >
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-[#a17832] cursor-grab active:cursor-grabbing">
+                            <ChevronsLeftRight className="w-4 h-4 text-[#a17832]" />
+                          </div>
+                        </div>
+                        <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                          Before
+                        </span>
+                        <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                          After
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={sliderPct}
+                        onChange={(e) => setSliderPct(Number(e.target.value))}
+                        className="w-full mt-4 accent-[#a17832]"
+                        aria-label="Before/after comparison"
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                        <span>← Before</span>
+                        <span>After →</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {primaryBefore && (
+                        <div className="relative">
+                          <img
+                            src={primaryBefore.photo_url}
+                            alt="Before"
+                            className="w-full h-64 md:h-80 object-cover rounded-xl"
+                            loading="lazy"
+                          />
+                          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                            Before
+                          </span>
+                        </div>
+                      )}
+                      {primaryAfter && (
+                        <div className="relative">
+                          <img
+                            src={primaryAfter.photo_url}
+                            alt="After"
+                            className="w-full h-64 md:h-80 object-cover rounded-xl"
+                            loading="lazy"
+                          />
+                          <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                            After
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Description */}
+            {project.description && (
+              <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
+                {project.description}
+              </p>
+            )}
+
+            {/* Photo gallery */}
+            {photos.length > 0 && (
+              <div className="bg-card rounded-2xl shadow-lg overflow-hidden border border-border">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-border bg-muted/30">
+                  <h4 className="text-xl sm:text-2xl font-bold text-foreground">
+                    Project Gallery
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    {photos.length} photos showcasing the work
+                  </p>
+                </div>
+                <div className="p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  {photos.map((photo, i) => (
+                    <button
+                      key={photo.id}
+                      type="button"
+                      onClick={() => setLightboxIdx(i)}
+                      className="relative group aspect-square rounded-lg overflow-hidden bg-muted cursor-pointer"
+                    >
+                      <img
+                        src={photo.thumbnail_url || photo.photo_url}
+                        alt={photo.caption || `Photo ${i + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      {photo.photo_tag === "before" && (
+                        <span className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-semibold rounded-full px-2 py-0.5 shadow">
+                          Before
+                        </span>
+                      )}
+                      {photo.photo_tag === "after" && (
+                        <span className="absolute top-2 left-2 bg-green-600 text-white text-[10px] font-semibold rounded-full px-2 py-0.5 shadow">
+                          After
+                        </span>
+                      )}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                        <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CTA */}
+            <div className="text-center pt-2">
+              <Link
+                to="/#book"
+                className="inline-block px-8 py-3 rounded-md bg-[#b8893d] hover:bg-[#a17832] text-white font-semibold transition-colors"
+              >
+                Get a Quote Like This
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightboxIdx !== null && photos[lightboxIdx] && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
+          onClick={() => setLightboxIdx(null)}
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxIdx(null);
+            }}
+            className="absolute top-4 right-4 rounded-full bg-white/10 hover:bg-white/20 text-white p-2 z-10"
+            aria-label="Close lightbox"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div className="absolute top-4 left-4 text-white text-sm">
+            {lightboxIdx + 1} / {photos.length}
+          </div>
+          {photos.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prev();
+                }}
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white p-3"
+                aria-label="Previous photo"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  next();
+                }}
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white p-3"
+                aria-label="Next photo"
+              >
+                <ArrowRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+          <img
+            src={photos[lightboxIdx].photo_url}
+            alt={photos[lightboxIdx].caption || `Photo ${lightboxIdx + 1}`}
+            className="max-w-[95vw] max-h-[90vh] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+          {photos[lightboxIdx].caption && (
+            <div className="absolute bottom-6 left-0 right-0 text-center px-6">
+              <p className="text-white/90 text-sm">{photos[lightboxIdx].caption}</p>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
 
 export default Portfolio;
