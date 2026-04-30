@@ -571,6 +571,15 @@ function ProjectDetail({
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxIdx, prev, next, onClose]);
 
+  // Lock body scroll while modal is open so the page behind doesn't drift on mobile
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
   // Drag/click to move the comparison slider
   const startDrag = (clientX: number) => {
     const el = containerRef.current;
@@ -603,50 +612,45 @@ function ProjectDetail({
   return (
     <>
       <div
-        className="fixed inset-0 z-50 bg-black/70 flex items-start sm:items-center justify-center overflow-y-auto p-0 sm:p-4"
+        className="fixed inset-0 z-50 bg-black/70 flex flex-col sm:items-center sm:justify-center sm:p-4"
         onClick={onClose}
       >
         <div
-          className="bg-background w-full sm:max-w-5xl sm:rounded-2xl overflow-hidden shadow-2xl my-0 sm:my-4"
+          className="relative bg-background w-full sm:max-w-5xl sm:rounded-2xl shadow-2xl flex-1 sm:flex-initial overflow-y-auto sm:max-h-[92vh] overscroll-contain"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div className="sticky top-0 z-10 bg-background border-b border-border px-4 sm:px-6 py-3 flex items-center justify-between">
-            <h2 className="text-base sm:text-lg font-semibold text-foreground line-clamp-1 pr-4">
-              {project.name}
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-full p-2 hover:bg-muted text-muted-foreground"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+          {/* Floating close button — sticks above content on mobile and desktop */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="sticky top-3 sm:top-4 z-20 ml-auto mr-3 sm:mr-4 mt-3 sm:mt-4 flex items-center justify-center rounded-full bg-background/90 hover:bg-background border border-border shadow-md text-foreground w-9 h-9 sm:w-10 sm:h-10"
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
-          <div className="px-4 sm:px-8 py-6 sm:py-8 space-y-8">
+          <div className="px-4 sm:px-8 pt-1 pb-6 sm:pt-2 sm:pb-10 -mt-9 sm:-mt-10 space-y-6 sm:space-y-8">
             {/* Title + meta */}
-            <div className="text-center space-y-2">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+            <div className="text-center space-y-2 pt-9 sm:pt-10">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground break-words">
                 {project.name}
               </h3>
-              <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs sm:text-sm text-muted-foreground">
                 {project.address && (
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    {project.address}
+                  <span className="inline-flex items-center gap-1.5 max-w-full">
+                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                    <span className="break-words">{project.address}</span>
                   </span>
                 )}
                 <span className="inline-flex items-center gap-1.5">
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   {photos.length} photos
                 </span>
                 <span>Completed {formatMonth(project.created_at)}</span>
                 {(project.project_category ||
                   project.project_type ||
                   project.roof_type) && (
-                  <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-[#b8893d]/10 text-[#a17832] text-xs font-semibold">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#b8893d]/10 text-[#a17832] text-[11px] sm:text-xs font-semibold">
                     {project.project_category || project.project_type}
                     {project.roof_type ? ` • ${project.roof_type}` : ""}
                   </span>
@@ -656,21 +660,21 @@ function ProjectDetail({
 
             {/* Before/After comparison */}
             {(primaryBefore || primaryAfter) && (
-              <div className="bg-card rounded-2xl shadow-lg overflow-hidden border border-border">
-                <div className="px-4 sm:px-6 py-4 sm:py-5 text-center bg-gradient-to-r from-[#b8893d]/5 to-[#a17832]/10">
-                  <h4 className="text-xl sm:text-2xl font-bold text-foreground">
+              <div className="bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-border">
+                <div className="px-3 sm:px-6 py-3 sm:py-5 text-center bg-gradient-to-r from-[#b8893d]/5 to-[#a17832]/10">
+                  <h4 className="text-lg sm:text-2xl font-bold text-foreground">
                     Amazing Transformation
                   </h4>
-                  <p className="text-sm text-muted-foreground">
-                    See the before and after — drag the handle to compare
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
+                    Drag the handle to compare before and after
                   </p>
                 </div>
-                <div className="p-4 sm:p-6">
+                <div className="p-3 sm:p-6">
                   {primaryBefore && primaryAfter ? (
                     <>
                       <div
                         ref={containerRef}
-                        className="relative w-full rounded-xl overflow-hidden bg-muted aspect-[4/3] md:aspect-video select-none"
+                        className="relative w-full rounded-lg sm:rounded-xl overflow-hidden bg-muted aspect-[4/3] md:aspect-video select-none touch-none"
                         onMouseDown={(e) => {
                           e.preventDefault();
                           startDrag(e.clientX);
@@ -698,14 +702,14 @@ function ProjectDetail({
                           className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg pointer-events-none"
                           style={{ left: `${sliderPct}%` }}
                         >
-                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-[#a17832] cursor-grab active:cursor-grabbing">
-                            <ChevronsLeftRight className="w-4 h-4 text-[#a17832]" />
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-[#a17832] cursor-grab active:cursor-grabbing">
+                            <ChevronsLeftRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#a17832]" />
                           </div>
                         </div>
-                        <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                        <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-blue-600 text-white text-[10px] sm:text-xs font-semibold rounded-full px-2 py-0.5 sm:px-3 sm:py-1 shadow">
                           Before
                         </span>
-                        <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                        <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-green-600 text-white text-[10px] sm:text-xs font-semibold rounded-full px-2 py-0.5 sm:px-3 sm:py-1 shadow">
                           After
                         </span>
                       </div>
@@ -715,25 +719,25 @@ function ProjectDetail({
                         max={100}
                         value={sliderPct}
                         onChange={(e) => setSliderPct(Number(e.target.value))}
-                        className="w-full mt-4 accent-[#a17832]"
+                        className="w-full mt-3 sm:mt-4 accent-[#a17832]"
                         aria-label="Before/after comparison"
                       />
-                      <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                      <div className="flex justify-between text-[11px] sm:text-xs text-muted-foreground mt-1">
                         <span>← Before</span>
                         <span>After →</span>
                       </div>
                     </>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                       {primaryBefore && (
                         <div className="relative">
                           <img
                             src={primaryBefore.photo_url}
                             alt="Before"
-                            className="w-full h-64 md:h-80 object-cover rounded-xl"
+                            className="w-full aspect-[4/3] object-cover rounded-lg sm:rounded-xl"
                             loading="lazy"
                           />
-                          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-blue-600 text-white text-[10px] sm:text-xs font-semibold rounded-full px-2 py-0.5 sm:px-3 sm:py-1 shadow">
                             Before
                           </span>
                         </div>
@@ -743,10 +747,10 @@ function ProjectDetail({
                           <img
                             src={primaryAfter.photo_url}
                             alt="After"
-                            className="w-full h-64 md:h-80 object-cover rounded-xl"
+                            className="w-full aspect-[4/3] object-cover rounded-lg sm:rounded-xl"
                             loading="lazy"
                           />
-                          <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold rounded-full px-3 py-1 shadow">
+                          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-green-600 text-white text-[10px] sm:text-xs font-semibold rounded-full px-2 py-0.5 sm:px-3 sm:py-1 shadow">
                             After
                           </span>
                         </div>
@@ -759,29 +763,29 @@ function ProjectDetail({
 
             {/* Description */}
             {project.description && (
-              <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
+              <p className="text-sm sm:text-base text-foreground/80 leading-relaxed whitespace-pre-line break-words">
                 {project.description}
               </p>
             )}
 
             {/* Photo gallery */}
             {photos.length > 0 && (
-              <div className="bg-card rounded-2xl shadow-lg overflow-hidden border border-border">
-                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-border bg-muted/30">
-                  <h4 className="text-xl sm:text-2xl font-bold text-foreground">
+              <div className="bg-card rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-border">
+                <div className="px-3 sm:px-6 py-3 sm:py-5 border-b border-border bg-muted/30">
+                  <h4 className="text-lg sm:text-2xl font-bold text-foreground">
                     Project Gallery
                   </h4>
-                  <p className="text-sm text-muted-foreground mt-0.5">
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
                     {photos.length} photos showcasing the work
                   </p>
                 </div>
-                <div className="p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div className="p-3 sm:p-6 grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
                   {photos.map((photo, i) => (
                     <button
                       key={photo.id}
                       type="button"
                       onClick={() => setLightboxIdx(i)}
-                      className="relative group aspect-square rounded-lg overflow-hidden bg-muted cursor-pointer"
+                      className="relative group aspect-square rounded-md sm:rounded-lg overflow-hidden bg-muted cursor-pointer"
                     >
                       <img
                         src={photo.thumbnail_url || photo.photo_url}
@@ -790,17 +794,17 @@ function ProjectDetail({
                         loading="lazy"
                       />
                       {photo.photo_tag === "before" && (
-                        <span className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-semibold rounded-full px-2 py-0.5 shadow">
+                        <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-blue-600 text-white text-[9px] sm:text-[10px] font-semibold rounded-full px-1.5 sm:px-2 py-0.5 shadow">
                           Before
                         </span>
                       )}
                       {photo.photo_tag === "after" && (
-                        <span className="absolute top-2 left-2 bg-green-600 text-white text-[10px] font-semibold rounded-full px-2 py-0.5 shadow">
+                        <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-green-600 text-white text-[9px] sm:text-[10px] font-semibold rounded-full px-1.5 sm:px-2 py-0.5 shadow">
                           After
                         </span>
                       )}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </button>
                   ))}
@@ -809,10 +813,10 @@ function ProjectDetail({
             )}
 
             {/* CTA */}
-            <div className="text-center pt-2">
+            <div className="text-center pt-1 sm:pt-2">
               <Link
                 to="/#book"
-                className="inline-block px-8 py-3 rounded-md bg-[#b8893d] hover:bg-[#a17832] text-white font-semibold transition-colors"
+                className="block sm:inline-block w-full sm:w-auto px-6 sm:px-8 py-3 rounded-md bg-[#b8893d] hover:bg-[#a17832] text-white font-semibold text-center transition-colors"
               >
                 Get a Quote Like This
               </Link>
@@ -824,7 +828,7 @@ function ProjectDetail({
       {/* Lightbox */}
       {lightboxIdx !== null && photos[lightboxIdx] && (
         <div
-          className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center p-3 sm:p-6"
           onClick={() => setLightboxIdx(null)}
         >
           <button
@@ -833,12 +837,12 @@ function ProjectDetail({
               e.stopPropagation();
               setLightboxIdx(null);
             }}
-            className="absolute top-4 right-4 rounded-full bg-white/10 hover:bg-white/20 text-white p-2 z-10"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full bg-white/15 hover:bg-white/25 text-white w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center z-10"
             aria-label="Close lightbox"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
-          <div className="absolute top-4 left-4 text-white text-sm">
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs sm:text-sm bg-black/40 rounded-full px-2.5 py-1">
             {lightboxIdx + 1} / {photos.length}
           </div>
           {photos.length > 1 && (
@@ -849,10 +853,10 @@ function ProjectDetail({
                   e.stopPropagation();
                   prev();
                 }}
-                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white p-3"
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/15 hover:bg-white/25 text-white w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
                 aria-label="Previous photo"
               >
-                <ArrowLeft className="w-6 h-6" />
+                <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
               <button
                 type="button"
@@ -860,22 +864,24 @@ function ProjectDetail({
                   e.stopPropagation();
                   next();
                 }}
-                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white p-3"
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/15 hover:bg-white/25 text-white w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
                 aria-label="Next photo"
               >
-                <ArrowRight className="w-6 h-6" />
+                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </>
           )}
           <img
             src={photos[lightboxIdx].photo_url}
             alt={photos[lightboxIdx].caption || `Photo ${lightboxIdx + 1}`}
-            className="max-w-[95vw] max-h-[90vh] object-contain"
+            className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
           {photos[lightboxIdx].caption && (
-            <div className="absolute bottom-6 left-0 right-0 text-center px-6">
-              <p className="text-white/90 text-sm">{photos[lightboxIdx].caption}</p>
+            <div className="absolute bottom-3 sm:bottom-6 left-0 right-0 text-center px-4 sm:px-6">
+              <p className="text-white/90 text-xs sm:text-sm bg-black/50 rounded-md inline-block px-3 py-1.5 max-w-full">
+                {photos[lightboxIdx].caption}
+              </p>
             </div>
           )}
         </div>
