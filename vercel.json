@@ -36,9 +36,10 @@
     { "source": "/customer-dashboard",          "destination": "https://roofing-friend-panels-shop.vercel.app/customer-dashboard" },
     { "source": "/customer-review/:projectId*", "destination": "https://roofing-friend-panels-shop.vercel.app/customer-review/:projectId*" },
     { "source": "/approve/:token*",             "destination": "https://roofing-friend-panels-shop.vercel.app/approve/:token*" },
+    { "source": "/meet/:token*",                "destination": "https://roofing-friend-panels-shop.vercel.app/meet/:token*" },
     { "source": "/cart",                        "destination": "https://roofing-friend-panels-shop.vercel.app/cart" },
     { "source": "/download",                    "destination": "https://roofing-friend-panels-shop.vercel.app/download" },
     { "source": "/glasses",                     "destination": "https://roofing-friend-panels-shop.vercel.app/glasses" },
-    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets).*)", "destination": "/index.html" }
+    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|client-portal|customer-dashboard|customer-review|approve|meet|cart|download|glasses|assets).*)", "destination": "/index.html" }
   ]
 }
