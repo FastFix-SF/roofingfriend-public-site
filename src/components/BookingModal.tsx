@@ -4,6 +4,10 @@ import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { companyConfig } from '@/config/company';
+import { mirrorLeadToFedl } from '@/lib/mirror-lead';
+
+// Roofing Friend tenant in the UltimateCRM (fedl) project.
+const ROOFINGFRIEND_TENANT_ID = 'f00f1e0d-0000-4000-8000-000000000001';
 
 // Material images
 import imgMetal from '@/assets/shingles/metal-roof.jpg';
@@ -216,6 +220,23 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    // TRANSITION: mirror the lead into the new UltimateCRM project (fedl),
+    // independent of the legacy create-crm-lead call below so the lead lands
+    // in fedl even if the legacy CRM call fails. Fire-and-forget; never throws.
+    void mirrorLeadToFedl({
+      tenantId: ROOFINGFRIEND_TENANT_ID,
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      service,
+      address: [address.trim(), city, 'CA', zip.trim()].filter(Boolean).join(', '),
+      message: description.trim(),
+      source: 'booking-modal',
+      qualificationData: {
+        service, roofSlope, roofMaterial, wantedRoof, replaceGutters,
+        rottedDeck, numFloors, gutterStyle, gutterColor, zip: zip.trim(), city,
+      },
+    });
     try {
       const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, ' ');
       const serviceDesc = [
