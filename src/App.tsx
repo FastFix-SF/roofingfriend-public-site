@@ -10,6 +10,7 @@ import ShopMaterialsBanner from "@/components/ShopMaterialsBanner";
 import CutAndDropDialog from "@/components/CutAndDropDialog";
 
 const Index = React.lazy(() => import("./pages/Index"));
+const PrivacyPolicy = React.lazy(() => import("./pages/PrivacyPolicy"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
 const About = React.lazy(() => import("./pages/About"));
@@ -55,6 +56,7 @@ const App = () => {
                   <Route path="/locations/:city" element={<CityPage />} />
                   <Route path="/locations/:city/:neighborhood" element={<NeighborhoodPage />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
