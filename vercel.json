@@ -39,6 +39,24 @@
     { "source": "/cart",                        "destination": "https://ultimatecrm-roofingfriend.vercel.app/cart" },
     { "source": "/download",                    "destination": "https://ultimatecrm-roofingfriend.vercel.app/download" },
     { "source": "/glasses",                     "destination": "https://ultimatecrm-roofingfriend.vercel.app/glasses" },
-    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets).*)", "destination": "/index.html" }
+    { "source": "/admin2",                      "destination": "https://ultimatecrm-roofingfriend.vercel.app/admin2" },
+    { "source": "/admin2/:path*",               "destination": "https://ultimatecrm-roofingfriend.vercel.app/admin2/:path*" },
+    { "source": "/old-crm",                     "destination": "https://ultimatecrm-roofingfriend.vercel.app/old-crm" },
+    { "source": "/old-crm/:path*",              "destination": "https://ultimatecrm-roofingfriend.vercel.app/old-crm/:path*" },
+    { "source": "/profit",                      "destination": "https://ultimatecrm-roofingfriend.vercel.app/profit" },
+    { "source": "/profit/:path*",               "destination": "https://ultimatecrm-roofingfriend.vercel.app/profit/:path*" },
+    { "source": "/project-feedback",            "destination": "https://ultimatecrm-roofingfriend.vercel.app/project-feedback" },
+    { "source": "/project-feedback/:path*",     "destination": "https://ultimatecrm-roofingfriend.vercel.app/project-feedback/:path*" },
+    { "source": "/projects",                    "destination": "https://ultimatecrm-roofingfriend.vercel.app/projects" },
+    { "source": "/projects/:path*",             "destination": "https://ultimatecrm-roofingfriend.vercel.app/projects/:path*" },
+    { "source": "/proposals",                   "destination": "https://ultimatecrm-roofingfriend.vercel.app/proposals" },
+    { "source": "/proposals/:path*",            "destination": "https://ultimatecrm-roofingfriend.vercel.app/proposals/:path*" },
+    { "source": "/quote",                       "destination": "https://ultimatecrm-roofingfriend.vercel.app/quote" },
+    { "source": "/quote/:path*",                "destination": "https://ultimatecrm-roofingfriend.vercel.app/quote/:path*" },
+    { "source": "/quote-workspace",             "destination": "https://ultimatecrm-roofingfriend.vercel.app/quote-workspace" },
+    { "source": "/quote-workspace/:path*",      "destination": "https://ultimatecrm-roofingfriend.vercel.app/quote-workspace/:path*" },
+    { "source": "/service-ticket",              "destination": "https://ultimatecrm-roofingfriend.vercel.app/service-ticket" },
+    { "source": "/service-ticket/:path*",       "destination": "https://ultimatecrm-roofingfriend.vercel.app/service-ticket/:path*" },
+    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|project-feedback|projects|proposals|profit|old-crm|quote|service-ticket|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets).*)", "destination": "/index.html" }
   ]
 }
