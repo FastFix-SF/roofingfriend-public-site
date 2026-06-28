@@ -30,7 +30,7 @@ const secondarySlides = [
 ];
 
 const heroSlides = [
-  { image: heroFsd, imageWebp: heroFsdWebp, video: "/videos/hero-roof-v3.mp4", audio: true, title: "From Shingles to Standing Seam", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/projects", textColor: "light" as const, captions: [
+  { image: heroFsd, imageWebp: heroFsdWebp, video: "/videos/hero-roof-v3.mp4", audio: true, title: "From Shingles to Standing Seam", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const, captions: [
     { text: "Wife: I don't like our shingle roof anymore…", startTime: 0, endTime: 2.5 },
     { text: "Wife: It feels so generic.", startTime: 2.6, endTime: 4.8 },
     { text: "Wife: I want a metal roof — like the ones on Instagram.", startTime: 4.9, endTime: 8.2 },
@@ -38,8 +38,8 @@ const heroSlides = [
     { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
     { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
   ] },
-  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/projects", textColor: "light" as const },
-    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/projects", textColor: "light" as const },
+  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
+    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
 ];
 
 const ChargingSectionWrapper = () => {
