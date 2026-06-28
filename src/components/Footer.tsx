@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <>
       {/* Main Footer */}
-      <footer className="bg-[#f8f6f2] border-t-4 border-cta-gold pt-14 pb-10 px-6 lg:px-12">
+      <footer className="bg-[#f8f6f2] border-t-4 border-cta-gold pt-14 pb-10 px-4 sm:px-6 lg:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand / Contact */}
           <div className="flex flex-col gap-5">
@@ -62,10 +62,10 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Contact Info</h3>
             <div className="flex flex-col gap-3 text-sm text-foreground">
-              <a href="tel:+14156971849" className="flex items-start gap-2 hover:text-cta-gold transition-colors">
+              <a href="tel:+15109162408" className="flex items-start gap-2 hover:text-cta-gold transition-colors">
                 <Phone size={14} className="text-muted-foreground mt-0.5 shrink-0" />
                 <span className="flex flex-col">
-                  (415) 697-1849
+                  (510) 916-2408
                   <span className="text-cta-gold text-xs font-medium">24/7 Emergency Service</span>
                 </span>
               </a>
@@ -113,12 +113,12 @@ const Footer = () => {
       </footer>
 
       {/* Bottom Bar */}
-      <div className="bg-[#f8f6f2] border-t border-border px-6 lg:px-12 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+      <div className="bg-[#f8f6f2] border-t border-border px-4 sm:px-6 lg:px-12 py-5">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-[11px] sm:text-xs text-muted-foreground text-center md:text-left">
           <p>
             © 2026 The Roofing Friend. All rights reserved. | Licensed & Insured | CA License #1067709
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
             <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
             <a
@@ -131,6 +131,7 @@ const Footer = () => {
               Powered by FastFix.AI
             </a>
           </div>
+
         </div>
       </div>
     </>

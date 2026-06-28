@@ -12,8 +12,8 @@ import heroCommercialRoofing from "@/assets/hero-commercial-roofing.jpg";
 import heroCommercialRoofingWebp from "@/assets/hero-commercial-roofing.webp";
 import { openBookingDialog } from "@/lib/booking";
 
-const PHONE = "(415) 697-1849";
-const PHONE_HREF = "tel:+14156971849";
+const PHONE = "(510) 916-2408";
+const PHONE_HREF = "tel:+15109162408";
 
 const NeighborhoodPage = () => {
   const { city: citySlug, neighborhood: neighborhoodSlug } = useParams<{

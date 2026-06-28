@@ -229,7 +229,7 @@ const WarrantyDetail = () => {
                 <div className="rounded-lg bg-secondary p-5 border border-border hover:border-cta-blue/30 hover:shadow-md transition-all h-full">
                   <h3 className="text-base font-semibold text-foreground group-hover:text-cta-blue transition-colors">{c.name}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{c.yearLabel} · {c.tagline}</p>
-                  <span className="inline-block mt-3 text-xs font-medium text-cta-blue">Learn more →</span>
+                  <span className="inline-block mt-3 text-xs font-medium text-cta-blue">Portfolio →</span>
                 </div>
               </Link>
             ))}

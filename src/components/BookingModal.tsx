@@ -1,13 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, MapPin, Home, Wrench, ClipboardList, ArrowRight, ArrowLeft, Phone, Send, Loader2, CheckCircle2, Pencil, Droplets } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase, ROOFINGFRIEND_TENANT_ID } from '@/integrations/supabase/client';
 import { companyConfig } from '@/config/company';
-import { mirrorLeadToFedl } from '@/lib/mirror-lead';
-
-// Roofing Friend tenant in the UltimateCRM (fedl) project.
-const ROOFINGFRIEND_TENANT_ID = 'f00f1e0d-0000-4000-8000-000000000001';
+import { GooglePlacesAutocomplete } from '@/components/ui/google-places-autocomplete';
 
 // Material images
 import imgMetal from '@/assets/shingles/metal-roof.jpg';
@@ -220,23 +217,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // TRANSITION: mirror the lead into the new UltimateCRM project (fedl),
-    // independent of the legacy create-crm-lead call below so the lead lands
-    // in fedl even if the legacy CRM call fails. Fire-and-forget; never throws.
-    void mirrorLeadToFedl({
-      tenantId: ROOFINGFRIEND_TENANT_ID,
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      service,
-      address: [address.trim(), city, 'CA', zip.trim()].filter(Boolean).join(', '),
-      message: description.trim(),
-      source: 'booking-modal',
-      qualificationData: {
-        service, roofSlope, roofMaterial, wantedRoof, replaceGutters,
-        rottedDeck, numFloors, gutterStyle, gutterColor, zip: zip.trim(), city,
-      },
-    });
     try {
       const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, ' ');
       const serviceDesc = [
@@ -244,8 +224,25 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         roofSlope ? `(${cap(roofSlope)} slope` + (roofMaterial ? `, ${cap(roofMaterial)})` : ')') : '',
       ].filter(Boolean).join(' ');
 
+      // Mirror src/components/BookingModal.tsx: send structured answers so
+      // LeadDrawer's "Capture details" card is pre-populated instead of
+      // showing 0/1 captured. Keys must match website-booking-flow.ts.
+      const qualificationData: Record<string, string> = {};
+      if (service)        qualificationData.service = service;
+      if (roofSlope)      qualificationData.slope = roofSlope;
+      if (roofMaterial)   qualificationData.material = roofMaterial;
+      if (wantedRoof)     qualificationData.wanted = wantedRoof;
+      if (replaceGutters) qualificationData.replace_gutters = replaceGutters;
+      if (rottedDeck)     qualificationData.rotted_deck = rottedDeck;
+      if (numFloors)      qualificationData.floors = numFloors;
+      if (gutterStyle)    qualificationData.gutter_style = gutterStyle;
+      if (gutterColor)    qualificationData.gutter_color = gutterColor;
+      qualificationData._source = 'website_booking';
+
       await supabase.functions.invoke('create-crm-lead', {
+        headers: { 'x-tenant-id': ROOFINGFRIEND_TENANT_ID },
         body: {
+          tenantId: ROOFINGFRIEND_TENANT_ID,
           name: name.trim(), email: email.trim(), phone: phone.trim(),
           service: serviceDesc,
           preferredContact: phone.trim() ? 'phone' : 'email',
@@ -262,8 +259,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             gutterColor ? `Gutter color: ${cap(gutterColor)}` : '',
           ].filter(Boolean).join('. '),
           zipCode: zip.trim(),
+          referralSource: 'website_booking',
+          qualificationData,
         },
       });
+
       setPage('success');
     } catch {
       toast({ title: 'Something went wrong', description: `Please call us directly at ${companyConfig.phone}`, variant: 'destructive' });
@@ -290,7 +290,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const cap = (s: string) => s.charAt(0).toUpperCase() + s.replace(/_/g, ' ').slice(1);
 
-  const inputClass = "w-full px-4 py-3.5 bg-gray-50/80 border border-gray-200 rounded-2xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-white outline-none transition-all text-gray-900 placeholder:text-gray-300";
+  const inputClass = "w-full px-4 py-3.5 bg-gray-50/80 border border-gray-200 rounded-2xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-white outline-none transition-all text-gray-900 placeholder:text-gray-500";
 
   // Check if all questions are answered per service
   const isRoofComplete = service === 'roof_replacement' && roofSlope && roofMaterial && wantedRoof && replaceGutters && rottedDeck && numFloors;
@@ -335,21 +335,21 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Where are you located?</h3>
-                <p className="text-sm text-gray-400 mt-2">We'll check if we service your area</p>
+                <p className="text-sm text-gray-600 mt-2">We'll check if we service your area</p>
               </div>
               <input
                 type="text" inputMode="numeric" maxLength={5} value={zip}
                 onChange={(e) => { setZip(e.target.value.replace(/\D/g, '').slice(0, 5)); setZipError(''); }}
                 onKeyDown={(e) => e.key === 'Enter' && handleZipContinue()}
                 placeholder="Enter zip code"
-                className="w-full px-5 py-4 text-center text-xl font-medium text-gray-900 bg-gray-50/80 border border-gray-200 rounded-2xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-white outline-none transition-all placeholder:text-gray-300 placeholder:font-normal"
+                className="w-full px-5 py-4 text-center text-xl font-medium text-gray-900 bg-gray-50/80 border border-gray-200 rounded-2xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-white outline-none transition-all placeholder:text-gray-500 placeholder:font-normal"
                 autoFocus
               />
               {zipError && <p className="text-sm text-red-500 font-medium">{zipError}</p>}
               <Button onClick={handleZipContinue} className="w-full bg-gradient-to-r from-[#1a3a4a] to-[#1e4a6e] hover:from-[#1a3a4a]/90 hover:to-[#1e4a6e]/90 text-white font-semibold py-4 rounded-2xl text-base h-14 shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:shadow-primary/25">
                 Continue
               </Button>
-              <a href={`tel:${companyConfig.phoneRaw}`} className="flex items-center justify-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors">
+              <a href={`tel:${companyConfig.phoneRaw}`} className="flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" /> Or call us directly
               </a>
             </div>
@@ -629,7 +629,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   <hr className="border-gray-100" />
                   <div className="border border-gray-100 bg-gray-50/50 rounded-2xl p-5 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Summary</span>
+                      <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Summary</span>
                       <button onClick={() => {
                         // Reset to let them re-pick
                         if (service === 'roof_replacement' || service === 'repair_leak') {
@@ -672,7 +672,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               {/* Summary card at top */}
               <div className="border border-gray-100 bg-gray-50/50 rounded-2xl p-5 space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Summary</span>
+                  <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Summary</span>
                   <button onClick={() => setPage('questions')} className="text-gray-400 hover:text-gray-600">
                     <Pencil className="w-4 h-4" />
                   </button>
@@ -726,7 +726,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Property Address</label>
-                  <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="123 Main St, City, CA" className={inputClass} autoFocus />
+                  <GooglePlacesAutocomplete
+                    value={address}
+                    onChange={setAddress}
+                    placeholder="123 Main St, City, CA"
+                    className={inputClass}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Tell us what you need</label>
@@ -764,7 +769,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               Continue <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
             <div className="flex items-center justify-center gap-4 mt-3">
-              <a href={`tel:${companyConfig.phoneRaw}`} className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors">
+              <a href={`tel:${companyConfig.phoneRaw}`} className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" /> Call to speak to a live person
               </a>
             </div>

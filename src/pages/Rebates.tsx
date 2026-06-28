@@ -97,7 +97,7 @@ const Rebates = () => (
                     <h3 className="text-xl md:text-2xl font-medium text-foreground">{p.name}</h3>
                     <p className="text-sm text-muted-foreground mt-1">{p.tagline}</p>
                   </div>
-                  <span className="text-xs text-cta-blue font-medium mt-4">Learn more →</span>
+                  <span className="text-xs text-cta-blue font-medium mt-4">Portfolio →</span>
                 </div>
               </a>
             );

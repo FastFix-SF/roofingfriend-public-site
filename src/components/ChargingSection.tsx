@@ -277,7 +277,7 @@ const ChargingSection = () => {
   }, []);
 
   return (
-    <section className="bg-background flex flex-col overflow-hidden" style={{ height: "100vh", maxHeight: "100vh" }}>
+    <section className="bg-background flex flex-col overflow-hidden min-h-[100vh] md:h-screen md:max-h-screen">
       {/* Map */}
       <div
         className="relative flex-1 min-h-[200px] bg-[hsl(210,20%,95%)] overflow-hidden"
@@ -348,7 +348,8 @@ const ChargingSection = () => {
         )}
 
         {/* Legend */}
-        <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10">
+        <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-2 py-1.5 md:px-3 md:py-2 z-10 max-w-[150px]">
+
           <p className="text-[10px] font-semibold text-foreground mb-1.5">% of homes with metal roofs</p>
           <p className="text-[9px] text-muted-foreground mb-1">Each dot = 10,000 homes that already switched</p>
           <div className="flex flex-col gap-1">
@@ -376,7 +377,8 @@ const ChargingSection = () => {
 
         {/* Location Result Popup */}
         {(locationResult || locationError) && (
-          <div className="absolute bottom-16 left-4 z-20 bg-background/95 backdrop-blur-sm border border-border rounded-lg shadow-lg p-4 max-w-[280px] animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="absolute bottom-16 left-4 right-4 sm:right-auto z-20 bg-background/95 backdrop-blur-sm border border-border rounded-lg shadow-lg p-4 max-w-[280px] animate-in fade-in slide-in-from-bottom-2 duration-300">
+
             <button
               onClick={() => { setLocationResult(null); setLocationError(null); }}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground text-xs"
@@ -419,10 +421,11 @@ const ChargingSection = () => {
           <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-lg">
             8.4 million homeowners already switched. They cut cooling bills 25%, skip a $15,000 reroof every 15 years, and sleep through hurricanes that shred shingles. Quote prices lock for 30 days — yours is free.
           </p>
-          <div className="flex gap-3 mt-4">
-            <button onClick={openBooking} className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Lock My Free Quote (30 sec)</button>
-            <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">See Lifetime Warranty →</a>
+          <div className="flex gap-2 sm:gap-3 mt-4 flex-wrap">
+            <button onClick={openBooking} className="px-4 md:px-6 py-2 md:py-2.5 rounded text-xs sm:text-sm font-medium bg-foreground text-background hover:opacity-90 transition-opacity">Lock My Free Quote (30 sec)</button>
+            <a href="/warranty" className="px-4 md:px-6 py-2 md:py-2.5 rounded text-xs sm:text-sm font-medium border border-foreground text-foreground hover:bg-accent transition-colors">See Lifetime Warranty →</a>
           </div>
+
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:flex md:gap-8">

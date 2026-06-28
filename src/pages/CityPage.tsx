@@ -19,8 +19,8 @@ const services = [
   { name: "TPO Membrane", desc: "Cool-roof rated single-ply for low-slope commercial roofs.", icon: Zap },
 ];
 
-const PHONE = "(415) 697-1849";
-const PHONE_HREF = "tel:+14156971849";
+const PHONE = "(510) 916-2408";
+const PHONE_HREF = "tel:+15109162408";
 
 const CityPage = () => {
   const { city: slug } = useParams<{ city: string }>();

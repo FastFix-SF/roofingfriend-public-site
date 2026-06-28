@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import BottomBar from "@/components/BottomBar";
-import { supabase } from "@/integrations/supabase/client";
+import { useBooking } from "@/hooks/useBooking";
+import { supabase, ROOFINGFRIEND_TENANT_ID } from "@/integrations/supabase/client";
 import {
   ArrowLeft,
   ArrowRight,
@@ -83,6 +84,7 @@ function formatMonth(iso: string): string {
 }
 
 const Portfolio = () => {
+  const { openBooking } = useBooking();
   const [projects, setProjects] = useState<ProjectRow[]>([]);
   const [featured, setFeatured] = useState<ProjectRow[]>([]);
   const [photoMap, setPhotoMap] = useState<Record<string, PhotoRow[]>>({});
@@ -97,26 +99,27 @@ const Portfolio = () => {
     let cancelled = false;
     (async () => {
       try {
-        const { data: regular, error: rErr } = await supabase
-          .from("projects")
+        const { data: regular, error: rErr } = await (supabase as any)
+          .from("public_projects_safe")
           .select(
             "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
           )
-          .eq("is_public", true)
+          .eq("tenant_id", ROOFINGFRIEND_TENANT_ID)
           .eq("is_featured", false)
           .order("created_at", { ascending: false });
         if (rErr) throw rErr;
 
-        const { data: feats, error: fErr } = await supabase
-          .from("projects")
+        const { data: feats, error: fErr } = await (supabase as any)
+          .from("public_projects_safe")
           .select(
             "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
           )
-          .eq("is_public", true)
+          .eq("tenant_id", ROOFINGFRIEND_TENANT_ID)
           .eq("is_featured", true)
           .order("created_at", { ascending: false })
           .limit(3);
         if (fErr) throw fErr;
+
 
         const allIds = [
           ...(feats ?? []).map((p) => p.id),
@@ -125,14 +128,12 @@ const Portfolio = () => {
 
         let map: Record<string, PhotoRow[]> = {};
         if (allIds.length > 0) {
-          const { data: photoRows, error: pErr } = await supabase
-            .from("project_photos")
+          const { data: photoRows, error: pErr } = await (supabase as any)
+            .from("public_project_photos_safe")
             .select(
               "id, project_id, photo_url, thumbnail_url, caption, photo_tag, is_highlighted_before, is_highlighted_after, uploaded_at"
             )
             .in("project_id", allIds)
-            .not("photo_tag", "is", null)
-            .eq("is_visible_to_customer", true)
             .order("uploaded_at", { ascending: true });
           if (pErr) throw pErr;
           for (const ph of photoRows ?? []) {
@@ -195,7 +196,7 @@ const Portfolio = () => {
           name="description"
           content="Browse completed standing seam, R-Panel, and TPO metal roofing projects across the San Francisco Bay Area — residential, commercial, industrial, and government work."
         />
-        <link rel="canonical" href="https://theroof.info/portfolio" />
+        <link rel="canonical" href="https://theroof.info/projects" />
         <meta property="og:title" content="Portfolio | The Roofing Friend" />
         <meta
           property="og:description"
@@ -237,12 +238,13 @@ const Portfolio = () => {
             >
               Browse Projects
             </button>
-            <Link
-              to="/#book"
+            <button
+              type="button"
+              onClick={openBooking}
               className="px-8 py-3 rounded-md bg-white/95 hover:bg-white text-foreground font-medium text-base transition-colors"
             >
               Get a Quote
-            </Link>
+            </button>
           </div>
         </div>
       </section>

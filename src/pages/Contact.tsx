@@ -13,6 +13,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import heroContact from "@/assets/hero-contact-v2.jpg";
 import heroContactWebp from "@/assets/hero-contact-v2.webp";
+import { supabase, ROOFINGFRIEND_TENANT_ID } from "@/integrations/supabase/client";
+import { companyConfig } from "@/config/company";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -25,10 +27,33 @@ const Contact = () => {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    // Deliver the contact lead into the UltimateCRM (fedl) under the Roofing
+    // Friend tenant. create-crm-lead writes the lead + sends the tenant's
+    // confirmation/notification SMS + email.
+    try {
+      await supabase.functions.invoke("create-crm-lead", {
+        headers: { "x-tenant-id": ROOFINGFRIEND_TENANT_ID },
+        body: {
+          tenantId: ROOFINGFRIEND_TENANT_ID,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          company: "",
+          service: "Contact form",
+          referralSource: "website_contact",
+          message: form.message.trim(),
+          projectType: form.projectType,
+          projectDescription: form.message.trim(),
+          preferredContact: form.preferredContact as "phone" | "email",
+          qualificationData: {
+            preferred_contact: form.preferredContact,
+            project_type: form.projectType,
+          },
+        },
+      });
       toast.success("Thanks! We'll contact you shortly via your preferred method.");
       setForm({
         name: "",
@@ -38,8 +63,11 @@ const Contact = () => {
         preferredContact: "email",
         projectType: "residential",
       });
+    } catch {
+      toast.error(`Something went wrong. Please call us at ${companyConfig.phone}.`);
+    } finally {
       setSubmitting(false);
-    }, 800);
+    }
   };
 
   const stats = [
@@ -53,18 +81,18 @@ const Contact = () => {
     <>
       <Helmet>
         <title>Contact | The Roofing Friend</title>
-        <meta name="description" content="Book a service with The Roofing Friend — call or text (415) 697-1849 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
+        <meta name="description" content="Book a service with The Roofing Friend — call or text (510) 916-2408 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
         <link rel="canonical" href="https://theroof.info/contact" />
         <link rel="preload" as="image" href={heroContactWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Contact | The Roofing Friend" />
-        <meta property="og:description" content="Call or text anytime at (415) 697-1849. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
+        <meta property="og:description" content="Call or text anytime at (510) 916-2408. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
         <meta property="og:url" content="https://theroof.info/contact" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RoofingContractor",
           name: "The Roofing Friend",
-          telephone: "(415) 697-1849",
+          telephone: "(510) 916-2408",
           email: "roofingfriend@gmail.com",
           url: "https://theroof.info",
           description: "Call or text anytime. 500+ projects completed, 4.9/5 customer rating, 25-year warranty, same-day response across the San Francisco Bay Area.",
@@ -80,10 +108,10 @@ const Contact = () => {
       {/* Contact Cards */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 mb-16">
-          <a href="tel:+14156971849" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
+          <a href="tel:+15109162408" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
             <Phone size={28} className="text-cta-gold mb-3" />
             <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-            <p className="text-muted-foreground text-sm">(415) 697-1849</p>
+            <p className="text-muted-foreground text-sm">(510) 916-2408</p>
             <p className="text-xs text-cta-gold mt-1">Call or text anytime</p>
           </a>
           <a href="mailto:roofingfriend@gmail.com" className="flex flex-col items-center text-center bg-secondary rounded-lg p-8 hover:shadow-md transition-shadow">
@@ -184,7 +212,7 @@ const Contact = () => {
               </Button>
             </form>
             <div className="flex items-center gap-4 mt-6">
-              <a href="tel:+14156971849" className="text-sm font-medium text-cta-gold hover:underline">(415) 697-1849</a>
+              <a href="tel:+15109162408" className="text-sm font-medium text-cta-gold hover:underline">(510) 916-2408</a>
               <a href="mailto:roofingfriend@gmail.com" className="text-sm font-medium text-cta-gold hover:underline">Email Us</a>
             </div>
           </div>

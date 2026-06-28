@@ -48,16 +48,17 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
                     <img src={v.image} alt={v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="text-3xl md:text-4xl font-medium text-white">{v.title}</h3>
-                    {v.subtitle && <p className="text-sm text-white/90 mt-1 underline underline-offset-4">{v.subtitle}</p>}
-                    <div className="flex gap-3 mt-5 flex-nowrap">
-                      <a href={v.link || "#"} className="px-6 sm:px-8 py-2.5 rounded text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity whitespace-nowrap">{v.primaryCta}</a>
+                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white">{v.title}</h3>
+                    {v.subtitle && <p className="text-xs sm:text-sm text-white/90 mt-1 underline underline-offset-4">{v.subtitle}</p>}
+                    <div className="flex gap-2 sm:gap-3 mt-4 sm:mt-5 flex-wrap sm:flex-nowrap">
+                      <a href={v.link || "#"} className="px-4 sm:px-6 lg:px-8 py-2.5 rounded text-xs sm:text-sm font-medium bg-cta-blue text-white hover:opacity-90 transition-opacity whitespace-nowrap">{v.primaryCta}</a>
                       {v.secondaryCta && (
-                        <a href={v.link || "#"} className="px-6 sm:px-8 py-2.5 rounded text-sm font-medium bg-white text-foreground hover:bg-white/90 transition-colors whitespace-nowrap">{v.secondaryCta}</a>
+                        <a href={v.link || "#"} className="px-4 sm:px-6 lg:px-8 py-2.5 rounded text-xs sm:text-sm font-medium bg-white text-foreground hover:bg-white/90 transition-colors whitespace-nowrap">{v.secondaryCta}</a>
                       )}
                     </div>
                   </div>
+
                 </div>
               </div>
             ))}

@@ -16,10 +16,10 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <nav className="flex items-center justify-between px-6 lg:px-12 h-16 bg-nav-bg/80 backdrop-blur-md">
+    <header className="fixed top-9 left-0 right-0 z-50">
+      <nav className="flex items-center justify-between gap-2 px-4 sm:px-6 lg:px-12 h-16 bg-nav-bg/80 backdrop-blur-md">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 sm:gap-3">
+        <a href="/" className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
           <picture>
             <source srcSet={logoWebp} type="image/webp" />
             <img 
@@ -29,22 +29,23 @@ const Navbar = () => {
               height={120}
               fetchPriority="high"
               decoding="async"
-              className="h-9 sm:h-14 w-auto"
+              className="h-9 sm:h-14 w-auto shrink-0"
             />
           </picture>
-          <div className="flex flex-col items-start justify-center">
-            <span className="text-nav-text font-bold text-sm sm:text-lg tracking-[0.18em] uppercase leading-none" style={{ fontVariantCaps: 'small-caps' }}>
+          <div className="flex flex-col items-start justify-center min-w-0">
+            <span className="text-nav-text font-bold text-xs sm:text-lg tracking-[0.18em] uppercase leading-none truncate max-w-full" style={{ fontVariantCaps: 'small-caps' }}>
               Roofing Friend
             </span>
             <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1">
-              <span className="block w-4 sm:w-6 h-px bg-cta-gold" />
+              <span className="block w-3 sm:w-6 h-px bg-cta-gold" />
               <span className="text-cta-gold font-medium text-[8px] sm:text-[10px] tracking-[0.25em] uppercase leading-none whitespace-nowrap">
                 Veteran-Built Metal
               </span>
-              <span className="block w-4 sm:w-6 h-px bg-cta-gold" />
+              <span className="block w-3 sm:w-6 h-px bg-cta-gold" />
             </div>
           </div>
         </a>
+
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-8">
@@ -79,7 +80,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-nav-bg/95 backdrop-blur-lg border-t border-border">
-          <div className="flex flex-col px-6 py-4 gap-4">
+          <div className="flex flex-col px-4 sm:px-6 py-4 gap-4">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -90,10 +91,17 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            
+            <a
+              href={`tel:${companyConfig.phoneRaw}`}
+              className="mt-2 inline-flex items-center justify-center px-4 py-3 rounded-md bg-cta-gold text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+              onClick={() => setMobileOpen(false)}
+            >
+              Call {companyConfig.phone}
+            </a>
           </div>
         </div>
       )}
+
     </header>
   );
 };

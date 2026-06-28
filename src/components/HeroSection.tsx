@@ -94,7 +94,7 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
   })();
 
   return (
-    <section className="relative overflow-hidden" style={{ height: "85vh" }}>
+    <section className="relative overflow-hidden min-h-[80vh] md:min-h-0" style={{ height: "85vh" }}>
       <div ref={emblaRef} className="h-full overflow-hidden">
         <div className="flex h-full">
           {slides.map((slide, i) => {
@@ -134,19 +134,19 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                 <div className="absolute inset-0 hero-overlay" />
 
                 <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
-                  <h2 className={`text-4xl md:text-5xl font-semibold tracking-tight ${textClass}`}>
+                  <h2 className={`text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}`}>
                     {slide.title}
                   </h2>
                   {slide.subtitle && (
-                    <p className={`mt-2 text-base md:text-lg font-light ${textClass} opacity-90`}>
+                    <p className={`mt-2 text-sm sm:text-base md:text-lg font-light ${textClass} opacity-90 px-2`}>
                       {slide.subtitle}
                     </p>
                   )}
-                  <div className="flex flex-row items-center gap-2 md:gap-3 mt-4 w-full max-w-lg text-xs md:text-sm">
+                  <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-3 mt-4 w-full max-w-lg text-xs md:text-sm">
                     {(() => {
                       const link = slide.primaryLink || "#book";
                       const isBooking = !slide.primaryLink || link === "#book" || link.includes("book.servicetitan.com") || link === BOOKING_URL;
-                      const cls = "w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-[11px] md:text-sm whitespace-nowrap";
+                      const cls = "w-full sm:flex-1 text-center px-3 md:px-12 py-3 md:py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-xs md:text-sm whitespace-nowrap";
                       if (isBooking) {
                         return (
                           <button onClick={openBooking} className={cls}>
@@ -167,13 +167,14 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                     {slide.secondaryCta && (
                       <a
                         href={slide.secondaryLink || "#"}
-                        className="w-full sm:w-auto flex-1 text-center px-3 md:px-12 py-2.5 md:py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-[11px] md:text-sm whitespace-nowrap"
+                        className="w-full sm:flex-1 text-center px-3 md:px-12 py-3 md:py-3 rounded font-medium bg-btn-secondary-bg/80 text-btn-secondary-fg backdrop-blur-sm hover:bg-btn-secondary-bg transition-colors text-xs md:text-sm whitespace-nowrap"
                       >
                         {slide.secondaryCta}
                       </a>
                     )}
                   </div>
                 </div>
+
               </div>
             );
           })}
@@ -182,16 +183,17 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
 
       {/* Captions overlay */}
       {slides[selectedIndex]?.captions?.length && (
-        <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center">
+        <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center px-4 w-full">
           <div
-            className={`px-8 py-3 md:px-12 md:py-4 rounded-lg bg-black/70 backdrop-blur-sm transition-opacity duration-500 ${currentCaption ? 'opacity-100' : 'opacity-0'}`}
+            className={`px-4 py-2 sm:px-8 sm:py-3 md:px-12 md:py-4 rounded-lg bg-black/70 backdrop-blur-sm transition-opacity duration-500 max-w-[92vw] ${currentCaption ? 'opacity-100' : 'opacity-0'}`}
           >
-            <p className="text-cta-gold text-sm md:text-lg lg:text-2xl font-semibold whitespace-nowrap">
+            <p className="text-cta-gold text-xs sm:text-sm md:text-lg lg:text-2xl font-semibold text-center">
               {currentCaption?.text ?? ""}
             </p>
           </div>
         </div>
       )}
+
 
       {/* Arrows */}
       <button

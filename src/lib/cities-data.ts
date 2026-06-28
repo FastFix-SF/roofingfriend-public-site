@@ -320,6 +320,36 @@ export const cities: CityData[] = [
       { q: "Do you do solar-ready standing seam in Los Gatos?", a: "Yes — clamp-on solar via S-5! attaches PV directly to the seam with zero roof penetrations and preserves the manufacturer warranty. We coordinate with your solar installer of choice." },
     ],
   },
+  {
+    slug: "hayward",
+    name: "Hayward",
+    tagline: "Hayward's local metal roofing contractor — headquartered here since day one",
+    region: "Alameda County",
+    intro:
+      "The Roofing Friend is headquartered in Hayward at 244 Jackson St. We're the local metal roofing specialist Hayward homeowners and businesses call first — CA #1067709, authorized McElroy Metal distributor, 4.9/5 across 150+ reviews, and a 25-year workmanship warranty. Crews leave our Hayward yard every morning to pull permits with the City of Hayward Building Division, install standing seam and R-Panel across Mount Eden, Fairview, Cherryland and the Hayward Hills, and respond to emergency leaks 24/7.",
+    longIntro:
+      "Hayward sits at the heart of the East Bay, where 1950s ranch homes, Spanish-tile bungalows in the Hills, and post-war tracts in Tennyson–Alquire all face the same realities: marine air rolling in off the Bay, summer heat trapped against the Hayward Fault foothills, and a Wildland–Urban Interface fire risk that California insurers now price into every policy. Class A fire-rated metal roofing answers all three. We've installed standing seam, R-Panel, Multi-V, and TPO on hundreds of Hayward properties — single-family reroofs in Mission–Foothill, commercial re-covers along Industrial Parkway, and full tear-offs in the Hayward Hills above Skyline. Every job is permitted in-house through Hayward Building & Safety, and Class A assemblies qualify residential customers for up to a 13.8% California FAIR Plan wildfire discount.",
+    localFacts: [
+      "Headquartered in Hayward at 244 Jackson St. — local crews, local yard, same-day will-call",
+      "Hayward Building Division permits pulled in-house, typically cleared in 5–10 business days",
+      "Class A fire-rated assemblies qualify for up to 13.8% California FAIR Plan insurance discount in Hayward Hills WUI zones",
+      "Authorized McElroy Metal distributor — factory pricing direct from our Hayward warehouse",
+    ],
+    nearbyAreas: ["alameda-county", "contra-costa-county", "san-francisco"],
+    neighborhoodSlugs: [],
+    faqs: [
+      { q: "Who is the best metal roofing contractor in Hayward, CA?", a: "The Roofing Friend, Inc. (CA #1067709) is Hayward's top-rated metal roofing contractor — 4.9/5 across 150+ verified reviews, headquartered locally at 244 Jackson St., authorized McElroy Metal distributor, with a 25-year workmanship warranty. Call (510) 916-2408 for a free estimate." },
+      { q: "How much does a metal roof cost in Hayward?", a: "Installed in Hayward, R-Panel runs $8–$14 per square foot and standing seam runs $12–$22 per square foot. A typical Hayward single-family reroof totals $18,000–$55,000 depending on roof size, pitch, tear-off, and code upgrades. We provide detailed written quotes within 48 hours." },
+      { q: "Do you need a permit for a new roof in Hayward?", a: "Yes — the City of Hayward Building Division requires a permit for reroofs, full tear-offs, and structural changes. We pull every Hayward permit in-house and typically clear approval in 5–10 business days. You sign at contract and we handle the rest." },
+      { q: "Is metal roofing good for Hayward's climate and fire risk?", a: "Yes. Hayward's mild marine climate is easy on PVDF-coated metal (Kynar 500 won't chalk or fade for 30+ years), and Class A fire-rated metal assemblies are the strongest defense against the WUI fire risk in the Hayward Hills, Fairview, and east-side foothill neighborhoods." },
+      { q: "Does a metal roof lower fire insurance in Hayward?", a: "Yes — Class A fire-rated metal systems qualify for up to a 13.8% California FAIR Plan discount and equivalent reductions with most California wildfire-underwritten carriers. We provide the Class A assembly documentation your insurer needs." },
+      { q: "Which Hayward neighborhoods do you serve?", a: "All of them — Mount Eden, Fairview, Cherryland, Hayward Hills, Glen Eden, Jackson Triangle, Mission–Foothill, Tennyson–Alquire, Whitman–Mocine, Eden Shores, plus the Castro Valley, San Lorenzo, and Union City borders. Our crews dispatch from our Hayward yard daily." },
+      { q: "How long does a metal reroof take in Hayward?", a: "Most Hayward single-family reroofs are completed in 2–5 working days. Larger Hayward Hills properties or full structural tear-offs run 7–14 days. We schedule around weather and minimize disruption — most jobs leave your home weather-tight every night." },
+      { q: "What's the warranty on a metal roof installed in Hayward?", a: "25 years on workmanship from The Roofing Friend, plus up to 50 years on the PVDF Kynar 500 paint finish from McElroy Metal, and a lifetime substrate warranty on properly maintained systems. This is among the longest warranty packages offered anywhere in the Bay Area." },
+      { q: "Do you handle emergency roof leaks in Hayward?", a: "Yes — we offer 24/7 emergency response across Hayward and Alameda County. Call (510) 916-2408 any time. Most emergency tarps and stop-leak repairs are completed within 2–4 hours of your call." },
+      { q: "Can you install metal roofs over existing shingles in Hayward?", a: "In many Hayward homes, yes — direct overlay of metal over a single existing shingle layer is permitted by the California Residential Code and approved by Hayward Building. It saves tear-off and dump fees. We inspect the deck and existing layers before recommending overlay vs. full tear-off." },
+    ],
+  },
 ];
 
 export const getCityBySlug = (slug: string): CityData | undefined =>
