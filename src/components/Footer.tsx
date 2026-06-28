@@ -119,7 +119,7 @@ const Footer = () => {
             © 2026 The Roofing Friend. All rights reserved. | Licensed & Insured | CA License #1067709
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">TEST123</a>
+            <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
             <a
               href="https://fastfix.ai"
