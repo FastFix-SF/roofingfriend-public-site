@@ -99,52 +99,23 @@ const Portfolio = () => {
     let cancelled = false;
     (async () => {
       try {
-        const { data: regular, error: rErr } = await (supabase as any)
-          .from("public_projects_safe")
-          .select(
-            "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
-          )
-          .eq("tenant_id", ROOFINGFRIEND_TENANT_ID)
-          .eq("is_featured", false)
-          .order("created_at", { ascending: false });
-        if (rErr) throw rErr;
+        // Read the portfolio through the read-only get-portfolio edge function
+        // (service-role gate). It returns only the CRM-curated, published
+        // entries enriched with each project's roof_type + customer photos —
+        // operational tables are never exposed directly to the browser.
+        const { data, error: invErr } = await supabase.functions.invoke("get-portfolio", {
+          body: { tenantId: ROOFINGFRIEND_TENANT_ID },
+        });
+        if (invErr) throw invErr;
 
-        const { data: feats, error: fErr } = await (supabase as any)
-          .from("public_projects_safe")
-          .select(
-            "id, name, address, description, project_type, project_category, roof_type, is_public, is_featured, created_at"
-          )
-          .eq("tenant_id", ROOFINGFRIEND_TENANT_ID)
-          .eq("is_featured", true)
-          .order("created_at", { ascending: false })
-          .limit(3);
-        if (fErr) throw fErr;
-
-
-        const allIds = [
-          ...(feats ?? []).map((p) => p.id),
-          ...(regular ?? []).map((p) => p.id),
-        ];
-
-        let map: Record<string, PhotoRow[]> = {};
-        if (allIds.length > 0) {
-          const { data: photoRows, error: pErr } = await (supabase as any)
-            .from("public_project_photos_safe")
-            .select(
-              "id, project_id, photo_url, thumbnail_url, caption, photo_tag, is_highlighted_before, is_highlighted_after, uploaded_at"
-            )
-            .in("project_id", allIds)
-            .order("uploaded_at", { ascending: true });
-          if (pErr) throw pErr;
-          for (const ph of photoRows ?? []) {
-            if (!map[ph.project_id]) map[ph.project_id] = [];
-            map[ph.project_id].push(ph as PhotoRow);
-          }
-        }
+        const all = (data?.projects ?? []) as ProjectRow[];
+        const feats = all.filter((p) => p.is_featured).slice(0, 3);
+        const regular = all.filter((p) => !p.is_featured);
+        const map = (data?.photos ?? {}) as Record<string, PhotoRow[]>;
 
         if (!cancelled) {
-          setProjects(regular ?? []);
-          setFeatured(feats ?? []);
+          setProjects(regular);
+          setFeatured(feats);
           setPhotoMap(map);
         }
       } catch (e) {
