@@ -239,7 +239,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       if (gutterColor)    qualificationData.gutter_color = gutterColor;
       qualificationData._source = 'website_booking';
 
-      await supabase.functions.invoke('create-crm-lead', {
+      const { error: invokeError } = await supabase.functions.invoke('create-crm-lead', {
         headers: { 'x-tenant-id': ROOFINGFRIEND_TENANT_ID },
         body: {
           tenantId: ROOFINGFRIEND_TENANT_ID,
@@ -263,6 +263,10 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           qualificationData,
         },
       });
+      // functions.invoke only throws on network errors — a non-2xx response
+      // from the function lands in `error`. Surface it instead of showing a
+      // fake success screen for a submission that never persisted.
+      if (invokeError) throw invokeError;
 
       setPage('success');
     } catch {
