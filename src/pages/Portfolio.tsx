@@ -90,43 +90,59 @@ function formatMonth(iso: string): string {
 
 const Portfolio = () => {
   const { openBooking } = useBooking();
-  const [projects, setProjects] = useState<ProjectRow[]>([]);
-  const [featured, setFeatured] = useState<ProjectRow[]>([]);
-  const [photoMap, setPhotoMap] = useState<Record<string, PhotoRow[]>>({});
-  const [loading, setLoading] = useState(true);
+  // Seed synchronously from the frozen snapshot — these originals always render
+  // exactly as they are, even if the CRM is offline or returns different data.
+  const initialAll = snapshotProjects as ProjectRow[];
+  const [projects, setProjects] = useState<ProjectRow[]>(
+    initialAll.filter((p) => !p.is_featured)
+  );
+  const [featured, setFeatured] = useState<ProjectRow[]>(
+    initialAll.filter((p) => p.is_featured).slice(0, 3)
+  );
+  const [photoMap, setPhotoMap] = useState<Record<string, PhotoRow[]>>(
+    snapshotPhotos as Record<string, PhotoRow[]>
+  );
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<CategoryFilter>("all");
   const [filterRoof, setFilterRoof] = useState<RoofFilter>("all");
   const [selected, setSelected] = useState<ProjectRow | null>(null);
 
-  // ─── Fetch ─────────────────────────────────────────────────────
+  // ─── Fetch only-new projects from the CRM and append ───────────
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        // Read the portfolio through the read-only get-portfolio edge function
-        // (service-role gate). It returns only the CRM-curated, published
-        // entries enriched with each project's roof_type + customer photos —
-        // operational tables are never exposed directly to the browser.
         const { data, error: invErr } = await supabase.functions.invoke("get-portfolio", {
           body: { tenantId: ROOFINGFRIEND_TENANT_ID },
         });
         if (invErr) throw invErr;
 
         const all = (data?.projects ?? []) as ProjectRow[];
-        const feats = all.filter((p) => p.is_featured).slice(0, 3);
-        const regular = all.filter((p) => !p.is_featured);
-        const map = (data?.photos ?? {}) as Record<string, PhotoRow[]>;
+        const crmPhotos = (data?.photos ?? {}) as Record<string, PhotoRow[]>;
 
-        if (!cancelled) {
-          setProjects(regular);
-          setFeatured(feats);
-          setPhotoMap(map);
-        }
+        // Keep only CRM entries that are NOT part of the frozen snapshot.
+        const newOnly = all.filter((p) => !snapshotProjectIds.has(p.id));
+        const newFeatured = newOnly.filter((p) => p.is_featured);
+        const newRegular = newOnly.filter((p) => !p.is_featured);
+
+        if (cancelled) return;
+
+        // Snapshot wins on photo-key collisions so frozen originals never get
+        // their photos overwritten by later CRM edits.
+        setPhotoMap((prev) => ({ ...crmPhotos, ...prev }));
+
+        // Append new regular projects after the snapshot's regulars.
+        setProjects((prev) => [...prev, ...newRegular]);
+
+        // Fill remaining featured slots (max 3 total) from new CRM featureds.
+        setFeatured((prev) => {
+          const room = Math.max(0, 3 - prev.length);
+          return room > 0 ? [...prev, ...newFeatured.slice(0, room)] : prev;
+        });
       } catch (e) {
+        // Silent failure: the snapshot is already rendered, so the page is fine.
         if (!cancelled) setError((e as Error)?.message ?? "Failed to load portfolio");
-      } finally {
-        if (!cancelled) setLoading(false);
       }
     })();
     return () => {
