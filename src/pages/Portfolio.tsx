@@ -6,6 +6,11 @@ import BottomBar from "@/components/BottomBar";
 import { useBooking } from "@/hooks/useBooking";
 import { supabase, ROOFINGFRIEND_TENANT_ID } from "@/integrations/supabase/client";
 import {
+  snapshotProjects,
+  snapshotPhotos,
+  snapshotProjectIds,
+} from "@/data/portfolioSnapshot";
+import {
   ArrowLeft,
   ArrowRight,
   ChevronsLeftRight,
