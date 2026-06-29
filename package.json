@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "snapshot:portfolio": "node scripts/snapshot-portfolio.mjs"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.10",
