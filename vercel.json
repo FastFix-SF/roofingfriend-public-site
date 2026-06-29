@@ -14,6 +14,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/r/:code",                     "destination": "https://fedlvxiqevyuzeprsknu.supabase.co/functions/v1/r/:code" },
     { "source": "/admin",                       "destination": "https://ultimatecrm-roofingfriend.vercel.app/admin" },
     { "source": "/admin/:path*",                "destination": "https://ultimatecrm-roofingfriend.vercel.app/admin/:path*" },
     { "source": "/admin-login",                 "destination": "https://ultimatecrm-roofingfriend.vercel.app/admin-login" },
