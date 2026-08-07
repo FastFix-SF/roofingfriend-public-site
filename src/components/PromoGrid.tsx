@@ -14,6 +14,7 @@ const PromoGrid = () => {
   return (
     <section className="bg-background py-8 md:py-12">
       <div className="w-full px-4 md:px-10 lg:px-12 py-8 space-y-4">
+        <h2 className="sr-only">Offers, referral program and roofing programs</h2>
         {/* Top row: two banner cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Current Offers */}

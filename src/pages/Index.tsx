@@ -73,7 +73,7 @@ const Index = () => {
     <>
       <Helmet>
         <title>The Roofing Friend | Premium Metal Roofing in the SF Bay Area</title>
-        <meta name="description" content="The Roofing Friend — standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned, California-licensed, 24/7 storm response." />
+        <meta name="description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned, California-licensed, 24/7 storm response." />
         <link rel="canonical" href="https://theroof.info/" />
         
         <meta property="og:title" content="The Roofing Friend | Premium Metal Roofing in the SF Bay Area" />

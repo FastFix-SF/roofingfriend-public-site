@@ -207,7 +207,7 @@ const WarrantyOverview = () => (
           <button onClick={openBookingDialog} className="px-8 py-3 rounded font-medium bg-cta-gold text-btn-primary-fg hover:opacity-90 transition-opacity text-sm">
             Contact Us
           </button>
-          <a href="tel:+1234567890" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
+          <a href="tel:+15109162408" className="px-8 py-3 rounded font-medium bg-white text-foreground hover:bg-white/90 transition-colors text-sm">
             Call Us Now
           </a>
         </div>
