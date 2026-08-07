@@ -86,11 +86,11 @@ const Contact = () => {
       <Helmet>
         <title>Contact | The Roofing Friend</title>
         <meta name="description" content="Book a service with The Roofing Friend — call or text (510) 916-2408 anytime. 500+ projects, 4.9/5 rating, same-day response across the SF Bay Area." />
-        <link rel="canonical" href="https://theroof.info/contact" />
+        <link rel="canonical" href="https://roofingfriend.com/contact" />
         <link rel="preload" as="image" href={heroContactWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Contact | The Roofing Friend" />
         <meta property="og:description" content="Call or text anytime at (510) 916-2408. Same-day response, 500+ projects completed across the San Francisco Bay Area." />
-        <meta property="og:url" content="https://theroof.info/contact" />
+        <meta property="og:url" content="https://roofingfriend.com/contact" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -98,7 +98,7 @@ const Contact = () => {
           name: "The Roofing Friend",
           telephone: "(510) 916-2408",
           email: "roofingfriend@gmail.com",
-          url: "https://theroof.info",
+          url: "https://roofingfriend.com",
           description: "Call or text anytime. 500+ projects completed, 4.9/5 customer rating, 25-year warranty, same-day response across the San Francisco Bay Area.",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
           openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },

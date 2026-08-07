@@ -42,7 +42,7 @@ const systems = [
 ];
 
 const CommercialRoofing = () => {
-  const canonicalUrl = "https://theroof.info/commercial-roofing";
+  const canonicalUrl = "https://roofingfriend.com/commercial-roofing";
 
   const faqSchema = {
     "@context": "https://schema.org",

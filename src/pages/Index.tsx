@@ -74,11 +74,11 @@ const Index = () => {
       <Helmet>
         <title>The Roofing Friend | Premium Metal Roofing in the SF Bay Area</title>
         <meta name="description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned, California-licensed, 24/7 storm response." />
-        <link rel="canonical" href="https://theroof.info/" />
+        <link rel="canonical" href="https://roofingfriend.com/" />
         
         <meta property="og:title" content="The Roofing Friend | Premium Metal Roofing in the SF Bay Area" />
         <meta property="og:description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned and California-licensed." />
-        <meta property="og:url" content="https://theroof.info/" />
+        <meta property="og:url" content="https://roofingfriend.com/" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -86,7 +86,7 @@ const Index = () => {
           name: "The Roofing Friend",
           telephone: "(510) 916-2408",
           email: "roofingfriend@gmail.com",
-          url: "https://theroof.info",
+          url: "https://roofingfriend.com",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
           openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },
           aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "181" },

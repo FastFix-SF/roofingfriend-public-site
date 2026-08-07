@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
           name="description"
           content="How The Roofing Friend collects, uses, and protects your information across our website and mobile application."
         />
-        <link rel="canonical" href="https://theroof.info/privacy" />
+        <link rel="canonical" href="https://roofingfriend.com/privacy" />
       </Helmet>
 
       <Navbar />

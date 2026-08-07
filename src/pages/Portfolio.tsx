@@ -188,7 +188,7 @@ const Portfolio = () => {
           name="description"
           content="Browse completed standing seam, R-Panel and TPO metal roofing projects across the SF Bay Area — residential, commercial and government work."
         />
-        <link rel="canonical" href="https://theroof.info/portfolio" />
+        <link rel="canonical" href="https://roofingfriend.com/portfolio" />
         <meta property="og:title" content="Portfolio | The Roofing Friend" />
         <meta
           property="og:description"

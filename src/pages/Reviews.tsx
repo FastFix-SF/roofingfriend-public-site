@@ -31,11 +31,11 @@ const Reviews = () => (
     <Helmet>
       <title>Reviews | The Roofing Friend — 5.0 Stars</title>
       <meta name="description" content="See why The Roofing Friend has a 5.0 star rating from 181+ Google reviews. Read real customer testimonials about our metal roofing across the SF Bay Area." />
-      <link rel="canonical" href="https://theroof.info/reviews" />
+      <link rel="canonical" href="https://roofingfriend.com/reviews" />
       <link rel="preload" as="image" href={heroReviewsWebp} type="image/webp" fetchPriority="high" />
       <meta property="og:title" content="Reviews | The Roofing Friend — 5.0 Stars" />
       <meta property="og:description" content="181+ Google reviews with a 5.0 star rating. Read real customer testimonials about our premium metal roofing." />
-      <meta property="og:url" content="https://theroof.info/reviews" />
+      <meta property="og:url" content="https://roofingfriend.com/reviews" />
       <meta property="og:type" content="website" />
       <script type="application/ld+json">{JSON.stringify({
         "@context": "https://schema.org",

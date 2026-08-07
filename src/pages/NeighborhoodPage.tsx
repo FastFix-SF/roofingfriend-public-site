@@ -26,7 +26,7 @@ const NeighborhoodPage = () => {
 
   if (!city || !neighborhood) return <Navigate to="/404" replace />;
 
-  const canonicalUrl = `https://theroof.info/locations/${city.slug}/${neighborhood.slug}`;
+  const canonicalUrl = `https://roofingfriend.com/locations/${city.slug}/${neighborhood.slug}`;
   const title = `Metal Roofing in ${neighborhood.name}, ${city.name} | The Roofing Friend`;
   const description = `${neighborhood.tagline}. Premium copper, zinc, and PVDF standing seam metal roofing installed in ${neighborhood.name} by The Roofing Friend — licensed, insured, CA #1067709.`;
 
@@ -38,7 +38,7 @@ const NeighborhoodPage = () => {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
     name: "The Roofing Friend",
-    image: "https://theroof.info/og-image.jpg",
+    image: "https://roofingfriend.com/og-image.jpg",
     telephone: PHONE,
     email: "roofingfriend@gmail.com",
     url: canonicalUrl,
@@ -54,12 +54,12 @@ const NeighborhoodPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://theroof.info/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://roofingfriend.com/" },
       {
         "@type": "ListItem",
         position: 2,
         name: city.name,
-        item: `https://theroof.info/locations/${city.slug}`,
+        item: `https://roofingfriend.com/locations/${city.slug}`,
       },
       { "@type": "ListItem", position: 3, name: neighborhood.name, item: canonicalUrl },
     ],
@@ -94,13 +94,13 @@ const NeighborhoodPage = () => {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={`https://theroof.info${heroCommercialRoofing}`} />
+        <meta property="og:image" content={`https://roofingfriend.com${heroCommercialRoofing}`} />
         <meta property="og:image:width" content="1920" />
         <meta property="og:image:height" content="1080" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={`https://theroof.info${heroCommercialRoofing}`} />
+        <meta name="twitter:image" content={`https://roofingfriend.com${heroCommercialRoofing}`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

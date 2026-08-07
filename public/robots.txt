@@ -56,4 +56,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://theroof.info/sitemap.xml
+Sitemap: https://roofingfriend.com/sitemap.xml
