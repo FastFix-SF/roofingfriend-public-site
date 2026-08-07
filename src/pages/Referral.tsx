@@ -31,11 +31,11 @@ const Referral = () => {
           name="description"
           content="Earn money by referring friends and neighbors to The Roofing Friend. Commission-based referral program — the bigger the roof job, the bigger your payout."
         />
-        <link rel="canonical" href="https://theroof.info/referral" />
+        <link rel="canonical" href="https://roofingfriend.com/referral" />
         <link rel="preload" as="image" href={heroReferralWebp} type="image/webp" fetchPriority="high" />
         <meta property="og:title" content="Referral Program — Earn Commission | The Roofing Friend" />
         <meta property="og:description" content="Earn money by referring friends and neighbors to The Roofing Friend. Commission-based referral program." />
-        <meta property="og:url" content="https://theroof.info/referral" />
+        <meta property="og:url" content="https://roofingfriend.com/referral" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

@@ -35,11 +35,11 @@ const About = () => (
     <Helmet>
       <title>About | The Roofing Friend</title>
       <meta name="description" content="The Roofing Friend — veteran-owned California metal roofing contractor serving the San Francisco Bay Area with standing seam, R-Panel, Multi-V & TPO systems." />
-      <link rel="canonical" href="https://theroof.info/about" />
+      <link rel="canonical" href="https://roofingfriend.com/about" />
       <link rel="preload" as="image" href={heroCrewWebp} type="image/webp" fetchPriority="high" />
       <meta property="og:title" content="About | The Roofing Friend" />
       <meta property="og:description" content="Veteran-owned California metal roofing contractor serving the San Francisco Bay Area." />
-      <meta property="og:url" content="https://theroof.info/about" />
+      <meta property="og:url" content="https://roofingfriend.com/about" />
       <meta property="og:type" content="website" />
       <script type="application/ld+json">{JSON.stringify({
         "@context": "https://schema.org",
@@ -48,7 +48,7 @@ const About = () => (
         description: "Veteran-owned California metal roofing contractor — standing seam, R-Panel, Multi-V and TPO systems across the San Francisco Bay Area.",
         telephone: "(510) 916-2408",
         email: "roofingfriend@gmail.com",
-        url: "https://theroof.info",
+        url: "https://roofingfriend.com",
         address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
         areaServed: cities.map(c => ({ "@type": "City", name: c.name })),
         openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" },
