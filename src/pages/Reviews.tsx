@@ -64,6 +64,7 @@ const Reviews = () => (
     {/* Aggregate Stats */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
       <div className="max-w-5xl mx-auto">
+        <h2 className="sr-only">Review Summary</h2>
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div className="text-center md:text-left">
             <p className="text-4xl md:text-5xl font-bold text-foreground">{aggregateStats.totalReviews}+ Google Reviews</p>
@@ -88,6 +89,7 @@ const Reviews = () => (
         </div>
 
         {/* Review Cards */}
+        <h2 className="sr-only">Customer Testimonials</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {reviewsData.map((review, i) => (
             <div key={i} className="bg-secondary rounded-lg p-6">
@@ -113,6 +115,7 @@ const Reviews = () => (
         </div>
 
         {/* CTA */}
+        <h2 className="sr-only">Share Your Experience</h2>
         <div className="text-center mt-12">
           <a
             href="https://www.google.com/search?q=The+Roofing+Friend+Reviews"
