@@ -56,4 +56,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://roofingfriend.com/sitemap.xml
+Sitemap: https://tesla-clone-delight.lovable.app/sitemap.xml
