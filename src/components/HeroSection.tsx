@@ -134,9 +134,11 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                 <div className="absolute inset-0 hero-overlay" />
 
                 <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
-                  <h2 className={`text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}`}>
-                    {slide.title}
-                  </h2>
+                  {React.createElement(
+                    i === 0 ? "h1" : "h2",
+                    { className: `text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}` },
+                    slide.title
+                  )}
                   {slide.subtitle && (
                     <p className={`mt-2 text-sm sm:text-base md:text-lg font-light ${textClass} opacity-90 px-2`}>
                       {slide.subtitle}
@@ -198,12 +200,14 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
       {/* Arrows */}
       <button
         onClick={() => emblaApi?.scrollPrev()}
+        aria-label="Previous slide"
         className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-lg bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
       >
         <ChevronLeft className="w-5 h-5 text-foreground" />
       </button>
       <button
         onClick={() => emblaApi?.scrollNext()}
+        aria-label="Next slide"
         className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-lg bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
       >
         <ChevronRight className="w-5 h-5 text-foreground" />
@@ -226,6 +230,8 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
           <button
             key={i}
             onClick={() => emblaApi?.scrollTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === selectedIndex}
             className={`w-2.5 h-2.5 rounded-full transition-colors ${
               i === selectedIndex ? "bg-white" : "bg-white/40"
             }`}

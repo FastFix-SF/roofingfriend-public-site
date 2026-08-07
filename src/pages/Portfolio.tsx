@@ -183,10 +183,10 @@ const Portfolio = () => {
   return (
     <>
       <Helmet>
-        <title>Portfolio | The Roofing Friend — Bay Area Metal Roofing Projects</title>
+        <title>Portfolio | Bay Area Metal Roofing Projects</title>
         <meta
           name="description"
-          content="Browse completed standing seam, R-Panel, and TPO metal roofing projects across the San Francisco Bay Area — residential, commercial, industrial, and government work."
+          content="Browse completed standing seam, R-Panel and TPO metal roofing projects across the SF Bay Area — residential, commercial and government work."
         />
         <link rel="canonical" href="https://theroof.info/portfolio" />
         <meta property="og:title" content="Portfolio | The Roofing Friend" />
