@@ -68,6 +68,7 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
         {canScrollPrev && (
           <button
             onClick={() => emblaApi?.scrollPrev()}
+            aria-label="Previous slide"
             className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-sm bg-white/90 shadow flex items-center justify-center hover:bg-white transition-colors"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
@@ -77,6 +78,7 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
         {canScrollNext && (
           <button
             onClick={() => emblaApi?.scrollNext()}
+            aria-label="Next slide"
             className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-sm bg-white/90 shadow flex items-center justify-center hover:bg-white transition-colors"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />

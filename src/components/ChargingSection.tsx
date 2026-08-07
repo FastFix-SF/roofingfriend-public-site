@@ -381,6 +381,7 @@ const ChargingSection = () => {
 
             <button
               onClick={() => { setLocationResult(null); setLocationError(null); }}
+              aria-label="Close"
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground text-xs"
             >
               ✕
