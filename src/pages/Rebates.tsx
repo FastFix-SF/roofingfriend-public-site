@@ -80,6 +80,7 @@ const Rebates = () => (
     {/* Summary Cards */}
     <section className="bg-background flex flex-col items-start pt-4 md:pt-6 pb-4">
       <div className="w-full px-4 md:px-10 lg:px-12">
+        <h2 className="sr-only">Available Rebate Programs</h2>
         <div className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide">
           {rebatePrograms.map((p, i) => {
             const Icon = sectionIcons[i];
@@ -109,6 +110,7 @@ const Rebates = () => (
     {/* Stacking Promo */}
     <section className="bg-background py-8 md:py-12">
       <div className="w-full px-4 md:px-10 lg:px-12 space-y-4">
+        <h2 className="sr-only">How We Maximize Your Savings</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative rounded-lg overflow-hidden bg-muted flex flex-col sm:flex-row min-h-[200px]">
             <div className="p-6 sm:p-8 flex flex-col justify-center flex-1">

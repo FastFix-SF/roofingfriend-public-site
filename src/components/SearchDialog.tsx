@@ -92,6 +92,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           </div>
           <button
             onClick={() => onOpenChange(false)}
+            aria-label="Close search"
             className="rounded-full p-1.5 hover:bg-accent transition-colors"
           >
             <X size={16} className="text-muted-foreground" />
@@ -104,6 +105,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               ref={inputRef}
+              aria-label="Search site"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
