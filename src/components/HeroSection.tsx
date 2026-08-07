@@ -134,10 +134,14 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                 <div className="absolute inset-0 hero-overlay" />
 
                 <div className="relative z-10 flex flex-col items-center text-center pt-28 md:pt-32 px-4">
-                  {React.createElement(
-                    i === 0 ? "h1" : "h2",
-                    { className: `text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}` },
-                    slide.title
+                  {i === 0 ? (
+                    <h1 className={`text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}`}>
+                      {slide.title}
+                    </h1>
+                  ) : (
+                    <h2 className={`text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight ${textClass}`}>
+                      {slide.title}
+                    </h2>
                   )}
                   {slide.subtitle && (
                     <p className={`mt-2 text-sm sm:text-base md:text-lg font-light ${textClass} opacity-90 px-2`}>
