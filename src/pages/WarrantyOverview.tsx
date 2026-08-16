@@ -61,6 +61,12 @@ const WarrantyOverview = () => (
       <title>Metal Roof Warranty — Up to 50 Years | Roofing Friend</title>
       <meta name="description" content="Roofing Friend offers California's strongest metal roof warranties: up to 50-year manufacturer paint & substrate on residential, 25-year system warranty on commercial, spec-grade coverage on government & public sector. Veteran-owned." />
       <link rel="canonical" href="https://roofingfriend.com/warranty" />
+      <meta property="og:title" content="Metal Roof Warranty — Up to 50 Years | Roofing Friend" />
+      <meta property="og:description" content="California's strongest metal roof warranties: up to 50-year residential, 25-year commercial system, spec-grade government coverage." />
+      <meta property="og:url" content="https://roofingfriend.com/warranty" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:title" content="Metal Roof Warranty — Up to 50 Years" />
+      <meta name="twitter:description" content="Up to 50-year residential and 25-year commercial metal roof warranties." />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
       <link rel="preload" as="image" href={warrantyResidentialWebp} type="image/webp" fetchPriority="high" />

@@ -74,6 +74,12 @@ const WarrantyDetail = () => {
         <title>{data.metaTitle}</title>
         <meta name="description" content={data.metaDescription} />
         <link rel="canonical" href={`https://roofingfriend.com/warranty/${data.slug}`} />
+        <meta property="og:title" content={data.metaTitle} />
+        <meta property="og:description" content={data.metaDescription} />
+        <meta property="og:url" content={`https://roofingfriend.com/warranty/${data.slug}`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={data.metaTitle} />
+        <meta name="twitter:description" content={data.metaDescription} />
         <link rel="preload" as="image" href={categoryImagesWebp[data.slug]} type="image/webp" fetchPriority="high" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(warrantySchema)}</script>
