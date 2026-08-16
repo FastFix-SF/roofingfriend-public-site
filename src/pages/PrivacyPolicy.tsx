@@ -17,6 +17,12 @@ const PrivacyPolicy = () => {
           content="How The Roofing Friend collects, uses, and protects your information across our website and mobile application."
         />
         <link rel="canonical" href="https://roofingfriend.com/privacy" />
+        <meta property="og:title" content="Privacy Policy | The Roofing Friend" />
+        <meta property="og:description" content="How The Roofing Friend collects, uses, and protects your information across our website and mobile application." />
+        <meta property="og:url" content="https://roofingfriend.com/privacy" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Privacy Policy | The Roofing Friend" />
+        <meta name="twitter:description" content="How The Roofing Friend collects, uses, and protects your information." />
       </Helmet>
 
       <Navbar />

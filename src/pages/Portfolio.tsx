@@ -195,7 +195,10 @@ const Portfolio = () => {
           content="Completed roofing projects across the Bay Area — residential, commercial, government, and more."
         />
         <meta property="og:image" content={heroCommercialRoofing} />
+        <meta property="og:url" content="https://roofingfriend.com/portfolio" />
         <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Portfolio | Bay Area Metal Roofing Projects" />
+        <meta name="twitter:description" content="Completed standing seam, R-Panel and TPO roofing projects across the SF Bay Area." />
       </Helmet>
 
       <Navbar />

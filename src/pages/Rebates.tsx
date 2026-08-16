@@ -31,6 +31,12 @@ const Rebates = () => (
         content="Verified 2025–2026 California roofing incentives: SMUD & LADWP cool-roof rebates, FAIR Plan wildfire discounts (up to 13.8%), federal §179D deduction (up to $5.94/sq ft), and GoGreen state-backed financing — all stackable on your new metal roof."
       />
       <link rel="canonical" href="https://roofingfriend.com/rebates" />
+      <meta property="og:title" content="California Roofing Rebates & Tax Deductions (2025) | Roofing Friend" />
+      <meta property="og:description" content="Cool-roof rebates, FAIR Plan wildfire discounts, §179D deductions and GoGreen financing — stackable incentives on your new metal roof." />
+      <meta property="og:url" content="https://roofingfriend.com/rebates" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:title" content="California Roofing Rebates & Tax Deductions (2025)" />
+      <meta name="twitter:description" content="Stackable California roofing incentives for your new metal roof." />
       <link rel="preload" as="image" href={heroImgWebp} type="image/webp" fetchPriority="high" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
