@@ -23,7 +23,7 @@ const PromoGrid = () => {
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">Current Offers</h3>
               <p className="text-sm text-muted-foreground mt-1">Explore current promotions on metal roofing.</p>
               <button onClick={openBooking} className="mt-4 inline-block w-fit px-6 sm:px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
-                Portfolio
+                Book Now
               </button>
             </div>
             <div className="sm:w-[45%] h-32 sm:h-auto">
@@ -37,7 +37,7 @@ const PromoGrid = () => {
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">Referral Program</h3>
               <p className="text-sm text-muted-foreground mt-1">Refer a friend to The Roofing Friend and earn a commission on every completed install.</p>
               <a href="/referral" className="mt-4 inline-block w-fit px-6 sm:px-8 py-2.5 rounded border border-foreground text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
-                Portfolio
+                Refer a Friend
               </a>
             </div>
             <div className="sm:w-[45%] h-32 sm:h-auto">

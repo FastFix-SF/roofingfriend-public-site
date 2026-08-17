@@ -24,9 +24,9 @@ import warrantyResidentialWebp from "@/assets/warranty-residential-v2.webp";
 const LazyChargingSection = React.lazy(() => import("@/components/ChargingSection"));
 
 const secondarySlides = [
-  { image: warrantyResidential, imageWebp: warrantyResidentialWebp, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "Portfolio", link: "/warranty/residential" },
-  { image: warrantyCommercial, imageWebp: warrantyCommercialWebp, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "Portfolio", link: "/warranty/commercial" },
-  { image: warrantyIndustrial, imageWebp: warrantyIndustrialWebp, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "Portfolio", link: "/warranty/industrial" },
+  { image: warrantyResidential, imageWebp: warrantyResidentialWebp, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "View Warranty", link: "/warranty/residential" },
+  { image: warrantyCommercial, imageWebp: warrantyCommercialWebp, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "View Warranty", link: "/warranty/commercial" },
+  { image: warrantyIndustrial, imageWebp: warrantyIndustrialWebp, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "View Warranty", link: "/warranty/industrial" },
 ];
 
 const heroSlides = [
