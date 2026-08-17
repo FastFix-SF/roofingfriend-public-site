@@ -12,6 +12,7 @@ import CutAndDropDialog from "@/components/CutAndDropDialog";
 const Index = React.lazy(() => import("./pages/Index"));
 const PrivacyPolicy = React.lazy(() => import("./pages/PrivacyPolicy"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
+const ResidentialRoofing = React.lazy(() => import("./pages/ResidentialRoofing"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
@@ -44,6 +45,7 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/commercial-roofing" element={<CommercialRoofing />} />
+                  <Route path="/residential-roofing" element={<ResidentialRoofing />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:id" element={<Portfolio />} />
                   <Route path="/about" element={<About />} />
