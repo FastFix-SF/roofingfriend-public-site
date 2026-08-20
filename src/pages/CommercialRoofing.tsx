@@ -185,7 +185,9 @@ const CommercialRoofing = () => {
 
       {/* Promo Grid */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
+        <h2 className="sr-only">Veteran-owned service and energy rebate programs</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
+
           <div
             className="relative overflow-hidden rounded-lg p-8 md:p-10 flex flex-col justify-between min-h-[260px]"
             style={{
