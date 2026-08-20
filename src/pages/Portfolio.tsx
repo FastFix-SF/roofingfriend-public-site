@@ -217,8 +217,9 @@ const Portfolio = () => {
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 max-w-6xl mx-auto h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-            Our Portfolio
+            Metal Roofing Project Portfolio
           </h1>
+
           <p className="text-base sm:text-lg md:text-xl text-white/90 mt-4 max-w-2xl">
             Standing seam, R-Panel, and TPO roofs across the Bay Area — residential,
             commercial, government, and more.

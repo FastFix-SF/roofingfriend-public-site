@@ -44,7 +44,9 @@ const VehicleSlider = () => {
 
   return (
     <section className="bg-background flex flex-col items-start pt-4 md:pt-6 pb-4">
+      <h2 className="sr-only">Metal roofing systems we install</h2>
       <div className="relative w-full px-4 md:px-10 lg:px-12">
+
         <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
           <div className="flex">
             {vehicles.map((v, idx) => (
