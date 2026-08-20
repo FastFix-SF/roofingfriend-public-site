@@ -322,8 +322,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between px-7 py-5 bg-gradient-to-r from-[#1a3a4a] to-[#1e4a6e] flex-shrink-0">
           <h2 className="text-lg font-semibold text-white tracking-tight">Book a Service</h2>
-          <button onClick={handleClose} className="p-1.5 rounded-full hover:bg-white/15 transition-colors">
-            <X className="w-5 h-5 text-white/70" />
+          <button onClick={handleClose} aria-label="Close booking dialog" className="p-1.5 rounded-full hover:bg-white/15 transition-colors">
+            <X className="w-5 h-5 text-white/70" aria-hidden="true" />
           </button>
         </div>
 
