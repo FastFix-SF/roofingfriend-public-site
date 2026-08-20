@@ -155,17 +155,18 @@ const Contact = () => {
             <p className="text-muted-foreground text-sm mb-6">Fill out a few details and we'll contact you instantly.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">Name</label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required placeholder="Your name" />
+                <label htmlFor="contact-name" className="text-sm font-medium text-foreground mb-1 block">Name</label>
+                <Input id="contact-name" name="name" autoComplete="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required placeholder="Your name" />
               </div>
               <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">Email</label>
-                <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required placeholder="your@email.com" />
+                <label htmlFor="contact-email-input" className="text-sm font-medium text-foreground mb-1 block">Email</label>
+                <Input id="contact-email-input" name="email" autoComplete="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required placeholder="your@email.com" />
               </div>
               <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">Phone</label>
-                <Input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="(555) 555-5555" />
+                <label htmlFor="contact-phone" className="text-sm font-medium text-foreground mb-1 block">Phone</label>
+                <Input id="contact-phone" name="phone" autoComplete="tel" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="(555) 555-5555" />
               </div>
+
 
               <div>
                 <span className="text-sm font-medium text-foreground mb-2 block">Preferred Contact Method</span>
@@ -208,9 +209,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">Message</label>
-                <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required placeholder="Tell us about your roof — type, size, timeline..." rows={4} />
+                <label htmlFor="contact-message" className="text-sm font-medium text-foreground mb-1 block">Message</label>
+                <Textarea id="contact-message" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required placeholder="Tell us about your roof — type, size, timeline..." rows={4} />
               </div>
+
               <Button type="submit" disabled={submitting} className="w-full bg-cta-gold text-btn-primary-fg hover:opacity-90">
                 {submitting ? "Sending..." : "Book Service"}
               </Button>
