@@ -365,6 +365,7 @@ const ChargingSection = () => {
         <button
           onClick={handleFindMe}
           disabled={locating}
+          aria-label="Find roofing projects near me"
           className="absolute bottom-4 left-4 flex items-center gap-2 px-4 py-2 bg-background rounded-full border border-border text-sm font-medium text-foreground shadow-sm hover:bg-accent transition-colors disabled:opacity-60"
         >
           {locating ? (
