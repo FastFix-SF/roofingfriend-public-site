@@ -34,7 +34,7 @@ const residentialFaqs = [
 ];
 
 const ResidentialRoofing = () => {
-  const canonicalUrl = "https://tesla-clone-delight.lovable.app/residential-roofing";
+  const canonicalUrl = "https://roofingfriend.com/residential-roofing";
   const title = "Residential Metal Roofing | Bay Area Standing Seam Roofs";
   const description = "Residential metal roofing for Bay Area homes. Class A fire rating, 20–30% energy savings, 40–70 year lifespan, 30/40-year warranty. Free roof inspection.";
 
