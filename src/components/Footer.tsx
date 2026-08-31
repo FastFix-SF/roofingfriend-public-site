@@ -50,7 +50,8 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Services</h3>
             <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground">
               <li><a href="/portfolio" className="hover:text-cta-gold transition-colors">Metal Roof Installation</a></li>
-              <li><a href="/contact" className="hover:text-cta-gold transition-colors">Roof Repair & Maintenance</a></li>
+              <li><a href="/roof-repair" className="hover:text-cta-gold transition-colors">Roof Repair & Maintenance</a></li>
+              <li><a href="/roof-repair" className="hover:text-cta-gold transition-colors">24/7 Emergency Storm Response</a></li>
               <li><a href="/residential-roofing" className="hover:text-cta-gold transition-colors">Standing Seam Systems</a></li>
               <li><a href="/commercial-roofing" className="hover:text-cta-gold transition-colors">R-Panel Installation</a></li>
               <li><a href="/commercial-roofing" className="hover:text-cta-gold transition-colors">Commercial Roofing</a></li>
