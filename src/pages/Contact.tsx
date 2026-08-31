@@ -169,8 +169,9 @@ const Contact = () => {
 
 
               <div>
-                <span className="text-sm font-medium text-foreground mb-2 block">Preferred Contact Method</span>
+                <span id="preferred-contact-label" className="text-sm font-medium text-foreground mb-2 block">Preferred Contact Method</span>
                 <RadioGroup
+                  aria-labelledby="preferred-contact-label"
                   value={form.preferredContact}
                   onValueChange={(v) => setForm({ ...form, preferredContact: v })}
                   className="flex gap-6"
@@ -187,12 +188,14 @@ const Contact = () => {
               </div>
 
               <div>
-                <span className="text-sm font-medium text-foreground mb-2 block">Project Type</span>
+                <span id="project-type-label" className="text-sm font-medium text-foreground mb-2 block">Project Type</span>
                 <RadioGroup
+                  aria-labelledby="project-type-label"
                   value={form.projectType}
                   onValueChange={(v) => setForm({ ...form, projectType: v })}
                   className="flex flex-wrap gap-x-6 gap-y-2"
                 >
+
                   <div className="flex items-center gap-2">
                     <RadioGroupItem value="residential" id="type-residential" />
                     <Label htmlFor="type-residential" className="cursor-pointer">Residential</Label>
