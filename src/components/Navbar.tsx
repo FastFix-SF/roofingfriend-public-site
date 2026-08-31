@@ -68,9 +68,11 @@ const Navbar = () => {
             {companyConfig.phone}
           </a>
           <button
+            type="button"
             className="lg:hidden text-nav-text"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

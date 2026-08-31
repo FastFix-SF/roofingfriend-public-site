@@ -305,7 +305,8 @@ const Portfolio = () => {
       </section>
 
       {/* ─── Grid ───────────────────────────────────────────────── */}
-      <section className="bg-background py-12">
+      <section className="bg-background py-12" aria-labelledby="portfolio-grid-heading">
+        <h2 id="portfolio-grid-heading" className="sr-only">All metal roofing projects</h2>
         <div className="max-w-6xl mx-auto px-4">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -416,7 +417,7 @@ function FilterRow<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-1">
+    <div className="flex items-center gap-2 overflow-x-auto pb-1" role="group" aria-label={label}>
       <span className="text-xs sm:text-sm font-medium text-muted-foreground whitespace-nowrap">
         {label}
       </span>
