@@ -193,6 +193,7 @@ const CityPage = () => {
 
       {/* Why local */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-muted/30">
+        <h2 className="sr-only">Why homeowners choose a local {city.name} roofing crew</h2>
         <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6">
           {[
             { icon: Truck, title: "Free Bay Area delivery", desc: "Panels roll-formed in our shop and delivered to your job site at no charge." },
