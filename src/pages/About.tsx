@@ -26,7 +26,7 @@ const services = [
   { title: "R-Panel Roofing", desc: "Affordable, durable metal panels for residential, agricultural and barn roofs", to: "/commercial-roofing" },
   { title: "Multi-V Panel", desc: "Architectural style metal roofing for high-end residential homes", to: "/commercial-roofing" },
   { title: "TPO Commercial", desc: "Energy-efficient single-ply membrane for flat commercial roofs", to: "/commercial-roofing" },
-  { title: "Roof Repair & Restoration", desc: "Storm damage, leak repair, and re-coats for existing metal and TPO roofs", to: "/commercial-roofing" },
+  { title: "Roof Repair & Restoration", desc: "Storm damage, leak repair, and re-coats for existing metal and TPO roofs", to: "/roof-repair" },
   { title: "Veteran & Government Projects", desc: "Spec-grade metal roofing for federal, military and municipal facilities", to: "/commercial-roofing" },
 ];
 
