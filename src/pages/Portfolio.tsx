@@ -458,6 +458,7 @@ function PortfolioCard({
     <button
       type="button"
       onClick={onClick}
+      aria-label={`View project details: ${project.name}`}
       className="text-left group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
     >
       <div className="relative w-full aspect-[16/10] bg-muted overflow-hidden">
@@ -783,6 +784,7 @@ function ProjectDetail({
                       key={photo.id}
                       type="button"
                       onClick={() => setLightboxIdx(i)}
+                      aria-label={photo.caption || `View photo ${i + 1} of ${photos.length}`}
                       className="relative group aspect-square rounded-md sm:rounded-lg overflow-hidden bg-muted cursor-pointer"
                     >
                       <img
