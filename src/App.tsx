@@ -11,6 +11,7 @@ import CutAndDropDialog from "@/components/CutAndDropDialog";
 
 const Index = React.lazy(() => import("./pages/Index"));
 const PrivacyPolicy = React.lazy(() => import("./pages/PrivacyPolicy"));
+const PrivacyPolicyPage = React.lazy(() => import("./pages/PrivacyPolicyPage"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
 const ResidentialRoofing = React.lazy(() => import("./pages/ResidentialRoofing"));
 const RoofRepair = React.lazy(() => import("./pages/RoofRepair"));
@@ -61,6 +62,7 @@ const App = () => {
                   <Route path="/locations/:city/:neighborhood" element={<NeighborhoodPage />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
