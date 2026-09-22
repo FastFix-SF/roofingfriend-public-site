@@ -27,7 +27,7 @@ const PromoGrid = () => {
               </button>
             </div>
             <div className="sm:w-[45%] h-32 sm:h-auto">
-              <SmartImage src={promoOffers} webpSrc={promoOffersWebp} alt="Current Offers" width={768} height={512} className="w-full h-full object-cover" />
+              <SmartImage src={promoOffers} webpSrc={promoOffersWebp} alt="Metal roof installation crew working on a Bay Area home during a seasonal promotion" width={768} height={512} className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -50,7 +50,7 @@ const PromoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* FSD card - larger */}
           <div className="md:col-span-3 relative rounded-lg overflow-hidden h-[320px] sm:h-[400px] md:h-[500px]">
-            <SmartImage src={promoStandingSeam} webpSrc={promoStandingSeamWebp} alt="Built to Outlast Your Mortgage" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <SmartImage src={promoStandingSeam} webpSrc={promoStandingSeamWebp} alt="Close-up of a dark standing seam metal roof built to last decades" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white">Built to Outlast Your Mortgage</h3>
@@ -64,7 +64,7 @@ const PromoGrid = () => {
 
           {/* Features card - smaller */}
           <div className="md:col-span-2 relative rounded-lg overflow-hidden h-[320px] sm:h-[400px] md:h-[500px]">
-            <SmartImage src={promoVeteran} webpSrc={promoVeteranWebp} alt="Veteran-Owned Mission-Driven" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
+            <SmartImage src={promoVeteran} webpSrc={promoVeteranWebp} alt="Veteran-owned roofing crew standing in front of a work truck" width={640} height={640} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white">Veteran-Owned. Mission-Driven.</h3>

@@ -13,6 +13,7 @@ interface HeroCaption {
 interface HeroSlide {
   image: string;
   imageWebp?: string;
+  alt?: string;
   video?: string;
   audio?: boolean;
   title: string;
@@ -106,7 +107,7 @@ const HeroSection = ({ slides }: HeroSectionProps) => {
                     {slide.imageWebp && <source srcSet={slide.imageWebp} type="image/webp" />}
                     <img
                       src={slide.image}
-                      alt={slide.title}
+                      alt={slide.alt ?? slide.title}
                       className="absolute inset-0 w-full h-full object-cover"
                       loading={i === 0 ? "eager" : "lazy"}
                       decoding="async"

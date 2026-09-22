@@ -24,13 +24,13 @@ import warrantyResidentialWebp from "@/assets/warranty-residential-v2.webp";
 const LazyChargingSection = React.lazy(() => import("@/components/ChargingSection"));
 
 const secondarySlides = [
-  { image: warrantyResidential, imageWebp: warrantyResidentialWebp, title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "View Warranty", link: "/warranty/residential" },
-  { image: warrantyCommercial, imageWebp: warrantyCommercialWebp, title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "View Warranty", link: "/warranty/commercial" },
-  { image: warrantyIndustrial, imageWebp: warrantyIndustrialWebp, title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "View Warranty", link: "/warranty/industrial" },
+  { image: warrantyResidential, imageWebp: warrantyResidentialWebp, alt: "Suburban home with a charcoal standing seam metal roof", title: "Residential", subtitle: "Lifetime Metal Roof Warranty · Standing seam built to outlast your mortgage", primaryCta: "View Warranty", link: "/warranty/residential" },
+  { image: warrantyCommercial, imageWebp: warrantyCommercialWebp, alt: "Commercial retail building with a standing seam metal roof", title: "Commercial", subtitle: "25-Year System Warranty · Standing seam & TPO for retail, restaurants & warehouses", primaryCta: "View Warranty", link: "/warranty/commercial" },
+  { image: warrantyIndustrial, imageWebp: warrantyIndustrialWebp, alt: "Government facility with a spec-grade metal roof system", title: "Government & Public Sector", subtitle: "Spec-Grade Coverage · Veteran-owned, GSA-friendly metal roofing for federal & municipal projects", primaryCta: "View Warranty", link: "/warranty/industrial" },
 ];
 
 const heroSlides = [
-  { image: heroFsd, imageWebp: heroFsdWebp, video: "/videos/hero-roof-v3.mp4", audio: true, title: "Premium Metal Roofing in the SF Bay Area", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const, captions: [
+  { image: heroFsd, imageWebp: heroFsdWebp, alt: "Newly installed premium standing seam metal roof on a Bay Area house", video: "/videos/hero-roof-v3.mp4", audio: true, title: "Premium Metal Roofing in the SF Bay Area", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const, captions: [
     { text: "Wife: I don't like our shingle roof anymore…", startTime: 0, endTime: 2.5 },
     { text: "Wife: It feels so generic.", startTime: 2.6, endTime: 4.8 },
     { text: "Wife: I want a metal roof — like the ones on Instagram.", startTime: 4.9, endTime: 8.2 },
@@ -38,8 +38,8 @@ const heroSlides = [
     { text: "Premium standing seam metal roof installed.", startTime: 10.3, endTime: 12.6 },
     { text: "Wife: It feels like a brand new house.", startTime: 12.7, endTime: 15 },
   ] },
-  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
-    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
+  { image: heroCommercialRoofing, imageWebp: heroCommercialRoofingWebp, alt: "Standing seam metal roof on a Bay Area commercial retail center", title: "Metal Roofing for Commercial", subtitle: "Standing seam roofs for retail centers, restaurants, warehouses & big-box", primaryCta: "Get a Commercial Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
+    { image: heroVeteranGovernment, imageWebp: heroVeteranGovernmentWebp, alt: "Veteran-owned roofing crew installing a metal roof on a federal facility", title: "Veteran-Owned. Government-Trusted.", subtitle: "Standing seam metal roofs for military bases, federal facilities & public sector projects", primaryCta: "Request a Government Quote", primaryLink: "#book", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const },
 ];
 
 const ChargingSectionWrapper = () => {

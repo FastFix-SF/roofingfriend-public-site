@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface SlideData {
   image: string;
   imageWebp?: string;
+  alt?: string;
   title: string;
   subtitle?: string;
   primaryCta: string;
@@ -36,7 +37,8 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="bg-background flex items-start pt-4 md:pt-6 pb-4">
+    <section className="bg-background flex flex-col items-start pt-4 md:pt-6 pb-4">
+      <h2 className="sr-only">Metal roof warranty coverage by property type</h2>
       <div className="relative w-full px-4 md:px-10 lg:px-12">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex">
@@ -45,7 +47,7 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] lg:aspect-[16/9]">
                   <picture>
                     {v.imageWebp && <source srcSet={v.imageWebp} type="image/webp" />}
-                    <img src={v.image} alt={v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+                    <img src={v.image} alt={v.alt ?? v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
