@@ -91,7 +91,6 @@ const CutAndDrop = () => {
       <section className="relative overflow-hidden" style={{ height: "70vh" }}>
         <picture>
           <source srcSet={heroCutDropWebp} type="image/webp" />
-          {/* @ts-expect-error fetchpriority is valid HTML */}
           <img
             src={heroCutDrop}
             alt="Portable roll-forming machine producing a standing seam metal roof panel at a Bay Area jobsite"
