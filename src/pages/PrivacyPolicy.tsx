@@ -11,17 +11,17 @@ const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Privacy Policy | The Roofing Friend</title>
+        <title>Mobile App Privacy Policy | The Roofing Friend</title>
         <meta
           name="description"
           content="How The Roofing Friend collects, uses, and protects your information across our website and mobile application."
         />
         <link rel="canonical" href="https://roofingfriend.com/privacy" />
-        <meta property="og:title" content="Privacy Policy | The Roofing Friend" />
+        <meta property="og:title" content="Mobile App Privacy Policy | The Roofing Friend" />
         <meta property="og:description" content="How The Roofing Friend collects, uses, and protects your information across our website and mobile application." />
         <meta property="og:url" content="https://roofingfriend.com/privacy" />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content="Privacy Policy | The Roofing Friend" />
+        <meta name="twitter:title" content="Mobile App Privacy Policy | The Roofing Friend" />
         <meta name="twitter:description" content="How The Roofing Friend collects, uses, and protects your information." />
       </Helmet>
 
@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
               prose-strong:text-foreground
               prose-a:text-primary prose-a:font-medium"
           >
-            <h1>Privacy Policy</h1>
+            <h1>Mobile App Privacy Policy</h1>
             <p className="text-sm">
               <strong>Last updated:</strong> June 28, 2026
             </p>
