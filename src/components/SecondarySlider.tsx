@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface SlideData {
   image: string;
   imageWebp?: string;
+  alt?: string;
   title: string;
   subtitle?: string;
   primaryCta: string;
@@ -36,7 +37,8 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="bg-background flex items-start pt-4 md:pt-6 pb-4">
+    <section className="bg-background flex flex-col items-start pt-4 md:pt-6 pb-4">
+      <h2 className="sr-only">Metal roof warranty coverage by property type</h2>
       <div className="relative w-full px-4 md:px-10 lg:px-12">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex">
