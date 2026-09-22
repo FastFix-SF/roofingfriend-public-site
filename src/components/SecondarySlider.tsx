@@ -47,7 +47,7 @@ const SecondarySlider = ({ slides }: SecondarySliderProps) => {
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] lg:aspect-[16/9]">
                   <picture>
                     {v.imageWebp && <source srcSet={v.imageWebp} type="image/webp" />}
-                    <img src={v.image} alt={v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
+                    <img src={v.image} alt={v.alt ?? v.title} loading="lazy" decoding="async" width={960} height={640} className="absolute inset-0 w-full h-full object-cover" />
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
