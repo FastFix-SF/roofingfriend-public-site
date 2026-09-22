@@ -56,6 +56,7 @@ const Footer = () => {
               <li><a href="/commercial-roofing" className="hover:text-cta-gold transition-colors">R-Panel Installation</a></li>
               <li><a href="/commercial-roofing" className="hover:text-cta-gold transition-colors">Commercial Roofing</a></li>
               <li><a href="/residential-roofing" className="hover:text-cta-gold transition-colors">Residential Roofing</a></li>
+              <li><a href="/cut-and-drop" className="hover:text-cta-gold transition-colors">Cut &amp; Drop Metal Panels</a></li>
             </ul>
           </div>
 

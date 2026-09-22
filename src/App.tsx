@@ -4,7 +4,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { CUT_AND_DROP_EVENT } from "@/lib/cut-and-drop";
 import BookingDialog from "@/components/BookingDialog";
 import ShopMaterialsBanner from "@/components/ShopMaterialsBanner";
 import CutAndDropDialog from "@/components/CutAndDropDialog";
@@ -15,6 +16,7 @@ const PrivacyPolicyPage = React.lazy(() => import("./pages/PrivacyPolicyPage"));
 const CommercialRoofing = React.lazy(() => import("./pages/CommercialRoofing"));
 const ResidentialRoofing = React.lazy(() => import("./pages/ResidentialRoofing"));
 const RoofRepair = React.lazy(() => import("./pages/RoofRepair"));
+const CutAndDrop = React.lazy(() => import("./pages/CutAndDrop"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
@@ -31,6 +33,13 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [cutDropOpen, setCutDropOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setCutDropOpen(true);
+    window.addEventListener(CUT_AND_DROP_EVENT, handler);
+    return () => window.removeEventListener(CUT_AND_DROP_EVENT, handler);
+  }, []);
+
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -49,6 +58,7 @@ const App = () => {
                   <Route path="/commercial-roofing" element={<CommercialRoofing />} />
                   <Route path="/residential-roofing" element={<ResidentialRoofing />} />
                   <Route path="/roof-repair" element={<RoofRepair />} />
+                  <Route path="/cut-and-drop" element={<CutAndDrop />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:id" element={<Portfolio />} />
                   <Route path="/about" element={<About />} />
