@@ -96,7 +96,7 @@ const CutAndDrop = () => {
             alt="Portable roll-forming machine producing a standing seam metal roof panel at a Bay Area jobsite"
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
             width={1920}
             height={1088}
           />
