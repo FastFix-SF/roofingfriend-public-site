@@ -15,15 +15,15 @@ const PrivacyPolicyPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Privacy Policy | The Roofing Friend</title>
+        <title>Privacy Policy &amp; SMS Terms | The Roofing Friend, Inc.</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Privacy Policy | The Roofing Friend" />
+        <meta property="og:title" content="Privacy Policy &amp; SMS Terms | The Roofing Friend, Inc." />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Privacy Policy | The Roofing Friend" />
+        <meta name="twitter:title" content="Privacy Policy &amp; SMS Terms | The Roofing Friend, Inc." />
         <meta name="twitter:description" content={description} />
       </Helmet>
 
