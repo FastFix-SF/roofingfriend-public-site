@@ -89,7 +89,6 @@ const Index = () => {
           url: "https://roofingfriend.com",
           address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
           openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },
-          aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "181" },
         })}</script>
       </Helmet>
       <div className="pb-20 md:pb-16">
