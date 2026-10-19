@@ -30,7 +30,7 @@ const secondarySlides = [
 ];
 
 const heroSlides = [
-  { image: heroFsd, imageWebp: heroFsdWebp, alt: "Newly installed premium standing seam metal roof on a Bay Area house", video: "/videos/hero-roof-v3.mp4", audio: true, title: "Premium Metal Roofing in the SF Bay Area", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const, captions: [
+  { image: heroFsd, imageWebp: heroFsdWebp, alt: "Newly installed premium standing seam metal roof on a Bay Area house", video: "/videos/hero-roof-v3.mp4", audio: true, title: "The Roofing Friend — Bay Area Metal Roofing", subtitle: "", primaryCta: "Book Service", secondaryCta: "Portfolio", secondaryLink: "/portfolio", textColor: "light" as const, captions: [
     { text: "Wife: I don't like our shingle roof anymore…", startTime: 0, endTime: 2.5 },
     { text: "Wife: It feels so generic.", startTime: 2.6, endTime: 4.8 },
     { text: "Wife: I want a metal roof — like the ones on Instagram.", startTime: 4.9, endTime: 8.2 },

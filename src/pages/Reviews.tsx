@@ -59,7 +59,7 @@ const Reviews = () => (
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="Customer Reviews" tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} backgroundImageWebp={heroReviewsWebp} />
+    <ServiceHero title="The Roofing Friend Customer Reviews" tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} backgroundImageWebp={heroReviewsWebp} />
 
     {/* Aggregate Stats */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
