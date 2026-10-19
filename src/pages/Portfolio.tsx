@@ -83,6 +83,24 @@ function pickHeroPhoto(photos: PhotoRow[]): PhotoRow | null {
   );
 }
 
+// Use recorded project facts, not invented visual details, when a photo has no useful caption.
+function portfolioPhotoAlt(project: ProjectRow, photo: PhotoRow): string {
+  const caption = photo.caption?.trim();
+  if (caption && !/^(before|after|photo|image)(?:[\s_-]*\d+)?[.!]?$/i.test(caption)) {
+    return caption;
+  }
+
+  if (photo.photo_tag === "before") {
+    return `Existing roof before roofing work at ${project.name}`;
+  }
+
+  const roof = project.roof_type?.trim();
+  const subject = roof ? `${roof} roofing` : "Roofing work";
+  return photo.photo_tag === "after"
+    ? `${subject} after completion at ${project.name}`
+    : `${subject} at ${project.name}`;
+}
+
 function formatMonth(iso: string): string {
   const d = new Date(iso);
   return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
@@ -466,7 +484,7 @@ function PortfolioCard({
         {hero ? (
           <img
             src={hero.thumbnail_url || hero.photo_url}
-            alt={project.name}
+            alt={portfolioPhotoAlt(project, hero)}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
             decoding="async"
@@ -683,7 +701,7 @@ function ProjectDetail({
                       >
                         <img
                           src={primaryAfter.photo_url}
-                          alt="After"
+                          alt={portfolioPhotoAlt(project, primaryAfter)}
                           className="absolute inset-0 w-full h-full object-cover"
                           draggable={false}
                         />
@@ -693,7 +711,7 @@ function ProjectDetail({
                         >
                           <img
                             src={primaryBefore.photo_url}
-                            alt="Before"
+                            alt={portfolioPhotoAlt(project, primaryBefore)}
                             className="absolute inset-0 w-full h-full object-cover"
                             draggable={false}
                           />
@@ -733,7 +751,7 @@ function ProjectDetail({
                         <div className="relative">
                           <img
                             src={primaryBefore.photo_url}
-                            alt="Before"
+                            alt={portfolioPhotoAlt(project, primaryBefore)}
                             className="w-full aspect-[4/3] object-cover rounded-lg sm:rounded-xl"
                             loading="lazy"
                           />
@@ -746,7 +764,7 @@ function ProjectDetail({
                         <div className="relative">
                           <img
                             src={primaryAfter.photo_url}
-                            alt="After"
+                            alt={portfolioPhotoAlt(project, primaryAfter)}
                             className="w-full aspect-[4/3] object-cover rounded-lg sm:rounded-xl"
                             loading="lazy"
                           />
@@ -785,12 +803,12 @@ function ProjectDetail({
                       key={photo.id}
                       type="button"
                       onClick={() => setLightboxIdx(i)}
-                      aria-label={photo.caption || `View photo ${i + 1} of ${photos.length}`}
+                      aria-label={`View ${portfolioPhotoAlt(project, photo)} (${i + 1} of ${photos.length})`}
                       className="relative group aspect-square rounded-md sm:rounded-lg overflow-hidden bg-muted cursor-pointer"
                     >
                       <img
                         src={photo.thumbnail_url || photo.photo_url}
-                        alt={photo.caption || `Photo ${i + 1}`}
+                        alt={portfolioPhotoAlt(project, photo)}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
@@ -874,7 +892,7 @@ function ProjectDetail({
           )}
           <img
             src={photos[lightboxIdx].photo_url}
-            alt={photos[lightboxIdx].caption || `Photo ${lightboxIdx + 1}`}
+            alt={portfolioPhotoAlt(project, photos[lightboxIdx])}
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
