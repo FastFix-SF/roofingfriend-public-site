@@ -107,7 +107,7 @@ const Contact = () => {
       </Helmet>
 
       <Navbar />
-      <ServiceHero title="Contact Us" tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} backgroundImageWebp={heroContactWebp} />
+      <ServiceHero title="Contact The Roofing Friend for Bay Area Metal Roofing" tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} backgroundImageWebp={heroContactWebp} />
 
       {/* Contact Cards */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
