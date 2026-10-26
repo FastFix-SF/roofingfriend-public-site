@@ -77,7 +77,7 @@ const CutAndDrop = () => {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={heroCutDrop} />
+        <meta property="og:image" content={`https://roofingfriend.com${heroCutDrop}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />

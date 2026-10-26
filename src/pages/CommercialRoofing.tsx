@@ -93,7 +93,7 @@ const CommercialRoofing = () => {
         <meta property="og:description" content="Standing seam metal roofing for commercial properties — retail, restaurants, warehouses, big-box. 40-year warranty." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={heroCommercialRoofing} />
+        <meta property="og:image" content={`https://roofingfriend.com${heroCommercialRoofing}`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
