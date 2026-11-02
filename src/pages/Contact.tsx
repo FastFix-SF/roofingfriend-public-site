@@ -34,7 +34,7 @@ const Contact = () => {
     // Friend tenant. create-crm-lead writes the lead + sends the tenant's
     // confirmation/notification SMS + email.
     try {
-      const { error: invokeError } = await supabase.functions.invoke("create-crm-lead", {
+      const { data, error: invokeError } = await supabase.functions.invoke("create-crm-lead", {
         headers: { "x-tenant-id": ROOFINGFRIEND_TENANT_ID },
         body: {
           tenantId: ROOFINGFRIEND_TENANT_ID,
@@ -58,6 +58,8 @@ const Contact = () => {
       // from the function lands in `error`. Surface it instead of showing a
       // fake success toast for a submission that never persisted.
       if (invokeError) throw invokeError;
+      // Only confirm once the CRM explicitly reports the lead was saved.
+      if (!data || data.success === false) throw new Error(data?.error || "Lead not confirmed");
       toast.success("Thanks! We'll contact you shortly via your preferred method.");
       setForm({
         name: "",
