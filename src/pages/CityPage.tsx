@@ -4,7 +4,7 @@ import { CheckCircle2, Phone, Truck, Users, FileCheck, Building2, Wrench, Shield
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomBar from "@/components/BottomBar";
-import ServiceHero from "@/components/ServiceHero";
+import ServiceHero, { serviceHeroTitleClass } from "@/components/ServiceHero";
 import FaqAccordion from "@/components/FaqAccordion";
 import { getCityBySlug, cities } from "@/lib/cities-data";
 import { getNeighborhoodsByCity } from "@/lib/neighborhoods-data";
@@ -105,7 +105,7 @@ const CityPage = () => {
       <Navbar />
 
       <ServiceHero
-        title={`Metal Roofing in ${city.name}`}
+        heading={<h1 className={serviceHeroTitleClass}>Metal Roofing in {city.name}</h1>}
         tagline={city.tagline}
         backLink={{ label: "All Service Areas", to: "/" }}
         backgroundImage={heroCommercialRoofing}

@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
+import type { ReactNode } from "react";
+
+/** Shared H1 styling so pages can render their own literal <h1> via the `heading` slot. */
+export const serviceHeroTitleClass = "text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight";
 
 interface ServiceHeroProps {
-  title: string;
+  /** Fallback title rendered as the H1 when `heading` is not provided. */
+  title?: string;
+  /** Page-owned H1 element (preferred, keeps the main heading in the page source). */
+  heading?: ReactNode;
   tagline: string;
   backLink?: { label: string; to: string };
   backgroundImage?: string;
@@ -14,6 +21,7 @@ interface ServiceHeroProps {
 
 const ServiceHero = ({
   title,
+  heading,
   tagline,
   backLink,
   backgroundImage,
@@ -63,7 +71,7 @@ const ServiceHero = ({
           />
         </picture>
       )}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">{title}</h1>
+      {heading ?? <h1 className={serviceHeroTitleClass}>{title}</h1>}
       <p className="text-lg md:text-xl text-white/80 mt-4 max-w-2xl">{tagline}</p>
     </div>
   </section>
