@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Phone, Mail, MapPin, Clock, Award, Star, ShieldCheck, Zap } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
-import ServiceHero from "@/components/ServiceHero";
+import ServiceHero, { serviceHeroTitleClass } from "@/components/ServiceHero";
 import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
@@ -107,7 +107,7 @@ const Contact = () => {
       </Helmet>
 
       <Navbar />
-      <ServiceHero title="Contact The Roofing Friend for Bay Area Metal Roofing" tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} backgroundImageWebp={heroContactWebp} />
+      <ServiceHero heading={<h1 className={serviceHeroTitleClass}>Contact The Roofing Friend for Bay Area Metal Roofing</h1>} tagline="Ready to get started? Reach out for a free roof assessment or 24/7 storm-damage response." backgroundImage={heroContact} backgroundImageWebp={heroContactWebp} />
 
       {/* Contact Cards */}
       <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">

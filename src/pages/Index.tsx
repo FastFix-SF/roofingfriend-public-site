@@ -93,6 +93,7 @@ const Index = () => {
       </Helmet>
       <div className="pb-20 md:pb-16">
         <Navbar />
+        <h1 className="sr-only">Bay Area Metal Roofing Services — The Roofing Friend</h1>
         <HeroSection slides={heroSlides} />
         <VehicleSlider />
         <PromoGrid />

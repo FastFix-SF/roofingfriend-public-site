@@ -4,7 +4,7 @@ import { Building2, CheckCircle2, Phone, Sparkles, ShieldCheck, Landmark } from 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomBar from "@/components/BottomBar";
-import ServiceHero from "@/components/ServiceHero";
+import ServiceHero, { serviceHeroTitleClass } from "@/components/ServiceHero";
 import FaqAccordion from "@/components/FaqAccordion";
 import { getCityBySlug } from "@/lib/cities-data";
 import { getNeighborhoodBySlug, getNeighborhoodsByCity } from "@/lib/neighborhoods-data";
@@ -109,7 +109,7 @@ const NeighborhoodPage = () => {
       <Navbar />
 
       <ServiceHero
-        title={`Metal Roofing in ${neighborhood.name}`}
+        heading={<h1 className={serviceHeroTitleClass}>Metal Roofing in {neighborhood.name}</h1>}
         tagline={neighborhood.tagline}
         backLink={{ label: `All ${city.name} Neighborhoods`, to: `/locations/${city.slug}` }}
         backgroundImage={heroCommercialRoofing}

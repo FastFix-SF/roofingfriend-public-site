@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { CheckCircle2, Users, Clock, Award, Briefcase } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import ServiceHero from "@/components/ServiceHero";
+import ServiceHero, { serviceHeroTitleClass } from "@/components/ServiceHero";
 import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
 import { cities } from "@/lib/cities-data";
@@ -57,7 +57,7 @@ const About = () => (
 
     <Navbar />
     <ServiceHero
-      title="About The Roofing Friend"
+      heading={<h1 className={serviceHeroTitleClass}>About The Roofing Friend</h1>}
       tagline="We Can, We Will. Premium metal roofing across the SF Bay Area — veteran-owned, California-licensed."
       backgroundImage={heroCrew}
       backgroundImageWebp={heroCrewWebp}

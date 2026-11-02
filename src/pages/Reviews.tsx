@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Star, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import ServiceHero from "@/components/ServiceHero";
+import ServiceHero, { serviceHeroTitleClass } from "@/components/ServiceHero";
 import BottomBar from "@/components/BottomBar";
 import Footer from "@/components/Footer";
 import { reviewsData, aggregateStats } from "@/lib/reviews-data";
@@ -59,7 +59,7 @@ const Reviews = () => (
     </Helmet>
 
     <Navbar />
-    <ServiceHero title="The Roofing Friend Customer Reviews" tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} backgroundImageWebp={heroReviewsWebp} />
+    <ServiceHero heading={<h1 className={serviceHeroTitleClass}>The Roofing Friend Customer Reviews</h1>} tagline="Don't just take our word for it — hear from our satisfied customers across the Bay Area." backgroundImage={heroReviews} backgroundImageWebp={heroReviewsWebp} />
 
     {/* Aggregate Stats */}
     <section className="py-16 md:py-20 px-6 lg:px-12 bg-background">
