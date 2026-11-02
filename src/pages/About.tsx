@@ -33,11 +33,11 @@ const services = [
 const About = () => (
   <>
     <Helmet>
-      <title>About | The Roofing Friend</title>
+      <title>About The Roofing Friend | Veteran-Owned Bay Area Metal Roofer</title>
       <meta name="description" content="The Roofing Friend — veteran-owned California metal roofing contractor serving the San Francisco Bay Area with standing seam, R-Panel, Multi-V & TPO systems." />
       <link rel="canonical" href="https://roofingfriend.com/about" />
       <link rel="preload" as="image" href={heroCrewWebp} type="image/webp" fetchPriority="high" />
-      <meta property="og:title" content="About | The Roofing Friend" />
+      <meta property="og:title" content="About The Roofing Friend | Veteran-Owned Bay Area Metal Roofer" />
       <meta property="og:description" content="Veteran-owned California metal roofing contractor serving the San Francisco Bay Area." />
       <meta property="og:url" content="https://roofingfriend.com/about" />
       <meta property="og:type" content="website" />
