@@ -82,16 +82,6 @@ const Index = () => {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://tesla-clone-delight.lovable.app/homepage-metal-roof-share.jpg" />
         <meta name="twitter:image" content="https://tesla-clone-delight.lovable.app/homepage-metal-roof-share.jpg" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "RoofingContractor",
-          name: "The Roofing Friend",
-          telephone: "(510) 916-2408",
-          email: "roofingfriend@gmail.com",
-          url: "https://roofingfriend.com",
-          address: { "@type": "PostalAddress", addressLocality: "San Francisco Bay Area", addressRegion: "CA", addressCountry: "US" },
-          openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:00", closes: "16:00" },
-        })}</script>
       </Helmet>
       <div className="pb-20 md:pb-16">
         <Navbar />
