@@ -80,6 +80,8 @@ const Index = () => {
         <meta property="og:description" content="Standing seam, R-Panel, Multi-V & TPO metal roofing across the San Francisco Bay Area. Veteran-owned and California-licensed." />
         <meta property="og:url" content="https://roofingfriend.com/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://tesla-clone-delight.lovable.app/homepage-metal-roof-share.jpg" />
+        <meta name="twitter:image" content="https://tesla-clone-delight.lovable.app/homepage-metal-roof-share.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RoofingContractor",
