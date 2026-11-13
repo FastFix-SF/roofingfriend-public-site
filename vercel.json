@@ -1,4 +1,30 @@
 {
+  "routes": [
+    {
+      "src": "^/dashboard(/.*)?$",
+      "dest": "https://fastfix-dashboard.vercel.app/dashboard$1",
+      "transforms": [
+        {
+          "type": "request.headers",
+          "op": "set",
+          "target": { "key": "x-ff-public-host" },
+          "args": "roofingfriend.com"
+        }
+      ]
+    },
+    {
+      "src": "^/\\.well-known/(oauth-protected-resource|oauth-authorization-server)(/.*)?$",
+      "dest": "https://fastfix-dashboard.vercel.app/.well-known/$1$2",
+      "transforms": [
+        {
+          "type": "request.headers",
+          "op": "set",
+          "target": { "key": "x-ff-public-host" },
+          "args": "roofingfriend.com"
+        }
+      ]
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -63,6 +89,12 @@
     { "source": "/quote-workspace/:path*",      "destination": "https://ultimatecrm-unified.vercel.app/quote-workspace/:path*" },
     { "source": "/service-ticket",              "destination": "https://ultimatecrm-unified.vercel.app/service-ticket" },
     { "source": "/service-ticket/:path*",       "destination": "https://ultimatecrm-unified.vercel.app/service-ticket/:path*" },
-    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|project-feedback|projects|proposals|profit|old-crm|quote|service-ticket|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets).*)", "destination": "/index.html" }
+    { "source": "/dashboard",                   "destination": "https://fastfix-dashboard.vercel.app/dashboard" },
+    { "source": "/dashboard/:path*",            "destination": "https://fastfix-dashboard.vercel.app/dashboard/:path*" },
+    { "source": "/.well-known/oauth-protected-resource", "destination": "https://fastfix-dashboard.vercel.app/.well-known/oauth-protected-resource" },
+    { "source": "/.well-known/oauth-protected-resource/:path*", "destination": "https://fastfix-dashboard.vercel.app/.well-known/oauth-protected-resource/:path*" },
+    { "source": "/.well-known/oauth-authorization-server", "destination": "https://fastfix-dashboard.vercel.app/.well-known/oauth-authorization-server" },
+    { "source": "/.well-known/oauth-authorization-server/:path*", "destination": "https://fastfix-dashboard.vercel.app/.well-known/oauth-authorization-server/:path*" },
+    { "source": "/((?!admin|admin-assets|mobile|portal|admin-login|auth|dev-login|workboard|qbo-callback|invoice|invoice-payment|contract-signing|invite|team|project-invite|project-feedback|projects|proposals|profit|old-crm|quote|service-ticket|client-portal|customer-dashboard|customer-review|approve|cart|download|glasses|assets|dashboard|\\.well-known).*)", "destination": "/index.html" }
   ]
 }
