@@ -14,6 +14,9 @@
     }
   ],
   "rewrites": [
+    { "source": "/dashboard",                   "destination": "https://fastfix-agents-panel-staging.roofingfriend.workers.dev/dashboard" },
+    { "source": "/dashboard/",                  "destination": "https://fastfix-agents-panel-staging.roofingfriend.workers.dev/dashboard/" },
+    { "source": "/dashboard/:path*",            "destination": "https://fastfix-agents-panel-staging.roofingfriend.workers.dev/dashboard/:path*" },
     { "source": "/r/:code",                     "destination": "https://fedlvxiqevyuzeprsknu.supabase.co/functions/v1/r/:code" },
     { "source": "/admin",                       "destination": "https://ultimatecrm-unified.vercel.app/admin" },
     { "source": "/admin/:path*",                "destination": "https://ultimatecrm-unified.vercel.app/admin/:path*" },
